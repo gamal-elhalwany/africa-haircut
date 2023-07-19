@@ -1,0 +1,201 @@
+
+
+/*show*/
+.body .show-users-head-content{
+    width: 100%;
+    padding: 10px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+}
+
+.main-body {
+    padding: 10px 50px;
+    text-align: center;
+
+}
+
+.card {
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
+    margin: auto;
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0 solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+    width: 200px;
+}
+
+.card-body {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1rem;
+}
+
+.gutters-sm {
+    margin-right: -8px;
+    margin-left: -8px;
+}
+
+.gutters-sm>.col, .gutters-sm>[class*=col-] {
+    padding-right: 8px;
+    padding-left: 8px;
+}
+.mb-3, .my-3 {
+    margin-bottom: 1rem!important;
+}
+
+.bg-gray-300 {
+    background-color: #e2e8f0;
+}
+.h-100 {
+    height: 100%!important;
+}
+.shadow-none {
+    box-shadow: none!important;
+}
+
+.bg-white {
+    background-color: #fff!important;
+}
+.btn-light {
+    color: #1a202c;
+    background-color: #fff;
+    border-color: #cbd5e0;
+}
+.ml-2, .mx-2 {
+    margin-left: .5rem!important;
+}
+
+.card-footer:last-child {
+    border-radius: 0 0 .25rem .25rem;
+}
+.card-footer, .card-header {
+    display: flex;
+    align-items: center;
+}
+.card-footer {
+    padding: .5rem 1rem;
+    background-color: #fff;
+    border-top: 0 solid rgba(0,0,0,.125);
+    justify-content: space-between;
+}
+
+
+/*create*/
+.body .create-user-container{
+    width: 100%;
+    text-align: justify;
+    padding: 0 0 50px 0;
+}
+.body .alert.alert-success{
+    text-align: center;
+}
+.body .create-user-container .create-user-head{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 60px;
+    align-items: center;
+}
+.body .create-user-container .create-user-content{
+    width: 100%;
+    padding: 5px 60px;
+}
+.body .create-user-container .create-user-content form{
+    width: 60%;
+    margin: auto;
+}
+.body .create-user-container .create-user-content form .row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+}
+.body .create-user-container .create-user-content form .style{
+    margin: 10px 0;
+}
+.body .create-user-container .create-user-content form .form-group{
+    width: 300px;
+    margin: 0 5px;
+}
+
+#commotion{
+    display: none;
+}
+
+
+/*show*/
+.show-user-container{
+    width: 100%;
+    padding: 10px 30px;
+}
+.show-user-container .show-user-header{
+    width: 100%;
+    display: flex;
+    padding: 0 30px;
+    align-content: center;
+    align-items: center;
+    text-align: justify;
+}
+.show-user-container .show-user-content{
+    width: 100%;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.show-user-container .show-user-content .show-user-card{
+    width: 230px;
+    padding: 10px;
+    /*margin: 20px 25px;*/
+    background-color: transparent;
+    box-shadow: 2px 2px 10px #d2d2d2;
+    border-radius: 10px;
+    margin: auto;
+}
+.show-user-container .show-user-content .show-user-card .show-user-list-items{
+    list-style: none;
+    line-height: 30px;
+    text-align: justify;
+}
+.show-user-container .show-user-content .show-user-card .show-user-list-items .show-user-item.avatar{
+    text-align: center;
+    width: 100%;
+}
+.show-user-container .show-user-content .show-user-card .show-user-list-items .show-user-item i{
+    color: #007baf;
+}
+
+
+
+
+@media only screen and (max-width: 600px) {
+    .create-user-head {
+        display: block !important;
+    }
+    .body .create-user-container .create-user-content form{
+        margin: 0;
+    }
+    .create-user-head p{
+        margin: 10px 0;
+    }
+
+}
+@media only screen and (max-width: 400px) {
+    .show-user-container .show-user-content .show-user-card{
+        margin: 20px 3px;
+    }
+    .body .create-user-container .create-user-content form .form-group{
+        width: 250px;
+    }
+}
+

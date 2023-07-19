@@ -1,0 +1,155 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\ChairProcess;
+use App\Models\Daily;
+use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+
+class SalaryController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $AllUsers = User::all();
+        return view('dashboard.salary.index',compact('AllUsers'));
+    }
+
+//    /**
+//     * Show the form for creating a new resource.
+//     *
+//     * @return \Illuminate\Http\Response
+//     */
+//    public function create()
+//    {
+//        //
+//    }
+//
+//    /**
+//     * Store a newly created resource in storage.
+//     *
+//     * @param  \Illuminate\Http\Request  $request
+//     * @return \Illuminate\Http\Response
+//     */
+//    public function store(Request $request)
+//    {
+//        //
+//    }
+//
+//    /**
+//     * Display the specified resource.
+//     *
+//     * @param  int  $id
+//     * @return \Illuminate\Http\Response
+//     */
+//    public function show($id)
+//    {
+//        //
+//    }
+//
+//    /**
+//     * Show the form for editing the specified resource.
+//     *
+//     * @param  int  $id
+//     * @return \Illuminate\Http\Response
+//     */
+//    public function edit($id)
+//    {
+//        //
+//    }
+//
+//    /**
+//     * Update the specified resource in storage.
+//     *
+//     * @param  \Illuminate\Http\Request  $request
+//     * @param  int  $id
+//     * @return \Illuminate\Http\Response
+//     */
+//    public function update(Request $request, $id)
+//    {
+//        //
+//    }
+//
+//    /**
+//     * Remove the specified resource from storage.
+//     *
+//     * @param  int  $id
+//     * @return \Illuminate\Http\Response
+//     */
+//    public function destroy($id)
+//    {
+//        //
+//    }
+
+    public function SearchMethod(Request $request){
+        $this->validate($request, [
+            'user' => 'required',
+            'start_date_time' => 'required',
+            'end_date_time' => 'required',
+        ],
+        [
+            'user.required'=>'يرجي تحديد المستحدم',
+            'start_date_time.required'=>'حقل من تاريخ مطلوب ',
+            'end_date_time.required'=>'حقل الي تاريخ مطلوب ',
+
+        ]);
+
+        $startDate = Carbon::createFromFormat('Y-m-d', $request->start_date_time)->startOfDay();
+        $endDate = Carbon::createFromFormat('Y-m-d', $request->end_date_time)->endOfDay();
+
+
+        $SalaryData = Daily::where('user_id',$request->user)->whereBetween('created_at',[$startDate,$endDate])->with('users')->get();
+
+        //  For get commotion value
+        $CheckUserState = User::where('id',$request->user)->first();
+        $Result = 0;
+
+
+        if ($CheckUserState->salary_system =='basic') {
+            $HourValue = $CheckUserState->salary / $CheckUserState->work_days /  $CheckUserState->work_hours;
+            $Result = $HourValue * $SalaryData->sum('duration');
+        }
+
+
+        if ($CheckUserState->salary_system =='commotion'){
+             $GetChairProcessUser = ChairProcess::where('user_id',$request->user)->whereBetween('created_at',[$startDate,$endDate])->get();
+             $SumChiarProcess = $GetChairProcessUser->sum('money');
+             $Result = $SumChiarProcess * $CheckUserState->commotion / 100;
+        }
+
+
+
+
+
+        if ($CheckUserState->salary_system =='basic_and_commotion') {
+            $GetChairProcessUser = ChairProcess::where('user_id',$request->user)->whereBetween('created_at',[$startDate,$endDate])->get();
+
+            $HourValue = $CheckUserState->salary / $CheckUserState->work_days /  $CheckUserState->work_hours;
+            $CommotionValue = $GetChairProcessUser->sum('money') * $CheckUserState->commotion / 100;
+
+            $DurationHoursAndHourValueTotal = $HourValue * $SalaryData->sum('duration');
+            $Result = $DurationHoursAndHourValueTotal + $CommotionValue;
+
+//            return $Result;
+
+
+        }
+
+
+
+        $GetChairProcessUser = ChairProcess::where('user_id',$request->user)->whereBetween('created_at',[$startDate,$endDate])->get();
+        $SumChiarProcess = $GetChairProcessUser->sum('money');
+
+
+
+
+        return view('dashboard.salary.search',compact('SalaryData','Result','CheckUserState'));
+
+    }
+}

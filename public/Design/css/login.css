@@ -1,0 +1,164 @@
+a:link{
+    text-decoration: none;
+}
+*{
+    box-sizing: border-box;
+}
+body,html{
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    font-family: system-ui;
+    box-sizing: border-box;
+    background-image: url("../images/barbershop_image_1.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+header {
+    width: 100%;
+    height: 30px;
+    padding: 10px;
+}
+header nav{
+    width: 100%;
+    height: 100%;
+}
+header nav .login-navbar-list-items{
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
+}
+header nav .login-navbar-list-items .login-navbar-item a{
+    color: #FFFFFF;
+    font-size: 18px;
+    font-weight: bold;
+}
+header nav .login-navbar-list-items .login-navbar-item a:hover{
+    transition: 0.5s all;
+    color: silver;
+}
+
+.user-login-container{
+    width: 100%;
+    height: 90%;
+}
+
+.user-login-container .user-login-content{
+    width: 100%;
+    height: 100%;
+    padding-top: 200px;
+}
+.user-login-container .user-login-content .user-login{
+    width: 700px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    margin: auto;
+}
+.user-login-container .user-login-content .user-login .user-login-info{
+    width: 50%;
+    height: 100%;
+    background-image: url("../images/portfolio-2.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: flex-start;
+    padding: 10px 0;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.user-login-container .user-login-content .user-login .user-login-info h2{
+    color: #FFFFFF;
+
+}
+.user-login-container .user-login-content .user-login .user-login-info img{
+    width: 200px;
+    vertical-align: middle;
+}
+.user-login-container .user-login-content .user-login form{
+    position: relative;
+    width: 50%;
+    height: 100%;
+    padding: 20px;
+    background-color: rgba(0,0,0,0.8);
+    box-shadow: 2px 3px 10px #0a0a0a;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.user-login-container .user-login-content .user-login form .input-content{
+    width: 100%;
+}
+.user-login-container .user-login-content .user-login form .user-image {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: -55px;
+    left: 0;
+}
+.user-login-container .user-login-content .user-login form .user-image img{
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+    border:3px solid rgba(0,0,0,0.5);
+}
+.user-login-container .user-login-content .user-login form .login-form-title{
+    width: 100%;
+    padding: 10px 0;
+}
+.user-login-container .user-login-content .user-login form .login-form-title h5{
+    color: #ffffff;
+}
+.user-login-container .user-login-content .user-login form .input-group{
+    width: 100%;
+
+}
+.user-login-container .user-login-content .user-login form .input-group input{
+    width: 100%;
+    font-size: 15px;
+    height: 35px;
+}
+
+.user-login-container .user-login-content .user-login form button{
+    width: 100%;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 0.3rem 0.3rem;
+    background-color:#9e8a78;
+    color: #FFFFFF;
+    border:2px solid #9e8a78;
+    margin-top: 20px;
+}
+.user-login-container .user-login-content .user-login form button:hover{
+    transition: 0.5s all;
+    background-color: #8a7561;
+}
+.user-login-container .user-login-content .user-login form  .error-list{
+    width: 100%;
+    padding: 10px;
+}
+.user-login-container .user-login-content .user-login form  .error-list .login-error-list-content{
+    width: 100%;
+}
+.user-login-container .user-login-content .user-login form  .error-list .login-error-list-content .login-error-list{
+    width: 100%;
+}
+.user-login-container .user-login-content .user-login form  .error-list .login-error-list-content .login-error-list p{
+    width: 100%;
+    padding: 1px 0 5px 0;
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}

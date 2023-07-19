@@ -1,0 +1,284 @@
+.body{
+    width: 100%;
+    height: 100%;
+    padding: 10px 40px;
+}
+
+/*start index*/
+.branches-container{
+    width: 100%;
+}
+.branches-container .branches-header{
+    width: 100%;
+    text-align: justify;
+    padding: 10px 20px;
+}
+.branches-container .branches-header button{
+    width: 150px;
+}
+
+.branches-container .branches-meg{
+    width: 250px;
+    margin: auto;
+    text-align: center;
+}
+.branches-container .branches-content{
+    width: 100%;
+    padding: 10px 20px;
+    text-align: justify;
+
+}
+.branches-container .branches-content a button{
+    width: 150px;
+    /*margin: 20px 0;*/
+}
+.branches-container .branches-content .branches{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.branches-container .branches-content .branches .branches-direct{
+    position: relative;
+    min-width: 350px;
+    max-width: 350px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #dedede;
+    text-align: center;
+}
+.branches-container .branches-content .branches .branches-direct .delete-branch-container{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.3);
+    display: none;
+}
+.branches-container .branches-content .branches .branches-direct .delete-branch-container .delete-branch-content{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+.branches-container .branches-content .branches .branches-direct .delete-branch-container .delete-branch-content .delete-branch{
+    width: 200px;
+    padding: 20px;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+}
+.branches-container .branches-content .branches .branches-direct .delete-branch-container .delete-branch-content .delete-branch .delete-branch-note{
+    width: 100%;
+    padding: 10px 0;
+}
+.branches-container .branches-content .branches .branches-direct .delete-branch-container .delete-branch-content .delete-branch .delete-branch-note .delete-branch-note-text{
+    width: 100%;
+    font-size: 19px;
+    font-weight: bold;
+}
+.branches-container .branches-content .branches .branches-direct .delete-branch-container .delete-branch-content .delete-branch .delete-branch-btn{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+.branches-container .branches-content .branches .branches-direct .delete-btn{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    display: none;
+    cursor: pointer;
+}
+.branches-container .branches-content .branches .branches-direct:hover .delete-btn{
+    display: block;
+}
+.branches-container .branches-content .branches .branches-direct img{
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+.branches-container .branches-content .branches .branches-direct h3{
+    margin: 10px 0;
+}
+.branches-container .branches-content .branches .branches-direct .btn{
+    width: 100%;
+    text-align: center;
+    margin: 10px auto;
+}
+.branches-container .branches-content .branches .branches-direct .btn button{
+    width:130px;
+}
+/*end index*/
+
+/*start create*/
+.create-branch-container{
+    width: 100%;
+}
+.create-branch-container .create-branch-head{
+    width: 100%;
+    text-align: justify;
+    padding: 10px 30px;
+}
+.create-branch-container .create-branch-content{
+    width: 100%;
+    text-align: center;
+}
+.create-branch-container .create-branch-content a button{
+    width: 150px;
+}
+.create-branch-container .create-branch-content .create-branch{
+    width: 50%;
+    margin: auto;
+}
+
+.create-branch-container .create-branch-content .create-branch form{
+    width: 100%;
+}
+.create-branch-container .create-branch-content .create-branch form .input-style{
+    width: 250px;
+    margin: 10px auto;
+}
+.create-branch-container .create-branch-content .create-branch form .input-style input,select,button{
+    width: 100%;
+}
+/*end create*/
+
+/* start show*/
+.branch-details-container{
+    width: 100%;
+    padding: 10px 20px;
+}
+.branch-details-container .branch-details-head{
+    width: 100%;
+    text-align: justify;
+}
+.branch-details-container .branch-details-content{
+    width: 100%;
+    text-align: justify;
+}
+.branch-details-container .branch-details-content a button{
+    width: 150px;
+}
+.branch-details-container .branch-details-content .branch-details{
+    width: 100%;
+    text-align: justify;
+    margin: 20px;
+}
+.branch-details-container .branch-details-content .branch-details .branch-name{
+    width: 100%;
+    text-align: center;
+}
+
+.branch-details-container .branch-details-content .branch-details .branch-store-products{
+    width: 100%;
+    text-align: center;
+}
+.branch-details-container .branch-details-content .branch-details .branch-store-products .branch-store-products-title{
+    width: 100%;
+    padding: 10px 0;
+}
+.branch-details-container .branch-details-content .branch-details .branch-store-products table{
+    width: 100%;
+}
+.branch-details-container .branch-details-content .branch-details .branch-store-products table tbody .form{
+    width: 150px;
+}
+.branch-details-container .branch-details-content .branch-details .branch-store-products table tbody form{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.branch-details-container .branch-details-content .branch-details .branch-store-products table tbody form button{
+    margin: 0 5px;
+}
+/*end show*/
+/*start edit*/
+.edit-branch-container{
+    width: 100%;
+}
+.edit-branch-container .edit-branch-head{
+    width: 100%;
+    padding: 10px 30px;
+    text-align: justify;
+}
+.edit-branch-container .edit-branch-content{
+    width: 100%;
+    text-align: center;
+}
+.edit-branch-container .edit-branch-content .edit-branch{
+    width: 100%;
+    text-align: center;
+}
+.edit-branch-container .edit-branch-content .edit-branch form{
+    width: 100%;
+}
+.edit-branch-container .edit-branch-content .edit-branch form .input-style{
+    width: 250px;
+    margin: 10px auto;
+}
+/*end edit*/
+
+
+
+
+
+
+
+
+
+
+/*RESPONSIVE */
+@media only screen and (max-width: 897px) {
+    .branches-container .branches-content .branches .branches-direct img{
+        width: 100%;
+    }
+    .branches-container .branches-content .branches .branches-direct{
+        min-width: 250px;
+        max-width: 250px;
+    }
+    .branches-container .branches-content .branches .branches-direct h3{
+        font-size: 20px;
+    }
+    .branches-container .branches-content .branches .branches-direct .btn{
+        font-size: 15px;
+        display: grid;
+    }
+    .branches-container .branches-content .branches .branches-direct .btn button{
+        width: 120px;
+    }
+}
+@media only screen and (max-width: 795px) {
+    .branches-container .branches-content .branches{
+        display: inline-block;
+    }
+    .branches-container .branches-content .branches .branches-direct{
+        margin: 20px auto;
+    }
+
+
+}
+@media only screen and (max-width: 450px) {
+    .create-branch-container .create-branch-content .create-branch{
+        margin: 10px 20px;
+    }
+    .edit-branch-container .edit-branch-content .edit-branch form .input-style{
+        margin: 10px 20px;
+    }
+    .edit-branch-container .edit-branch-content .edit-branch p{
+        padding: 0 10px;
+    }
+    .branch-details-container .branch-details-content .branch-details .branch-store-products .branch-store-products-title{
+        text-align: justify;
+    }
+}
+@media only screen and (max-width: 280px) {
+    .branches-container .branches-content{
+        padding: 10px 0;
+    }
+}

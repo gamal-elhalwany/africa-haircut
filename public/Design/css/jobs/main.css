@@ -1,0 +1,138 @@
+/*start index*/
+.body .jobs-container{
+    width: 100%;
+    padding: 10px 50px 0 0;
+}
+.body .jobs-container .jobs-head{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+    padding: 0 10px;
+}
+.body .jobs-container .jobs-content{
+    width: 100%;
+    text-align: center;
+}
+.body .jobs-container .jobs-content .job-success-msg{
+    width: 100%;
+}
+.body .jobs-container .jobs-content .job-success-msg p{
+    width: 100%;
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    text-align: center;
+    padding: 5px 0;
+}
+.body .jobs-container .jobs-content .job{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-content: center;
+    align-items: center;
+    list-style: none;
+    margin: 50px 0;
+}
+.body .jobs-container .jobs-content .job .job-info{
+    text-align: justify;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 10px #d2d2d2;
+}
+.body .jobs-container .jobs-content .job .job-info .job-footer{
+    width: 100%;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    padding: 10px 0;
+}
+.body .jobs-container .jobs-content .job .job-info .job-footer a {
+    margin:  0 5px;
+}
+/*end index*/
+
+
+
+
+
+
+
+
+
+/*start create*/
+.body .create-job-container{
+    width: 100%;
+    text-align: justify;
+    padding: 10px 20px;
+}
+.body .create-job-container .create-job-head{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+}
+.body .create-job-container  .create-job-content{
+    width: 100%;
+
+}
+.body .create-job-container  .create-job-content form{
+    width: 50%;
+    text-align: center;
+    margin: auto;
+}
+.body .create-job-container  .create-job-content form .input-style{
+    width: 250px;
+    margin: 10px auto;
+}
+.body .create-job-container  .create-job-content form .input-style input{
+    width: 100%;
+}
+/*end create*/
+
+
+/*start edit*/
+.body .edit-job-container{
+    width: 100%;
+    text-align: justify;
+    padding: 10px 50px 0 0;
+}
+.body .edit-job-container .edit-job-head{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+    padding: 10px;
+}
+.body .edit-job-container  .edit-job-content{
+    width: 100%;
+
+}
+.body .edit-job-container  .edit-job-content form{
+    width: 50%;
+    text-align: center;
+    margin: auto;
+}
+.body .edit-job-container  .edit-job-content form .input-style{
+    width: 250px;
+    margin: 10px auto;
+}
+.body .edit-job-container  .edit-job-content form .input-style input{
+    width: 100%;
+}
+/*end edit*/
+
+@media only screen and (max-width: 444px) {
+
+    .body .jobs-container .jobs-head,
+    .body .edit-job-container .edit-job-head{
+        display: grid;
+    }
+    .body .edit-job-container .edit-job-content form{
+        margin: 0 10px;
+    }
+
+}
+

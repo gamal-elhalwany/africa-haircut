@@ -1,0 +1,76 @@
+.body{
+    width: 100%;
+    text-align: center;
+    padding: 20px 60px;
+}
+/*show last invoice*/
+.customer-invoice-data-container{
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+}
+.customer-invoice-data-container .print-btn{
+    width: 100%;
+    padding: 20px 60px;
+    text-align: justify;
+}
+
+.customer-invoice-data-container .customer-invoice-data-content{
+    width: 100%;
+    text-align: center;
+}
+.customer-invoice-data-container .customer-invoice-data-content .customer-invoice-data{
+    width: 500px;
+    margin: auto;
+}
+.customer-invoice-data-container .customer-invoice-data-content .customer-invoice-data .customer-invoice-data-head{
+    width: 100%;
+    padding: 20px;
+    text-align: left;
+    background: linear-gradient(110deg, #cacad4 80%, #e4e4ee 2%);
+}
+.customer-invoice-data-container .customer-invoice-data-content .customer-invoice-data .customer-invoice-data-head h2 img{
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+
+
+.customer-invoice-data-container .customer-invoice-data-content .customer-invoice-data .customer-invoice-data-body .customer-name{
+    width: 100%;
+    padding: 10px;
+    border:1px solid #222222;
+}
+.customer-invoice-data-container .customer-invoice-data-content .customer-invoice-data .customer-invoice-data-body h6{
+    width: 100%;
+    padding: 10px;
+    border:1px solid #222222;
+}
+.customer-invoice-data-container .customer-invoice-data-content .customer-invoice-data .customer-invoice-data-body .products-services{
+    width: 100%;
+}
+.customer-invoice-data-container .customer-invoice-data-content .customer-invoice-data .customer-invoice-data-body .products-services .products-services-list-items{
+    width: 100%;
+    list-style: none;
+
+}
+.customer-invoice-data-container .customer-invoice-data-content .customer-invoice-data .customer-invoice-data-body .products-services .products-services-list-items .products-services-item{
+    width: 100%;
+    padding: 10px;
+    text-align: justify;
+    border:1px solid #222222;
+
+}
+.customer-invoice-data-container .customer-invoice-data-content .customer-invoice-data .customer-invoice-data-footer{
+    background: linear-gradient(110deg, #cacad4 80%, #e4e4ee 2%);
+    padding: 10px;
+}
+
+
+
+@media print {
+    .dashboard-header-content,.burger-menu,.print-btn{
+        display: none !important;
+    }
+}

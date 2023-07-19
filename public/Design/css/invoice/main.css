@@ -1,0 +1,113 @@
+.body{
+    width: 100%;
+    padding: 20px 60px;
+}
+/*index*/
+.invoice-container{
+    width: 100%;
+}
+.invoice-container .alert{
+    text-align: center;
+}
+.invoice-head{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    margin: 10px 0;
+}
+.invoice-head h5 img{
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+}
+.invoice-content{
+    width: 100%;
+    text-align: center;
+}
+.invoice-content .search{
+    width: 100% !important;
+    display: flex;
+    text-align: justify;
+    margin: 10px 0;
+}
+.invoice-content .search input{
+    width: 200px;
+    margin: 0 5px;
+}
+.invoice-content .search button{
+    width: 40px;
+    height: 35px;
+    margin: 2px 0 !important;
+}
+
+
+.invoice-content .create-customer{
+    width: 100%;
+    text-align: center;
+}
+.invoice-content .create-customer .input-style{
+    width: 250px;
+    margin:10px auto;
+}
+
+/*create*/
+.invoice-container .invoice-content{
+    width: 100%;
+}
+.invoice-container .invoice-content .create-invoice-company-name{
+    width: 500px;
+    margin: auto;
+}
+.invoice-container .invoice-content .create-invoice-company-name h2{
+    width: 100%;
+    padding: 20px;
+    text-align: left;
+    background: linear-gradient(110deg, #cacad4 80%, #e4e4ee 2%);
+}
+.invoice-container .invoice-content .create-invoice-company-name h2 img{
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+.invoice-container .invoice-content .create-invoice-company-name h4{
+    width: 100%;
+    text-align: center;
+}
+.invoice-container .invoice-content form{
+    width: 500px;
+    margin: auto;
+}
+.invoice-container .invoice-content form .input-style.checkBox{
+    width: 100%;
+    border:1px solid #222222;
+    padding: 5px;
+    text-align: left;
+}
+
+.invoice-container .invoice-content form button{
+    margin: 10px 0;
+}
+.invoice-container .invoice-content .invoice-footer{
+    width: 500px;
+    margin: 10px auto;
+    text-align: justify;
+}
+@media only screen and (max-width: 600px) {
+    .invoice-head {
+        display: block !important;
+        text-align: justify;
+    }
+    .invoice-head h5 {
+        margin: 10px 0;
+    }
+    .body{
+        padding: 20px 60px 0 0;
+    }
+    .invoice-container .invoice-content form{
+        margin: 20px 0;
+    }
+    .invoice-content .create-customer .input-style{
+        margin: 0;
+    }
+}

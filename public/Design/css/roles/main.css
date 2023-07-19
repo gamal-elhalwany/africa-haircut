@@ -1,0 +1,192 @@
+
+.body{
+    width: 100%;
+    padding: 10px;
+}
+/*start show*/
+.show-roles-container{
+    width: 100%;
+}
+.show-roles-container .show-roles-head{
+    width: 100%;
+    padding: 20px 50px;
+    text-align: justify;
+}
+.show-roles-container  .show-roles-content .alert{
+    text-align: center;
+}
+
+.show-roles-container .show-roles{
+    width: 100%;
+    padding: 10px 50px;
+    text-align: justify;
+}
+
+.show-roles-container .show-roles .show-roles-list-items{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-content: center;
+    align-items: center;
+    list-style: none;
+}
+.show-roles-container .show-roles .show-roles-list-items .show-roles-item{
+    text-align: justify;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 10px #d2d2d2;
+}
+.show-roles-container .show-roles .show-roles-list-items .show-roles-item .show-roles-item-control{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    align-content: center;
+}
+.show-roles-container .show-roles .show-roles-list-items .show-roles-item .show-roles-item-control a {
+    margin: 0 5px;
+}
+/*end show*/
+
+/*start create*/
+.create-role-container{
+    width: 100%;
+    padding: 20px 50px 0 0;
+}
+.create-role-container .create-role-head{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 50px;
+}
+.create-role-container .create-role-content{
+    width: 100%;
+}
+.create-role-container .create-role-content form{
+    width: 100%;
+}
+
+.create-role-container .create-role-content form .input-style{
+    width: 250px;
+    text-align: justify;
+    margin:10px auto;
+}
+.create-role-container .create-role-content form .input-style.checkBox{
+    width: 500px;
+    height: auto;
+    padding: 10px;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    line-height: 50px;
+}
+/*end create*/
+
+
+/*start edit*/
+.edit-role-container{
+    width: 100%;
+    padding: 20px 50px 0 0;
+}
+.edit-role-container .edit-role-head{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+}
+.edit-role-container .edit-role-content{
+    width: 100%;
+}
+.edit-role-container .edit-role-content form{
+    width: 100%;
+}
+.edit-role-container .edit-role-content form .input-style{
+    width: 250px;
+    text-align: justify;
+    margin:10px auto;
+
+}
+.edit-role-container .edit-role-content form .input-style.checkBox{
+    width: 500px;
+    height: auto;
+    padding: 10px;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    line-height: 50px;
+}
+
+/*end edit*/
+
+/*start show*/
+.show-role-container{
+    width: 100%;
+    padding: 20px 50px 0 0;
+}
+.show-role-container .show-role-head{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.show-role-container .show-role-content{
+    width: 100%;
+    text-align: center;
+}
+.show-role-container .show-role-content .role-permissions{
+    width: 500px;
+    height: auto;
+    padding: 10px;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    line-height: 50px;
+    margin: 10px auto;
+
+}
+/*end show*/
+/*START RESPONSIVE */
+@media only screen and (max-width: 600px) {
+    .edit-role-container .edit-role-content form .input-style.role-name{
+        margin: 10px 0;
+    }
+    .edit-role-container .edit-role-content form .input-style.checkBox{
+        width: 100%;
+    }
+    .edit-role-container .edit-role-head{
+        display: grid;
+    }
+
+
+    .create-role-container .create-role-content form .input-style{
+        margin: 10px 0;
+    }
+    .create-role-container .create-role-content form .input-style.checkBox{
+        width: 100%;
+    }
+    .create-role-container .create-role-head{
+        display: grid;
+    }
+    .show-role-container .show-role-head{
+        display: grid;
+        margin: 10px 0;
+    }
+    .show-role-container .show-role-content{
+        text-align: justify;
+    }
+    .show-role-container .show-role-content .text{
+        margin: 10px 0;
+    }
+    .show-role-container .show-role-content .role-permissions{
+        width: 100%;
+
+    }
+
+}
+
+@media only screen and (max-width: 500px) {
+    .show-roles-container .show-roles .show-roles-list-items{
+        display: inline-block;
+    }
+    .show-roles-container .show-roles{
+        padding: 10px 50px 0 0 ;
+    }
+}
+
+/*END RESPONSIVE*/

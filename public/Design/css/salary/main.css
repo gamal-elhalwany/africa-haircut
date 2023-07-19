@@ -1,0 +1,110 @@
+/*start index*/
+.body .salary-container{
+    width: 100%;
+    text-align: justify;
+    padding: 20px 60px;
+}
+.body .salary-container .salary-head{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.body .salary-container .salary-content{
+    width: 100%;
+    padding: 10px;
+}
+.body .salary-container .salary-content form{
+    width: 250px;
+    text-align: center;
+    padding: 20px;
+    margin: auto;
+}
+.body .salary-container .salary-content form .input-style{
+    width: 100%;
+    margin: 5px auto;
+}
+.body .salary-container .salary-content form .input-style button{
+    margin: 10px 0;
+}
+/*end index*/
+
+/*start search*/
+.search-salary-container{
+    width: 100%;
+    padding: 20px 55px;
+}
+.search-salary-container .search-salary-head{
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.search-salary-container .search-salary-content{
+    width: 100%;
+    padding: 10px 0;
+    text-align: center;
+}
+.search-salary-container .search-salary-content .card{
+    width: 350px;
+    margin: auto;
+}
+.search-salary-container .search-salary-content .emp-details{
+    width: 100%;
+}
+.search-salary-container .search-salary-content .emp-details h5{
+    padding: 10px;
+    background-color: #bad1ff;
+    border-radius: 5px;
+}
+/*edn search*/
+
+
+
+/*responsive*/
+@media only screen and (max-width: 590px) {
+    .search-salary-container .search-salary-content{
+        margin-top: 60px;
+    }
+
+    .search-salary-container .search-salary-content .card{
+        width: 300px;
+        margin: 0;
+    }
+    .search-salary-container .search-salary-content .col{
+        padding-right: 0;
+    }
+    .search-salary-container .search-salary-content .emp-details-table-title{
+        font-size: 17px;
+    }
+    .search-salary-container .search-salary-content table thead{
+        font-size: 12px;
+    }
+}
+
+
+@media only screen and (max-width: 444px) {
+
+    .body .salary-container .salary-head,
+    .search-salary-container .search-salary-head {
+        display: grid;
+    }
+    .body .salary-container .salary-content form{
+        margin: 0;
+        padding: 0;
+    }
+    .body .salary-container{
+        padding: 20px 55px;
+    }
+    .body .salary-container .salary-content form .input-style{
+        width: 90%;
+        margin: 0;
+    }
+    .search-salary-container .search-salary-content .card{
+        width: 250px;
+    }
+    .search-salary-container .search-salary-content .emp-details h5{
+        font-size: 15px;
+    }
+}

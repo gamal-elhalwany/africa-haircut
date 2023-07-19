@@ -1,0 +1,98 @@
+
+.body .chair-container{
+    width: 100%;
+    text-align: justify;
+    padding: 20px;
+}
+.body .chair-container .chair-meg{
+    width: 250px;
+    margin: auto;
+    text-align: center;
+}
+.body .chair-container .chair-content{
+    width: 100%;
+    padding: 10px 50px 0 0;
+    text-align: justify;
+}
+.body .chair-container .chair-content .chair{
+    width: 100%;
+
+}
+.body .chair-container .chair-content .chair .chair-direct{
+    position: relative;
+    width: 350px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #dedede;
+    text-align: center;
+    display: inline-block;
+    margin: 10px 0;
+}
+.body .chair-container .chair-content .chair .chair-direct .chair-details{
+    padding: 10px 0;
+}
+.body .chair-container .chair-content .chair .chair-direct .delete-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    display: none;
+    cursor: pointer;
+}
+.body .chair-container .chair-content .chair .chair-direct:hover .delete-btn{
+    display: block;
+}
+
+.body .chair-container .chair-content .chair .chair-direct img {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+
+}
+.body .chair-container .chair-content .chair .chair-direct h3{
+    margin: 10px 0;
+}
+.body .chair-container .chair-content .chair .chair-direct .btn{
+    width: 100%;
+    text-align: center;
+    margin: 10px auto;
+}
+.body .chair-container .chair-content .chair .chair-direct .btn button{
+    width:130px;
+}
+/*start create*/
+
+.create-chair-container{
+    width: 100%;
+}
+.create-chair-container .create-chair-content{
+    width: 100%;
+    padding: 20px;
+    text-align: justify;
+}
+.create-chair-container .create-chair-content .create-chair{
+    width: 50%;
+    margin: auto;
+    text-align: center;
+}
+.create-chair-container .create-chair-content .create-chair form{
+    width: 100%;
+}
+.create-chair-container .create-chair-content .create-chair form .input-style{
+    width: 250px;
+    margin: 10px auto;
+}
+/*end create*/
+@media only screen and (max-width: 444px) {
+    .body .chair-container .chair-content{
+        padding: 0 40px;
+    }
+    .body .chair-container .chair-content .chair .chair-direct{
+        width: 250px;
+    }
+    .body .chair-container .chair-content .chair .chair-direct .btn{
+        display: grid;
+    }
+}
+
+
+
