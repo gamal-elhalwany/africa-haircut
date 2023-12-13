@@ -101,39 +101,21 @@
     <section class="services_section" id="services">
         <div class="container">
             <div class="section_heading">
-                <h3>Trendy Salon & Spa</h3>
+                <h3>{{__('setting.site_name')}}</h3>
                 <h2>{{__('body.our_services')}}</h2>
                 <div class="heading-line"></div>
             </div>
             <div class="row">
-                <div class="col-lg-3 col-md-6 padd_col_res">
-                    <div class="service_box">
-                        <i class="bs bs-scissors-1"></i>
-                        <h3>Haircut Styles</h3>
-                        <p>Barber is a person whose occupation is mainly to cut dress style.</p>
+                @foreach ($services as $service)
+                    <div class="col-lg-3 col-md-6 padd_col_res">
+                        <div class="service_box">
+                            {{-- <i class="bs bs-scissors-1"></i> --}}
+                            <h3>{{$service->name}}</h3>
+                            <p>{{$service->description}}</p>
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-3 col-md-6 padd_col_res">
-                    <div class="service_box">
-                        <i class="bs bs-razor-2"></i>
-                        <h3>Beard Triming</h3>
-                        <p>Barber is a person whose occupation is mainly to cut dress style.</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 padd_col_res" >
-                    <div class="service_box">
-                        <i class="bs bs-brush"></i>
-                        <h3>Smooth Shave</h3>
-                        <p>Barber is a person whose occupation is mainly to cut dress style.</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 padd_col_res">
-                    <div class="service_box">
-                        <i class="bs bs-hairbrush-1"></i>
-                        <h3>Face Masking</h3>
-                        <p>Barber is a person whose occupation is mainly to cut dress style.</p>
-                    </div>
-                </div>
+                @endforeach
+          
             </div>
         </div>
     </section>

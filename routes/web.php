@@ -7,10 +7,12 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\BranchesController;
 use App\Http\Controllers\ChairsController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JobsController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\InvoiceController;
+use App\Models\Product;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,13 +30,12 @@ use App\Http\Controllers\InvoiceController;
 //*******************************************************//
 
 //Get Routes
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::get('/',[HomeController::class,'homeView'])->name('home');
 
 Route::get('/{lang}', function ($lang) {
     App::setLocale($lang);
-    return view('home');
+    $services = Product::where('status','service')->latest()->take(4)->get();
+    return view('home',compact('services'));
 });
 //*****************************//
 

@@ -31,7 +31,12 @@
                     <div class="input-style">
                         <input type="text" name="name" class="form-control" placeholder="أسم المنتج او الخدمة">
                     </div>
-
+                    <div class="input-style">
+                        <textarea  name="description" class="form-control" placeholder="وصف المنتج او الخدمة">
+                            
+                        </textarea>
+                    </div>
+                    
 
                     <div class="input-style">
                         <input type="number" name="customer_price" class="form-control" placeholder="السعر للعميل" required>

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('username')->unique();
-            $table->text('national_id')->unique();
+            $table->string('national_id')->unique();
             $table->bigInteger('emp_id')->unique();
             $table->dateTime('hiring_date');
             $table->bigInteger('job_id');

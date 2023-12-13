@@ -41,6 +41,7 @@ class ProductsController extends Controller
     {
         Product::create([
             'name'=>$request->name,
+            'description'=>$request->description,
             'code'=>$request->code,
             'buy_price'=>$request->buy_price,
             'sell_price'=>$request->sell_price,
@@ -98,6 +99,7 @@ class ProductsController extends Controller
     {
         $UpdateProduct = Product::find($id)->update([
             'name'=>$request->name,
+            'description'=>$request->description,
             'code'=>$request->code,
             'buy_price'=>$request->buy_price,
             'sell_price'=>$request->sell_price,

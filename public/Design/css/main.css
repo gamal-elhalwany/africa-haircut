@@ -207,6 +207,8 @@ ul.nav>li>a
     cursor: pointer;
     -webkit-box-shadow: 0px 50px 100px 0px rgba(64, 1, 4, 0.1), 0px -6px 0px 0px rgba(248, 99, 107, 0.004);
     box-shadow: 0px 50px 100px 0px rgba(64, 1, 4, 0.1), 0px -6px 0px 0px rgba(248, 99, 107, 0.004);
+    height: 260px;
+    max-height: 270px;
 }
 
 .service_box i
