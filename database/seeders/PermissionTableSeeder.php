@@ -54,35 +54,50 @@ class PermissionTableSeeder extends Seeder
 //            'حجز-كرسي'
 
         //Permissions
-        $permissions = [
+        // $permissions = [
+
+        //    'الصلاحيات',
+        // //    'انشاء-صلاحية',
+        // //    'تعديل صلاحية',
+        // //    'حذف-صلاحية',
+
+        //    'المستدمين',
+        // //    'انشاء-مستخدم',
+        // //    'تعديل-مستخدم',
+        // //    'حذف-مستخدم',
+
+        //    'الفروع',
+        // //    'انشاء-فرع',
+        // //    'تعديل-فرع',
+        // //    'حذف-فرع',
+
+        //    'الكراسي',
+        // //    'انشاء-كرسي',
+        // //    'تعديل-كرسي',
+        // //    'حذف-كرسي',
+
+        //    'الوظائف',
+        // //    'انشاء-وظيفة',
+        // //    'تعديل-وظيفة',
+        // //    'حذف-وظيفة',
+
+        //    'المنتجات',
+        // //    'انشاء-منتج',
+        // //    'تعديل-منتج',
+        // //    'حذف-منتج',
+
+        //    'المرتبات',
 
 
+        //    'حضوروانصراف',
+        // //    'انصراف',
+        // //    'فتح-فاتورة',
+        // //    'حجز-كرسي'
 
-//            'role-list',
-//            'role-create',
-//            'role-edit',
-//            'role-delete',
+        // ];
 
-            'show-branches',
-            'add-branch',
-            'delete-branch',
-            'edit-branch',
-
-
-            'show-users',
-            'create-user',
-            'edit-user',
-            'delete-user',
-
-//manager
-            'chair-control',
-//casher
-            'money-control'
-
-        ];
-
-        foreach ($permissions as $permission) {
-            Permission::create(['name' => $permission]);
-        }
+        // foreach ($permissions as $permission) {
+        //     Permission::create(['name' => $permission]);
+        // }
     }
 }

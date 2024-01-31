@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.0.0/fonts/remixicon.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{asset(env('App_Design_Url').'/Design/css/dashboard.css')}}">
+    <link rel="stylesheet" href="{{asset('Design/css/dashboard.css')}}">
     @stack('style')
     <title> @yield('title','unkonw')</title>
 </head>
@@ -202,8 +202,8 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<script src="{{asset(env('App_Design_Url').'/Design/js/login.js')}}"></script>
-<script src="{{asset(env('App_Design_Url').'/Design/js/global.js')}}"></script>
+<script src="{{asset('Design/js/login.js')}}"></script>
+<script src="{{asset('Design/js/global.js')}}"></script>
  <script>
      $("div.burger-menu li:first-child").click(function () {
          $("div.burger-menu").toggleClass("open")

@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.app')
 @push('style')
-<link rel="stylesheet" href="{{asset(env('App_Design_Url').'/Design/css/invoice/main.css')}}">
+<link rel="stylesheet" href="{{asset('Design/css/invoice/main.css')}}">
 @endpush
 @section('title','فتح فاتوره - '.'كرسي : '.$GetChair[0]->number)
 
@@ -15,7 +15,7 @@
                 الرئيسية
             </a>
             <h5>
-                <img src="{{env('App_Design_Url').'/Design/images/busy.png'}}"> : {{$Chair->number}}
+                <img src="{{asset('Design/images/busy.png')}}"> : {{$Chair->number}}
 
             </h5>
         </div>
@@ -31,7 +31,6 @@
                 @csrf
                 <div class="input-style">
                     <input type="text" id="mobile" name="mobile" class="form-control" placeholder="رقم موبيل العميل">
-
                 </div>
                 <button type="submit" class="btn btn-primary">
                     <i class="fa-solid fa-magnifying-glass"></i>

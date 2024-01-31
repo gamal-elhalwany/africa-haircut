@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Branch;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -17,6 +18,58 @@ class CreateAdminUserSeeder extends Seeder
      */
     public function run()
     {
+        $permissions_array = [
+
+            'الصلاحيات',
+         //    'انشاء-صلاحية',
+         //    'تعديل صلاحية',
+         //    'حذف-صلاحية',
+ 
+            'المستدمين',
+         //    'انشاء-مستخدم',
+         //    'تعديل-مستخدم',
+         //    'حذف-مستخدم',
+ 
+            'الفروع',
+         //    'انشاء-فرع',
+         //    'تعديل-فرع',
+         //    'حذف-فرع',
+ 
+            'الكراسي',
+         //    'انشاء-كرسي',
+         //    'تعديل-كرسي',
+         //    'حذف-كرسي',
+ 
+            'الوظائف',
+         //    'انشاء-وظيفة',
+         //    'تعديل-وظيفة',
+         //    'حذف-وظيفة',
+ 
+            'المنتجات',
+         //    'انشاء-منتج',
+         //    'تعديل-منتج',
+         //    'حذف-منتج',
+ 
+            'المرتبات',
+ 
+ 
+            'حضوروانصراف',
+         //    'انصراف',
+         //    'فتح-فاتورة',
+         //    'حجز-كرسي'
+ 
+         ];
+        $permissions = collect($permissions_array)->map(function($permission){
+            return ['name'=>$permission,'guard_name'=>'web'];
+         });   
+
+        Permission::insert($permissions->toArray());
+        $role = Role::create(['name' => 'super_admin','guard_name'=>'web']);
+        $role->givePermissionTo($permissions_array);
+         
+         $branch = Branch::create([
+            'name'=>'القاهرة'
+         ]);
         //Admin Seeder
         $user = User::create([
             'name' => 'Africa',
@@ -32,15 +85,10 @@ class CreateAdminUserSeeder extends Seeder
             'work_days'=>24,
             'work_hours'=>8,
             'gender'=>'male',
-            'branch_id'=>0
+            'branch_id'=>$branch->id,
         ]);
+        $user->assignRole($role);
+        
 
-        $role = Role::create(['name' => 'Admin']);
-
-        $permissions = Permission::pluck('id','id')->all();
-
-        $role->syncPermissions($permissions);
-
-        $user->assignRole([$role->id]);
     }
 }

@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.app')
 @push('style')
-<link rel="stylesheet" href="{{asset(env('App_Design_Url').'/Design/css/invoice/main.css')}}">
+<link rel="stylesheet" href="{{asset('Design/css/invoice/main.css')}}">
 @endpush
 @section('title','فتح فاتوره')
 

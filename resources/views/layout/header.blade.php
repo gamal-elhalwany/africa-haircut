@@ -10,10 +10,10 @@
     {{-- EXTERNAL CSS LINKS --}}
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="{{asset(env('App_Design_Url').'/Design/fonts/css/all.main.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset(env('App_Design_Url').'/Design/css/main.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset(env('App_Design_Url').'/Design/css/responsive.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset(env('App_Design_Url').'/Design/css/barber-icons.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('Design/fonts/css/all.main.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('Design/css/main.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('Design/css/responsive.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('Design/css/barber-icons.css')}}">
 
     {{-- CUSTOM PAGE STYLE--}}
     @stack('style')
@@ -37,7 +37,7 @@
     <div class="container">
         <nav class="navbar">
             <a href="#" class="navbar-brand">
-                <img src="{{asset('/Design/images/barbershop_logo.png')}}" alt="Barbershop Logo">
+                <img src="{{asset('Design/images/barbershop_logo.png')}}" alt="Barbershop Logo">
             </a>
             <div class="d-flex menu-wrap align-items-center main-menu-container">
                 <div class="mainmenu" id="mainmenu">
@@ -157,10 +157,10 @@
     </footer>
 @show
     <!-- INCLUDE JS SCRIPTS -->
-    <script src="{{asset(env('App_Design_Url').'/Design/js/jquery.min.js')}}"></script>
-    <script src="{{asset(env('App_Design_Url').'/Design/js/bootstrap.min.js')}}"></script>
-    <script src="{{asset(env('App_Design_Url').'/Design/js/bootstrap.bundle.min.js')}}"></script>
-    <script src="{{asset(env('App_Design_Url') . '/Design/js/main.js')}}"></script>
+    <script src="{{asset('Design/js/jquery.min.js')}}"></script>
+    <script src="{{asset('Design/js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('Design/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{asset('Design/js/main.js')}}"></script>
 
 </body>
 

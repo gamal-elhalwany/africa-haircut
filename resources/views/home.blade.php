@@ -21,7 +21,7 @@
                 <div class="carousel-inner">
                     <!-- FIRST SLIDE -->
                     <div class="carousel-item active">
-                        <img class="d-block w-100" src="Design/images/barbershop_image_1.jpg" alt="First slide">
+                        <img class="d-block w-100" src="{{asset('Design/images/barbershop_image_1.jpg')}}" alt="First slide">
                         <div class="carousel-caption d-md-block">
                             <h3>It's Not Just a Haircut, It's an Experience.</h3>
                             <p>
@@ -33,7 +33,7 @@
                     </div>
                     <!-- SECOND SLIDE -->
                     <div class="carousel-item">
-                        <img class="d-block w-100" src="Design/images/barbershop_image_2.jpg" alt="Second slide">
+                        <img class="d-block w-100" src="{{asset('Design/images/barbershop_image_2.jpg')}}" alt="Second slide">
                         <div class="carousel-caption d-md-block">
                             <h3>It's Not Just a Haircut, It's an Experience.</h3>
                             <p>
@@ -45,7 +45,7 @@
                     </div>
                     <!-- THIRD SLIDE -->
                     <div class="carousel-item">
-                        <img class="d-block w-100" src="Design/images/barbershop_image_3.jpg" alt="Third slide">
+                        <img class="d-block w-100" src="{{asset('Design/images/barbershop_image_3.jpg')}}" alt="Third slide">
                         <div class="carousel-caption d-md-block">
                             <h3>It's Not Just a Haircut, It's an Experience.</h3>
                             <p>
@@ -78,7 +78,7 @@
                     <div class="about_content" style="text-align: center;">
                         <h3>{{__('body.introducing')}}</h3>
                         <h2>The Barber Shop <br>Science 1991</h2>
-                        <img src="Design/images/about-logo.png" alt="logo">
+                        <img src="{{asset('Design/images/about-logo.png')}}" alt="logo">
                         <p style="color: #777">
                             Barber is a person whose occupation is mainly to cut dress groom style and shave men's and boys' hair. A barber's place of work is known as a "barbershop" or a "barber's". Barbershops are also places of social interaction and public discourse. In some instances, barbershops are also public forums.
                         </p>
@@ -87,9 +87,9 @@
                 </div>
                 <div class="col-md-6  d-none d-md-block">
                     <div class="about_img" style = "overflow:hidden">
-                        <img class="about_img_1" src="Design/images/about-1.jpg" alt="about-1">
-                        <img class="about_img_2" src="Design/images/about-2.jpg" alt="about-2">
-                        <img class="about_img_3" src="Design/images/about-3.jpg" alt="about-3">
+                        <img class="about_img_1" src="{{asset('Design/images/about-1.jpg')}}" alt="about-1">
+                        <img class="about_img_2" src="{{asset('Design/images/about-2.jpg')}}" alt="about-2">
+                        <img class="about_img_3" src="{{asset('Design/images/about-3.jpg')}}" alt="about-3">
                     </div>
                 </div>
             </div>
@@ -167,42 +167,42 @@
             <div class="row">
                 <div class="col-lg-3 col-md-6 gallery-column">
                     <div style="height: 230px">
-                        <div class="gallery-img" style="background-image: url('Design/images/portfolio-1.jpg');">    </div>
+                        <div class="gallery-img" style="background-image: url('{{asset('Design/images/portfolio-1.jpg')}}');">    </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 gallery-column">
                     <div style="height: 230px">
-                        <div class="gallery-img" style="background-image: url('Design/images/portfolio-2.jpg');"></div>
+                        <div class="gallery-img" style="background-image: url({{asset('Design/images/portfolio-2.jpg')}});"></div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 gallery-column">
                     <div style="height: 230px">
-                        <div class="gallery-img" style="background-image: url('Design/images/portfolio-3.jpg');"></div>
+                        <div class="gallery-img" style="background-image: url({{asset('Design/images/portfolio-3.jpg')}});"></div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 gallery-column">
                     <div style="height: 230px">
-                        <div class="gallery-img" style="background-image: url('Design/images/portfolio-4.jpg');"></div>
+                        <div class="gallery-img" style="background-image: url({{asset('Design/images/portfolio-4.jpg')}});"></div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 gallery-column">
                     <div style="height: 230px">
-                        <div class="gallery-img" style="background-image: url('Design/images/portfolio-5.jpg');"></div>
+                        <div class="gallery-img" style="background-image: url({{asset('Design/images/portfolio-5.jpg')}});"></div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 gallery-column">
                     <div style="height: 230px">
-                        <div class="gallery-img" style="background-image: url('Design/images/portfolio-6.jpg');"></div>
+                        <div class="gallery-img" style="background-image: url({{asset('Design/images/portfolio-6.jpg')}});"></div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 gallery-column">
                     <div style="height: 230px">
-                        <div class="gallery-img" style="background-image: url('Design/images/portfolio-7.jpg');"></div>
+                        <div class="gallery-img" style="background-image: url({{asset('Design/images/portfolio-7.jpg')}});"></div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 gallery-column">
                     <div style="height: 230px">
-                        <div class="gallery-img" style="background-image: url('Design/images/portfolio-8.jpg');"></div>
+                        <div class="gallery-img" style="background-image: url({{asset('Design/images/portfolio-8.jpg')}});"></div>
                     </div>
                 </div>
             </div>
@@ -221,22 +221,22 @@
             <ul class="team_members row">
                 <li class="col-lg-3 col-md-6 padd_col_res">
                     <div class="team_member">
-                        <img src="Design/images/team-1.jpg" alt="Team Member">
+                        <img src="{{asset('Design/images/team-1.jpg')}}" alt="Team Member">
                     </div>
                 </li>
                 <li class="col-lg-3 col-md-6 padd_col_res">
                     <div class="team_member">
-                        <img src="Design/images/team-2.jpg" alt="Team Member">
+                        <img src="{{asset('Design/images/team-2.jpg')}}" alt="Team Member">
                     </div>
                 </li>
                 <li class="col-lg-3 col-md-6 padd_col_res">
                     <div class="team_member">
-                        <img src="Design/images/team-3.jpg" alt="Team Member">
+                        <img src="{{asset('Design/images/team-3.jpg')}}" alt="Team Member">
                     </div>
                 </li>
                 <li class="col-lg-3 col-md-6 padd_col_res">
                     <div class="team_member">
-                        <img src="Design/images/team-4.jpg" alt="Team Member">
+                        <img src="{{asset('Design/images/team-4.jpg')}}" alt="Team Member">
                     </div>
                 </li>
             </ul>
@@ -256,7 +256,7 @@
                 <div class="carousel-inner">
                     <!-- REVIEW 1 -->
                     <div class="carousel-item active">
-                        <img class="d-block w-100" src="Design/images/barbershop_image_1.jpg" alt="First slide" style="visibility: hidden;">
+                        <img class="d-block w-100" src="{{asset('Design/images/barbershop_image_1.jpg')}}" alt="First slide" style="visibility: hidden;">
                         <div class="carousel-caption d-md-block">
                             <h3>Its Not Just a Haircut, Its an Experience.</h3>
                             <p>
@@ -268,7 +268,7 @@
                     </div>
                     <!-- REVIEW 2 -->
                     <div class="carousel-item">
-                        <img class="d-block w-100" src="Design/images/barbershop_image_1.jpg" alt="First slide"  style="visibility: hidden;">
+                        <img class="d-block w-100" src="{{asset('Design/images/barbershop_image_1.jpg')}}" alt="First slide"  style="visibility: hidden;">
                         <div class="carousel-caption d-md-block">
                             <h3>Its Not Just a Haircut, Its an Experience.</h3>
                             <p>
@@ -280,7 +280,7 @@
                     </div>
                     <!-- REVIEW 3 -->
                     <div class="carousel-item">
-                        <img class="d-block w-100" src="Design/images/barbershop_image_1.jpg" alt="First slide"  style="visibility: hidden;">
+                        <img class="d-block w-100" src="{{asset('Design/images/barbershop_image_1.jpg')}}" alt="First slide"  style="visibility: hidden;">
                         <div class="carousel-caption d-md-block">
                             <h3>Its Not Just a Haircut, Its an Experience.</h3>
                             <p>
@@ -391,7 +391,7 @@
                                     <button id="contact_send" class="default_btn">Send Message</button>
                                 </div>
                             </div>
-                            <img src="{{asset(env('App_Design_Url').'/Design/images/ajax_loader_gif.gif')}}" id = "contact_ajax_loader" style="display: none">
+                            <img src="{{asset('Design/images/ajax_loader_gif.gif')}}" id = "contact_ajax_loader" style="display: none">
                             <div id="contact_status_message"></div>
                         </div>
                     </div>
@@ -407,7 +407,7 @@
             <div class="row">
                 <div class="col-lg-3 col-md-6">
                     <div class="footer_widget">
-                        <img src="/Design/images/barbershop_logo.png" alt="Brand">
+                        <img src="{{asset('Design/images/barbershop_logo.png')}}" alt="Brand">
                         <p>
                             Our barbershop is the created for men who appreciate premium quality, time and flawless look.
                         </p>

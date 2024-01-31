@@ -1,5 +1,5 @@
 @extends('dashboard.layouts.app')
-<link rel="stylesheet" href="{{asset(env('App_Design_Url').'/Design/css/users/main.css')}}">
+<link rel="stylesheet" href="{{asset('Design/css/users/main.css')}}">
 
 @section('title',$user->name)
 @section('body')
@@ -21,9 +21,9 @@
 
                           <li class="show-user-item avatar">
                               @if($user->gender=="male")
-                                  <img src="{{asset(env('App_Design_Url').'/Design/images/male.png')}}" style="width:100px;margin-top:-65px" alt="User" class="img-fluid img-thumbnail rounded-circle border-0 mb-3">
+                                  <img src="{{asset('Design/images/male.png')}}" style="width:100px;margin-top:-65px" alt="User" class="img-fluid img-thumbnail rounded-circle border-0 mb-3">
                               @else
-                                  <img src="{{asset(env('App_Design_Url').'/Design/images/female.png')}}" style="width:100px;margin-top:-65px" alt="User" class="img-fluid img-thumbnail rounded-circle border-0 mb-3">
+                                  <img src="{{asset('Design/images/female.png')}}" style="width:100px;margin-top:-65px" alt="User" class="img-fluid img-thumbnail rounded-circle border-0 mb-3">
                               @endif
                           </li>
 

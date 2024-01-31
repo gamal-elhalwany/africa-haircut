@@ -21,7 +21,7 @@
 
                                    @foreach($Available as $AvailableChairs)
                                        <li class="manager-item">
-                                           <img src="{{env('App_Design_Url').'/Design/images/available.png'}}">
+                                           <img src="{{asset('Design/images/available.png')}}">
                                                <p>
                                                     <h5>الدور :  {{$AvailableChairs->floor}} </h5>
                                                    @if($AvailableChairs->user)

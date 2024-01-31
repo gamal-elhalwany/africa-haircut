@@ -126,7 +126,7 @@ class InvoiceController extends Controller
 
             $CreateCustomer= Customer::create($request->all());
 
-            return redirect()->back()->with('success','تم إنشاء المستخدم بنجاح');
+            return redirect()->back()->with('success','تم تسجيل العميل بنجاح');
 
     }
 
