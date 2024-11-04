@@ -3,10 +3,6 @@
     {{__('navbar.title')}}
 @endsection
 
-
-
-
-
 @section('content')
     <!-- HOME SECTION -->
 
@@ -115,7 +111,7 @@
                         </div>
                     </div>
                 @endforeach
-          
+
             </div>
         </div>
     </section>

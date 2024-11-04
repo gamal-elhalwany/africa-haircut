@@ -24,8 +24,8 @@ class UserLoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email'=>['required','email','exists:users,email','regex:/(.+)@(.+)\.(.+)/i'],
-            'password'=>['required','min:5','max:255']
+            // 'email'=>['required','email','exists:users,email'],
+            // 'password'=>['required','min:5','max:255']
         ];
     }
     public function messages()

@@ -40,9 +40,7 @@ class BranchesController extends Controller
      */
     public function store(Request $request)
     {
-        $StoreNewBranch = Branch::create([
-            'name'=>$request->branch_name,
-        ]);
+        $StoreNewBranch = Branch::create($request->all());
         return redirect()->route('dashboard.branches.index')->with('success','تم إضافة الفرع بنجاح');
     }
 

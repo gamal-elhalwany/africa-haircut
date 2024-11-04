@@ -2,11 +2,11 @@
 @push('style')
 <link rel="stylesheet" href="{{asset('Design/css/invoice/main.css')}}">
 @endpush
-@section('title','فتح فاتوره - '.'كرسي : '.$GetChair[0]->number)
+@section('title','فتح فاتوره - '.'كرسي : '.$getChair[0]->number)
 
 @section('body')
 <div class="body">
-    @foreach($GetChair as $Chair)
+    @foreach($getChair as $Chair)
     <div class="invoice-container">
 
         <div class="invoice-head">
@@ -27,6 +27,7 @@
         </ul>
         <div class="invoice-content">
 
+            <!-- Search Form -->
             <form  class="search" action="{{route('customer.search',$Chair->id)}}" method="POST">
                 @csrf
                 <div class="input-style">
@@ -36,8 +37,9 @@
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </form>
+            <!-- Search Form -->
 
-            <form  action="/customer/create" class="create-customer" method="POST">
+            <form  action="{{ route('customer.create', $getChair[0]->id) }}" class="create-customer" method="POST">
                 @csrf
                 <div class="input-style">
                     @if ($message = Session::get('success'))
@@ -75,16 +77,8 @@
                     </button>
                 </div>
             </form>
-
-
         </div>
-
-
-
-
     </div>
     @endforeach
 </div>
-
-
 @endsection

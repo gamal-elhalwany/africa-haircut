@@ -15,10 +15,10 @@
     <link rel="stylesheet" type="text/css" href="{{asset('Design/css/responsive.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('Design/css/barber-icons.css')}}">
 
-    {{-- CUSTOM PAGE STYLE--}}
+    <!-- CUSTOM PAGE STYLE -->
     @stack('style')
-    {{-- GOOGLE FONTS --}}
 
+    <!-- GOOGLE FONTS  -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400;1,500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Prata&display=swap" rel="stylesheet">
@@ -26,11 +26,7 @@
 </head>
 
 <!-- BODY -->
-
 <body>
-
-
-
 <!-- START NAVBAR SECTION -->
 
 <header id="header" class="header-section">
@@ -39,6 +35,9 @@
             <a href="#" class="navbar-brand">
                 <img src="{{asset('Design/images/barbershop_logo.png')}}" alt="Barbershop Logo">
             </a>
+            @if(auth()->user())
+            <div class="text-white">Hello {{auth()->user()->name}}</div>
+            @endif
             <div class="d-flex menu-wrap align-items-center main-menu-container">
                 <div class="mainmenu" id="mainmenu">
                     <ul class="nav">
@@ -142,7 +141,7 @@
                         <script type="text/javascript">
                             document.write(new Date().getFullYear())
                         </script>
-                        Barber Shop Powered by JAIRI Idriss
+                        Barber Shop Powered by {{config('app.developer')}}
                     </div>
                 </div>
                 <div class="col-md-6 xs-padding">

@@ -22,14 +22,15 @@ return new class extends Migration
             $table->string('national_id')->unique();
             $table->bigInteger('emp_id')->unique();
             $table->dateTime('hiring_date');
-            $table->bigInteger('job_id');
             $table->enum('salary_system',['basic','commotion','basic_and_commotion']);
             $table->float('salary',15,2)->nullable();
             $table->bigInteger('commotion')->nullable();
             $table->integer('work_days')->nullable();;
             $table->integer('work_hours')->nullable();;
             $table->enum('gender',['male','female']);
-            $table->bigInteger('branch_id')->nullable();;
+
+            $table->foreignId('job_id')->constrained()->onDelete('cascade');
+            $table->foreignId('branch_id')->constrained()->onDelete('cascade');
 
             $table->timestamps();
         });

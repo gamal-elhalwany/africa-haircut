@@ -15,11 +15,15 @@ return new class extends Migration
     {
         Schema::create('chairs', function (Blueprint $table) {
             $table->id();
-            $table->string('floor')->default('الاول');
+            $table->string('floor');
             $table->integer('number');
             $table->enum('status',['busy','available'])->nullable()->default('available');
-            $table->bigInteger('branch_id')->unsigned();
-            $table->bigInteger('user_id')->unsigned()->nullable();
+
+            $table->unsignedBigInteger('branch_id');
+            $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');
+
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+
             $table->timestamps();
         });
     }

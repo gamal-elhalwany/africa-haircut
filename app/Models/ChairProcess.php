@@ -13,6 +13,6 @@ class ChairProcess extends Model
         'chair_id',
         'user_id',
         'customer_id',
-        'money',
+        'cost',
     ];
 }

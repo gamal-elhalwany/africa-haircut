@@ -11,9 +11,21 @@ class Invoice extends Model
 
     protected $fillable=[
         'customer_id',
-        'product_name',
-        'price'
     ];
+
+    public function customer ()
+    {
+        return $this->belongsTo(Customer::class);
+    }
+    public function branch ()
+    {
+        return $this->belongsTo(Branch::class);
+    }
+
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
 
 }
 

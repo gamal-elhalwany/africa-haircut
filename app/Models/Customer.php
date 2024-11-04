@@ -13,4 +13,9 @@ class Customer extends Model
         'mobile',
         'email',
     ];
+
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class);
+    }
 }

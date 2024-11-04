@@ -18,7 +18,7 @@ return new class extends Migration
             $table->time('start_time');
             $table->time('end_time')->nullable();
             $table->float('duration')->nullable();
-            $table->bigInteger('user_id')->unsigned();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

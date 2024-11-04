@@ -7,9 +7,8 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    //
-    public function homeView(){
-        $services = Product::where('status','service')->latest()->take(4)->get();
+    public function index(){
+        $services = [];
         return view('home',compact('services'));
     }
 }

@@ -10,21 +10,33 @@ class Branch extends Model
     use HasFactory;
     protected $fillable = [
         'name',
-//        'user_id'
+        'address',
+        'phone',
+        'email',
     ];
 
 
 
 
     //START RELATIONSHIPS
-    public function users(){
-        return $this->hasMany(User::class,'branch_id');
+    public function users()
+    {
+        return $this->hasMany(User::class, 'branch_id');
     }
-    public function products(){
-        return $this->hasMany(Product::class,'branch_id');
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'branch_id');
     }
-    public function chairs(){
-        return $this->hasMany(Chair::class,'branch_id');
+
+    public function chairs()
+    {
+        return $this->hasMany(Chair::class, 'branch_id');
+    }
+
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class);
     }
     //END RELATIONSHIPS
 

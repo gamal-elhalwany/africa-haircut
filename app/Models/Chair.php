@@ -14,18 +14,21 @@ class Chair extends Model
         'status',
         'branch_id',
         'user_id',
+        'customer_id',
     ];
 
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
+    }
 
-    //START RELATIONSHIPS
-    public function branch(){
-        return $this->belongsTo(Branch::class,'branch_id');
+    public function daily()
+    {
+        return $this->hasOne(Daily::class);
     }
-    public function daily(){
-        return $this->hasOne(Daily::class,'chair_id');
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
-    public function user(){
-        return $this->belongsTo(User::class,'user_id');
-    }
-    //END RELATIONSHIPS
 }

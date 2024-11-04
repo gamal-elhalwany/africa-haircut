@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('chair_processes', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('chair_id')->unsigned();
-            $table->bigInteger('user_id')->unsigned();
-            $table->bigInteger('customer_id')->unsigned();
-            $table->integer('money');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('chair_id')->constrained()->onDelete('cascade');
+            $table->foreignId('customer_id')->constrained()->onDelete('cascade');
+            $table->integer('cost');
             $table->timestamps();
         });
     }

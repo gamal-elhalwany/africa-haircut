@@ -11,7 +11,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable,HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -39,20 +39,25 @@ class User extends Authenticatable
 
 
     //START RELATIONSHIPS
-     public function branch(){
-         return $this->belongsTo(Branch::class,'branch_id');
-     }
-    public function products(){
-        return $this->hasMany(Product::class,'user_id');
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class, 'branch_id');
     }
-    public function job(){
-        return $this->belongsTo(Job::class,'job_id');
+    public function products()
+    {
+        return $this->hasMany(Product::class);
     }
-    public function daily(){
-        return $this->hasOne(Daily::class,'user_id');
+    public function job()
+    {
+        return $this->belongsTo(Job::class);
     }
-    public function chair(){
-        return $this->hasOne(Chair::class,'user_id');
+    public function daily()
+    {
+        return $this->hasOne(Daily::class);
+    }
+    public function chair()
+    {
+        return $this->hasOne(Chair::class);
     }
     //END RELATIONSHIPS
 

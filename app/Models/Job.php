@@ -14,8 +14,9 @@ class Job extends Model
 
     //START RELATIONSHIPS
 
-    public function users(){
-        return $this->hasMany(User::class,'job_id');
+    public function users()
+    {
+        return $this->hasMany(User::class, 'job_id');
     }
     //END RELATIONSHIPS
 }

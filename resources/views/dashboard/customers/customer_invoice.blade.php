@@ -3,7 +3,7 @@
 @push('style')
     <link rel="stylesheet" href="{{asset('Design/css/customer/main.css')}}">
 @endpush
-@section('title','فاتورة '. ' | ' . $GetCustomerData->name)
+@section('title','فاتورة '. ' | ' . $customer->name)
 
 @section('body')
     <div class="body">
@@ -25,15 +25,15 @@
 
                     <div class="customer-invoice-data-body">
                         <div class="customer-name">
-                            <h3> {{$GetCustomerData->name}}</h3>
+                            <h3>{{$customer->name}}</h3>
                         </div>
                         <h6>  الخدمات و المنتجات  </h6>
 
                         <div class="products-services">
                              <ul class="products-services-list-items">
-                                @foreach($InvoiceItems as  $Items)
+                                @foreach($custormerInvoices as  $item)
                                     <li class="products-services-item">
-                                        {{$Items}}
+                                        {{$loop->iteration}}- {{$item->product_name}}
                                     </li>
                                 @endforeach
                             </ul>
@@ -43,7 +43,7 @@
                     </div>
 
                     <div class="customer-invoice-data-footer">
-                        اجمالي الفاتورة : {{$InvoiceTotal}}
+                        اجمالي الفاتورة :   {{$totalPrice}}£
                     </div>
 
             </div>

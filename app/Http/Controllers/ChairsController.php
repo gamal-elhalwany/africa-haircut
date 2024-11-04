@@ -38,16 +38,22 @@ class ChairsController extends Controller
      */
     public function store(Request $request)
     {
+        $user = auth()->user();
+        $chair = Chair::where('user_id', $user->id)->first();
         $this->validate($request, [
             'floor' => 'required|string',
             'number'=>'required',
             'branch' => 'required',
         ]);
 
-        $Chair = Chair::create([
+        if ($chair) {
+            return redirect()->back()->with('error', 'لديك كرسي بالفعل ، ولا يمكنك أضافة اخر!');
+        }
+        $newChair = Chair::create([
             'floor'=>$request->floor,
             'number'=>$request->number,
-            'branch_id'=>$request->branch
+            'branch_id'=>$request->branch,
+            'user_id' => $user->id,
         ]);
 
         return redirect()->route('dashboard.chairs.index')->with('success','تم إضافة الكرسي بنجاح');
@@ -93,9 +99,13 @@ class ChairsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Chair $chair)
     {
-        $DeleteChair = Chair::where('id',$id)->delete();
-        return redirect()->route('dashboard.chairs.index')->with('success','تم حذف الكرسي بنجاح');
+        $user = auth()->user();
+        if ($chair->user_id == $user->id) {
+            $chair->delete();
+            return redirect()->route('dashboard.chairs.index')->with('success','تم حذف الكرسي بنجاح');
+        }
+        return redirect()->route('dashboard.chairs.index')->with('error','لا يمكنك حذف الكرسي او القيام بهذه العملية!');
     }
 }

@@ -24,18 +24,18 @@ class CreateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|same:confirm-password',
-            'username'=>'required|string|unique:users,username',
-            'national_id'=>'required|integer|unique:users,national_id',
-            'emp_id'=>'required|integer',
-            'job_id'=> 'required|exists:jobs,id',
-            'salary'=> 'nullable|numeric',
-            'work_days'=> 'nullable|integer',
-            'work_hours'=> 'nullable|numeric',
-            'branch_id'=> 'required|exists:branches,id',
-            'roles' => 'required',
+            // 'name' => 'required',
+            // 'email' => 'required|email|unique:users,email',
+            // 'password' => 'required|same:confirm-password',
+            // 'username'=>'required|string|unique:users,username',
+            // 'national_id'=>'required|integer|unique:users,national_id',
+            // 'emp_id'=>'required|integer',
+            // 'job_id'=> 'required|exists:jobs,id',
+            // 'salary'=> 'nullable|numeric',
+            // 'work_days'=> 'nullable|integer',
+            // 'work_hours'=> 'nullable|numeric',
+            // 'branch_id'=> 'required|exists:branches,id',
+            // 'roles' => 'required',
         ];
     }
     public function messages()

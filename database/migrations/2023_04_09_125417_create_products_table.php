@@ -19,14 +19,13 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->string('code')->nullable();
             $table->integer('buy_price')->nullable();
-            $table->integer('sell_price')->nullable();
-            $table->integer('customer_price');
+            $table->integer('sell_price');
             $table->integer('distribution_value')->nullable();
             $table->integer('quantity')->default(1)->nullable();
-            $table->integer('value')->default(1)->nullable();
             $table->integer('net_profit')->nullable();
-            $table->enum('status',['product','service']);
-            $table->bigInteger('branch_id')->unsigned();
+            $table->enum('status',['product','service'])->nullable();
+
+            $table->foreignId('branch_id')->constrained()->onDelete('cascade');
 
             $table->timestamps();
         });

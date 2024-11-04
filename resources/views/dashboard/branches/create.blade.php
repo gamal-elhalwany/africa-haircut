@@ -21,7 +21,11 @@
                         @csrf
 
                         <div class="input-style">
-                            <input type="text" class="form-control" name="branch_name" placeholder="أسم الفرع">
+                            <input type="text" class="form-control" name="name" placeholder="أسم الفرع">
+                        </div>
+
+                        <div class="input-style">
+                            <input type="text" class="form-control" name="address" placeholder="عنوان الفرع">
                         </div>
 
                         <div class="input-style">
