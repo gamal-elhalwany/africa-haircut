@@ -15,8 +15,8 @@ class ChairsController extends Controller
      */
     public function index()
     {
-        $Chairs = Chair::with('branch')->orderBy('id', 'DESC')->get();
-        return view('dashboard.chairs.index',compact('Chairs'));
+        $Chairs = Chair::with('user')->with('branch')->with('appointments')->orderBy('id', 'DESC')->get();
+        return view('dashboard.chairs.index', compact('Chairs'));
     }
 
     /**
@@ -27,7 +27,7 @@ class ChairsController extends Controller
     public function create()
     {
         $Branches = Branch::all();
-        return view('dashboard.chairs.create',compact('Branches'));
+        return view('dashboard.chairs.create', compact('Branches'));
     }
 
     /**
@@ -42,7 +42,7 @@ class ChairsController extends Controller
         $chair = Chair::where('user_id', $user->id)->first();
         $this->validate($request, [
             'floor' => 'required|string',
-            'number'=>'required',
+            'number' => 'required',
             'branch' => 'required',
         ]);
 
@@ -50,13 +50,14 @@ class ChairsController extends Controller
             return redirect()->back()->with('error', 'لديك كرسي بالفعل ، ولا يمكنك أضافة اخر!');
         }
         $newChair = Chair::create([
-            'floor'=>$request->floor,
-            'number'=>$request->number,
-            'branch_id'=>$request->branch,
+            'floor' => $request->floor,
+            'number' => $request->number,
+            'branch_id' => $request->branch,
             'user_id' => $user->id,
         ]);
 
-        return redirect()->route('dashboard.chairs.index')->with('success','تم إضافة الكرسي بنجاح');
+        toastr()->success('تم إضافة الكرسي بنجاح');
+        return redirect()->route('dashboard.chairs.index');
     }
 
     /**
@@ -101,11 +102,9 @@ class ChairsController extends Controller
      */
     public function destroy(Chair $chair)
     {
-        $user = auth()->user();
-        if ($chair->user_id == $user->id) {
-            $chair->delete();
-            return redirect()->route('dashboard.chairs.index')->with('success','تم حذف الكرسي بنجاح');
-        }
-        return redirect()->route('dashboard.chairs.index')->with('error','لا يمكنك حذف الكرسي او القيام بهذه العملية!');
+        $chair->delete();
+        return redirect()->route('dashboard.chairs.index')->with('success', 'تم حذف الكرسي بنجاح');
+        toastr()->error('لا يمكنك حذف الكرسي او القيام بهذه العملية!');
+        return redirect()->route('dashboard.chairs.index');
     }
 }

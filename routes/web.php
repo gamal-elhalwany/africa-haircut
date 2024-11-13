@@ -12,7 +12,9 @@ use App\Http\Controllers\ChairsController;
 use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\BranchesController;
+use App\Http\Controllers\Front\AppoinmentController;
 use App\Http\Controllers\ProductsController;
+use App\Models\Chair;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +31,7 @@ use App\Http\Controllers\ProductsController;
 //GUEST ROUTES
 //*******************************************************//
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('guest');
 
 Route::get('/{lang}', function ($lang) {
     App::setLocale($lang);
@@ -76,7 +78,9 @@ Route::group(['middleware' => ['auth']], function () {
     /****************************************************************************/
     /*************************** invoices routes ********************************/
 
-    Route::post('customerSearch/{id}', [InvoiceController::class, 'CustomerSearchMethod'])->name('customer.search');
+    // Route::post('customerSearch/{id}', [InvoiceController::class, 'CustomerSearchMethod'])->name('customer.search');
+
+    Route::post('invoice/{id}', [InvoiceController::class, 'OpenInvoiceMethod'])->name('customer.search');
 
     Route::get('invoices/all', [InvoiceController::class, 'allInvoices'])->name('invoices.all');
 
@@ -86,18 +90,23 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('invoice/{id}/{customer:name}', [InvoiceController::class, 'SetInvoiceMethod'])->name('set.invoice');
 
-    Route::post('/saveInvoice/{id}/{Customer_id}', [InvoiceController::class, 'SaveInvoiceMethod'])->name('save.invoice');
+    Route::post('/saveInvoice/{id}/{customer:name}', [InvoiceController::class, 'SaveInvoiceMethod'])->name('save.invoice');
 
     Route::get('/customer-invoice/{customer:name}/', [InvoiceController::class, 'CustomerInvoiceMethod'])->name('customer.invoice');
+
+    Route::delete('/customer-invoice/{customer:name}/{id}/delete', [InvoiceController::class, 'deleteInvoice'])->name('customer.invoice.delete');
+
+    /**
+     *
+     * Display Appointments on the Dashboard Routes.
+     */
+    Route::get('/appointments/reservations', [AppoinmentController::class, 'reservations'])->name('reservations');
 
     Route::get('user/error', function () {
         return view('dashboard.error');
     })->name('error.msg');
-
-    /**
-     * TODO:
-     * 1. Add a method to get all invoices
-     *
-     * 3. Create a login button in the home page
-     */
 });
+
+// Appointment Routes.
+Route::get('appointments/chairs', [AppoinmentController::class, 'index'])->name('chairs.front');
+Route::post('appointments/chairs', [AppoinmentController::class, 'store'])->name('store.appointment');

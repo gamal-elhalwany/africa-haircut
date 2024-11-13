@@ -9,17 +9,19 @@
 
     <div class="invoice-container">
         @if(session('success'))
-        <div class="alert alert-success" role="alert">
-            <strong>
-                {{session('success')}}
-            </strong>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ session('success') }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
         @endif
         @if(session('error'))
-        <div class="alert alert-success" role="alert">
-            <strong>
-                {{session('error')}}
-            </strong>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ session('error') }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
         @endif
         <div class="invoice-head">
@@ -49,7 +51,7 @@
                 <h4> أسم العميل : {{$customer->name}}</h4>
             </div>
 
-            <form action="/saveInvoice/{{$Chair->id.'/'.$customer->id}}" method="POST">
+            <form action="{{route('save.invoice', [$Chair->id, $customer->name])}}" method="POST">
                 @csrf
                 <div class="input-style">
                     <input type="hidden" name="emp_id" value="{{$Chair->user->id}}">
@@ -58,6 +60,10 @@
                 <div class="input-style checkBox">
                     <label for="{{$Product->name}}">{{$Product->name}}</label>
                     <input type="checkbox" id="{{$Product->name}}" name="product[]" value="{{$Product}}" />
+                </div>
+                <div class="input-style checkBox">
+                    <label for="qty">الكمية:</label>
+                    <input type="number" id="qty" name="qty[]" min="1"/>
                 </div>
                 @endforeach
 

@@ -13,13 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('dailies', function (Blueprint $table) {
-            $table->id();
-            $table->date('date');
-            $table->time('check_in')->nullable();
-            $table->time('check_out')->nullable();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->timestamps();
+        Schema::table('appointments', function (Blueprint $table) {
+            $table->string('mobile', 11)->after('customer_name');
         });
     }
 
@@ -30,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('dailies');
+        Schema::table('appointments', function (Blueprint $table) {
+            $table->dropColumn('mobile');
+        });
     }
 };

@@ -14,10 +14,16 @@ class OrderItem extends Model
         'product_id',
         'product_name',
         'price',
+        'qty',
     ];
 
     public function invoice()
     {
         return $this->belongsTo(Invoice::class);
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
     }
 }

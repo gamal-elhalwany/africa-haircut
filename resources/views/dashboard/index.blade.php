@@ -11,11 +11,28 @@
                 @if(auth()->user()->branch_id)
                 <div class="manager-content">
                     <ul class="manager-list-items">
-                        {{-- <h6><span style="color: orange">الفرع التابع : </span> {{auth()->user()->branch->name}}</h6>--}}
+                        <!-- <h6><span style="color: orange">الفرع التابع : </span> {{auth()->user()->branch->name}}</h6>-->
                         @if($Available->count() > 0)
-                        <div class="alert alert-primary" role="alert">
+                        <div class="alert alert-secondary" role="alert">
                             الكراسي المتاحه
                         </div>
+
+                        @if(session('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>{{ session('success') }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        @endif
+                        @if(session('error'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>{{ session('error') }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        @endif
 
                         @foreach($Available as $AvailableChairs)
                         <li class="manager-item">
@@ -26,13 +43,15 @@
                             <h5> الموظف : {{$AvailableChairs->user->name}} </h5>
                             @endif
 
-                            <h5>رقم : {{$AvailableChairs->number}}</h5>
+                            <h5>رقم الكرسي: {{$AvailableChairs->number}}</h5>
                             </p>
 
                             @if($AvailableChairs->user)
                             <form action="{{route('open.chair',$AvailableChairs->id)}}" method="POST">
                                 @csrf
+                                @if($AvailableChairs->number !== 0)
                                 <button class="btn btn-info"> حجز</button>
+                                @endif
                             </form>
                             @endif
                         </li>
@@ -73,186 +92,69 @@
                 </div>
 
 
-                {{-- END MANAGER CONTENT--}}
+                <!-- END MANAGER CONTENT-->
 
 
-                {{-- START BRANCH USERS --}}
+                <!-- START BRANCH USERS -->
                 <div class="branch-user-container">
                     <div class="branch-user-content">
                         <div style="text-align: center" class="alert alert-dark" role="alert">
                             حضور وانصراف الموظفين
                         </div>
                         <ul>
-                            @foreach(auth()->user()->branch->users as $Branch)
+                            @foreach($users as $user)
                             <li>
                                 <div>
                                     <b>
                                         اسم الموظف :
                                     </b>
-                                    {{$Branch->name}}
+                                    {{$user->name}}
                                 </div>
                                 <div>
                                     <b>
                                         ساعات العمل المطلوبه :
                                     </b>
-                                    {{$Branch->work_hours}}
+                                    {{$user->work_hours}}
                                 </div>
                                 <div>
-                                    <form action="{{route('daily',$Branch->id)}}" method="POST">
+                                    <form action="{{route('daily', $user->id)}}" method="POST">
                                         @csrf
                                         <div>
-                                            @if($Branch->chair)
-                                            {{$Branch->chair->number }}- ( الدور ) - {{$Branch->chair->floor}}
-                                            @else
-                                            @if(auth()->user()->branch->chairs->count())
-                                            <select name="chair_id">
-                                                @foreach(auth()->user()->branch->chairs as $chair)
-                                                <option value="{{$chair->id}}">{{$chair->number}} : الدور : {{$chair->floor}}</option>
+                                            @if($user->chair)
+                                            <p>
+                                                رقم الكرسي ({{$user->chair->number }})
+                                                الدور ({{$user->chair->floor}})
+                                            </p>
+                                            @endif
+                                            @if(!$user->chair || !$user->daily)
+                                            <select class="form-control" name="chair_id">
+                                                @foreach($Available as $AvailableChair)
+                                                @if($AvailableChair->user_id == null)
+                                                <option value="{{$AvailableChair->id}}">
+                                                    الكرسي: {{$AvailableChair->number}} -
+                                                    الدور: {{$AvailableChair->floor}}
+                                                </option>
+                                                @endif
                                                 @endforeach
                                             </select>
                                             @endif
-                                            @endif
                                         </div>
-
                                         <div>
-                                            @if(!$Branch->chair)
-                                            <input type="submit" class="btn btn-info" name="presence" value="حضور">
+                                            @if($user->chair)
+                                            <input type="submit" class="btn btn-dark" name="checkOut" value="انصراف">
                                             @else
-                                            <input type="submit" class="btn btn-dark" name="departure" value="انصراف">
+                                            <input type="submit" class="btn btn-info" name="checkIn" value="حضور">
                                             @endif
                                         </div>
-
-                                        @csrf
-
                                     </form>
-
                                 </div>
                             </li>
-
                             @endforeach
                         </ul>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                        {{-- <table class="table">--}}
-                        {{-- <thead class="thead-dark">--}}
-                        {{-- <tr>--}}
-                        {{-- --}}{{-- <th scope="col">الرقم الوظيفي</th>--}}
-                        {{-- <th scope="col">اسم الموظف</th>--}}
-                        {{-- <th scope="col">ساعات العمل الطلوبه</th>--}}
-                        {{-- <th scope="col">الكراسي</th>--}}
-                        {{-- <th scope="col"> تحكم </th>--}}
-                        {{-- </tr>--}}
-                        {{-- </thead>--}}
-                        {{-- <tbody>--}}
-                        {{-- @foreach(auth()->user()->branch->users as $Branch)--}}
-                        {{-- <tr>--}}
-                        {{-- <th>{{$Branch->emp_id}}</th>--}}
-                        {{-- <th>{{$Branch->name}}</th>--}}
-                        {{-- <th>{{$Branch->work_hours}}</th>--}}
-                        {{-- <form action="{{route('daily',$Branch->id)}}" method="POST">--}}
-                        {{-- @csrf--}}
-                        {{-- <th>--}}
-
-                        {{-- @if($Branch->chair)--}}
-                        {{-- {{$Branch->chair->number }}- ( الدور ) - {{$Branch->chair->floor}}--}}
-                        {{-- @else--}}
-                        {{-- @if(auth()->user()->branch->chairs->count())--}}
-                        {{-- <select name="chair_id">--}}
-                        {{-- @foreach(auth()->user()->branch->chairs as $chair)--}}
-                        {{-- <option value="{{$chair->id}}">{{$chair->number}} : الدور : {{$chair->floor}}</option>--}}
-                        {{-- @endforeach--}}
-                        {{-- </select>--}}
-                        {{-- @endif--}}
-                        {{-- @endif--}}
-                        {{-- </th>--}}
-
-                        {{-- <th>--}}
-                        {{-- @if(!$Branch->chair)--}}
-                        {{-- <input type="submit" class="btn btn-info" name="presence" value="حضور">--}}
-                        {{-- @else--}}
-                        {{-- <input type="submit" class="btn btn-dark" name="departure" value="انصراف">--}}
-                        {{-- @endif--}}
-                        {{-- </th>--}}
-
-                        {{-- @csrf--}}
-
-                        {{-- </form>--}}
-
-
-                        {{-- </tr>--}}
-                        {{-- @endforeach--}}
-                        {{-- </tbody>--}}
-                        {{-- </table>--}}
-
-
-
-
-
-
                     </div>
                 </div>
-
-                {{-- END BRANCH USERS --}}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                {{-- START CASHER CONTENT--}}
-                {{-- <div class="chairs-content">--}}
-                {{-- <ul class="chairs-list-items">--}}
-                {{-- <h3>{{auth()->user()->branch->name}}</h3>--}}
-                {{-- @foreach(auth()->user()->branch->chairs as $chairs)--}}
-                {{-- <li class="chairs-item">--}}
-                {{-- <img src="https://l.top4top.io/p_26550dd1k1.jpg">--}}
-                {{-- <p>--}}
-                {{-- <h3>{{$chairs->number}}</h3>--}}
-                {{-- </p>--}}
-                {{-- <button class="btn btn-info">فتح فاتوره</button>--}}
-                {{-- </li>--}}
-                {{-- @endforeach--}}
-                {{-- </ul>--}}
-                {{-- </div>--}}
-                {{-- END CASHER CONTENT--}}
-
-
+                <!-- END BRANCH USERS -->
                 @endif
-
             </div>
         </div>
     </div>

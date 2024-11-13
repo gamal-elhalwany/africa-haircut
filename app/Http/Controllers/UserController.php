@@ -2,21 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateUserRequest;
-use App\Http\Requests\UserLoginRequest;
-use App\Models\Branch;
-use App\Models\Chair;
-use App\Models\Daily;
+use Exception;
 use App\Models\Job;
 use App\Models\User;
-use Illuminate\Http\Request;
+use App\Models\Chair;
+use App\Models\Daily;
+use App\Models\Branch;
 use Illuminate\Support\Arr;
+use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Redirect;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\CreateUserRequest;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
@@ -27,9 +28,6 @@ class UserController extends Controller
         //    $this->middleware('permission:edit-user', ['only' => ['edit','update']]);
     }
 
-
-
-
     //Login method
     public  function LoginMethod(Request $request)
     {
@@ -37,11 +35,12 @@ class UserController extends Controller
             $user = User::where('email', $request->email)->first();
             if ($user) {
                 Auth::login($user);
-                return Redirect::route('dashboard.index')->with('success', 'Login successful');
+                toastr()->success('تم تسجيل الدخول بنجاح.');
+                return Redirect::route('dashboard.index');
             }
             return Redirect::back()->withErrors(['error' => 'Invalid credentials']);
-        } catch (\Throwable $th) {
-            throw $th;
+        } catch (Exception $e) {
+            throw $e;
         }
     }
 
@@ -50,8 +49,9 @@ class UserController extends Controller
     {
         $Available = Chair::where('status', 'available')->get();
         $Busy = Chair::where('status', 'busy')->get();
+        $users = User::with('branch')->with('chair')->with('job')->get();
 
-        return view('dashboard.index', compact('Available', 'Busy'));
+        return view('dashboard.index', compact('Available', 'Busy', 'users'));
     }
     /**
      * Display a listing of the resource.
@@ -91,7 +91,8 @@ class UserController extends Controller
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
 
-        return redirect()->route('dashboard.users.index')->with('success', 'تم إنشاء المستخدم بنجاح');
+        toastr()->success('تم إنشاء المستخدم بنجاح');
+        return redirect()->route('dashboard.users.index');
     }
 
     /**
@@ -170,8 +171,8 @@ class UserController extends Controller
 
         $user->assignRole($request->input('roles'));
 
-        return redirect()->route('dashboard.users.index')
-            ->with('success', 'تم تعديل بيانات المستخدم بنجاح');
+        toastr()->success('تم تعديل بيانات المستخدم بنجاح');
+        return redirect()->route('dashboard.users.index');
     }
 
     /**
@@ -198,8 +199,8 @@ class UserController extends Controller
         } else {
             return '<h3>يرجي تحديد مستخدم قبل حجز الكرسي</h3>';
         }
-        return redirect()->route('dashboard.index')
-            ->with('success', 'تم حجز الكرسي');
+        toastr()->success('تم حجز الكرسي');
+        return redirect()->route('dashboard.index');
     }
 
 
@@ -209,69 +210,113 @@ class UserController extends Controller
             'status' => 'available'
         ]);
 
-        return redirect()->route('dashboard.index')
-            ->with('success', 'تم افراغ الكرسي');
+        toastr()->success('تم افراغ الكرسي');
+        return redirect()->route('dashboard.index');
     }
 
 
 
     public function dailyMethod(Request $request, $id)
     {
-        if ($request->departure) {
+        if ($request->checkIn) {
+            $date = now()->toDateString();
+            $check_in = now()->toTimeString();
 
-            $CheckUserDaily = Daily::where('user_id', $id)->orderBy('created_at', 'desc')->first();
+            $user = User::where('id', $id)->first();
+            $chairUserId = Chair::where('user_id', $id)->first();
 
-            $CheckIfChairBusy = Chair::where('user_id', $id)->first();
-            if ($CheckIfChairBusy->status != "busy") {
-                if ($CheckUserDaily) {
-                    $dt = new \DateTime();
-                    $start = Carbon::parse($CheckUserDaily->start_time);
-                    $total = $start->diffInHours(Carbon::now());
+            // Find today's attendance record without a check-out
+            $attendance = Daily::where('user_id', $id)->whereDate('date', $date)->whereNull('check_in')->first();
 
-                    $AddUserToChair = Chair::where('user_id', $id)->update([
-                        'user_id' => null
+            try {
+                DB::beginTransaction();
+
+                if (!$attendance) {
+                    $userCheck_in = Daily::create([
+                        'date' => $date,
+                        'check_in' => $check_in,
+                        'user_id' => $id,
+                        'status' => 'حضور',
                     ]);
-                    if ($AddUserToChair) {
-                        Daily::where('user_id', $id)->orderBy('id', 'desc')->take(1)->update([
-                            'end_time' => $dt->format('H:i:s'),
-                            'duration' => $total
-                        ]);
 
-                        return redirect()->route('dashboard.index')
-                            ->with('success', 'تم الانصراف');
+                    // Cache the assignment with a unique key for the chair
+                    Cookie::queue("user_chair_{$request->chair_id}", $id);
+
+                    // Check if the chair is not already assigned to another user
+                    if ($chairUserId === null) {
+                        Chair::where('id', $request->chair_id)->update([
+                            'user_id' => $id,
+                        ]);
                     } else {
-                        return '<p class="alert alert-danger">عفوا هذا الموظف غير موجود علي الكرسي</p>';
+                        DB::rollBack();
+                        return response()->json(['message' => 'هذا الموظف مسجل حضور ولديه كرسي بالفعل!']);
                     }
                 } else {
-                    return '<p class="alert alert-danger">حدث خطاء تأكد من حضور الموظف  اولا </p>';
+                    DB::rollBack();
+                    return response()->json(['message' => 'هذا الموظف مسجل حضور يجب عمل أنصراف أولا']);
                 }
-            } else {
-                return redirect()->route('error.msg')->withErrors(['msg' => 'يرجي انهاء الفاتورة اولا']);
+
+                DB::commit();
+                toastr()->success('تم حضور الموظف بنجاح.');
+                return redirect()->route('dashboard.index');
+            } catch (Exception $e) {
+                DB::rollBack();
+                return response()->json(['error' => $e->getMessage()], 500);
             }
         }
 
+        if ($request->checkOut) {
+            $date = now()->toDateString();
+            $check_out = now()->toTimeString();
 
+            $chairUserId = Chair::where('user_id', $id)->first();
 
-        if ($request->presence) {
-            $CheckIfChairHasUser = Chair::where('id', $request->chair_id)->first();
-            if (!$CheckIfChairHasUser->user_id) {
-                $dt = new \DateTime();
-                $AddUserToChair = Chair::where('id', $request->chair_id)->update([
-                    'user_id' => $id
-                ]);
-                if ($AddUserToChair) {
+            // Find today's attendance record without a check-out
+            $leave = Daily::where('user_id', $id)->whereDate('date', $date)->whereNull('check_out')->first();
 
-                    Daily::where('user_id', $id)->create([
-                        'start_time' => $dt->format('H:i:s'),
-                        'user_id' => $id
+            try {
+                DB::beginTransaction();
+
+                if ($leave) {
+                    // Update the record with the check-out time.
+                    $leave->update([
+                        'check_out' => $check_out,
+                        'status' => 'أنصراف',
                     ]);
-                }
-            } else {
-                return 'عفوا يرجي عمل انصراف للموظف الحالي اولا';
-            }
 
-            return redirect()->route('dashboard.index')
-                ->with('success', 'تم الحضور');
+                    // Optionally, delete the chair assignment cookie here if necessary
+                    Cookie::queue(Cookie::forget("user_chair_{$request->chair_id}"));
+
+                    // Check if the chair is not already assigned to another user
+                    if ($chairUserId) {
+                        $chairUserId->update([
+                            'user_id' => null,
+                        ]);
+                    } else {
+                        DB::rollBack();
+                        return response()->json(['message' => 'هذا الموظف ليس لديه كرسي.']);
+                    }
+                } else {
+                    DB::rollBack();
+                    toastr()->success('هذا الموظف لم يسجل حضور يجب تسجيل الحضور أولا.');
+                    return redirect()->back();
+                }
+
+                // Calculate the duration between check-in and check-out
+                $checkInTime = new Carbon($leave->check_in);
+                $checkOutTime = new Carbon($leave->check_out);
+
+                $durationInHours = $checkInTime->diffInHours($checkOutTime);
+                $leave->duration = $durationInHours;
+                $leave->save();
+
+                DB::commit();
+                toastr()->success('تم أنصراف الموظف بنجاح.');
+                return redirect()->route('dashboard.index');
+            } catch (Exception $e) {
+                DB::rollBack();
+                return response()->json(['error' => $e->getMessage()], 500);
+            }
         }
     }
 }

@@ -90,7 +90,8 @@
 
                         <a href="{{route('dashboard.products.index')}}">
                             <li class="list-list-item">
-                                <i class="ri-product-hunt-line"></i> <span> الخدمات والمنتجات</span>
+                                <i class="ri-product-hunt-line"></i>
+                                <span> الخدمات والمنتجات</span>
                             </li>
                         </a>
 
@@ -103,6 +104,12 @@
                         <a href="{{route('invoices.all')}}">
                             <li class="list-list-item">
                                 <i class="fas fa-receipt"></i> <span>الفواتير</span>
+                            </li>
+                        </a>
+
+                        <a href="{{route('reservations')}}">
+                            <li class="list-list-item">
+                                <i class="fas fa-calendar-alt"></i> <span>الحجوزات</span>
                             </li>
                         </a>
                     </ul>

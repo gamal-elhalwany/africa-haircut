@@ -24,16 +24,18 @@ class Product extends Model
         'branch_id',
     ];
 
-
-    //START RELATIONSHIPS
     public function branch()
     {
         return $this->belongsTo(Branch::class, 'branch_id');
     }
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    //END RELATIONSHIPS
+    public function item()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
 }

@@ -43,7 +43,7 @@
                          </div>
 
 
-                         <label for="month"> من تاريخ</label>
+                         <label for="month"> إلى تاريخ</label>
                         <div class="input-style">
                             <input type="date" id="date" name="end_date_time" class="form-control">
                         </div>

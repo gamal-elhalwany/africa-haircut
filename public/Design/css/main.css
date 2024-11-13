@@ -13,9 +13,9 @@ ul
     margin: 0;
 }
 
-h2, h3, h4, h5, h6
+body * , h2, h3, h4, h5, h6, p
 {
-    font-family: 'Prata', sans-serif;
+    font-family: "Noto Kufi Arabic", 'Prata', sans-serif;
 }
 
 .padding-10
@@ -61,7 +61,7 @@ body
 {
 	font-size: 16px;
 	background-color: white;
-	font-family: 'Roboto', sans-serif;
+	font-family: "Noto Kufi Arabic", 'Roboto', sans-serif;
 }
 
 /*** END BODY STYLE ****/
@@ -831,6 +831,10 @@ ul#mobile-menu.menu li a
     width: calc(100% - 150px);
     text-align: center;
     display: inline-block;
+}
+
+.chair-content {
+    box-shadow: 0px 0px 10px 2px lightgray;
 }
 
 /*** END MOBILE NAVBAR STYLE ****/

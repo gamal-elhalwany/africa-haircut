@@ -31,7 +31,7 @@
             <form  class="search" action="{{route('customer.search',$Chair->id)}}" method="POST">
                 @csrf
                 <div class="input-style">
-                    <input type="text" id="mobile" name="mobile" class="form-control" placeholder="رقم موبيل العميل">
+                    <input type="text" id="mobile" name="mobile" class="form-control" placeholder="رقم موبايل العميل">
                 </div>
                 <button type="submit" class="btn btn-primary">
                     <i class="fa-solid fa-magnifying-glass"></i>
@@ -47,7 +47,7 @@
                             <p>{{ $message }}</p>
                         </div>
                     @endif
-                    <input type="text" id="name" name="name" class="form-control" placeholder="أسم العميل">
+                    <input type="text" id="name" name="name" class="form-control" placeholder="أسم العميل" value="{{ $customer->name ?? '' }}">
                     <div class="create-customer-meg">
                         @if($errors->has('name'))
                             <div class="alert alert-danger">{{ $errors->first('name')}}</div>
@@ -55,7 +55,7 @@
                     </div>
                 </div>
                 <div class="input-style">
-                    <input type="text" id="mobile" name="mobile" class="form-control" placeholder="رقم الموبيل">
+                    <input type="text" id="mobile" name="mobile" class="form-control" placeholder="رقم الموبيل" value="{{ $customer->mobile ?? '' }}">
                     <div class="create-customer-meg">
                         @if($errors->has('mobile'))
                             <div class="alert alert-danger">{{ $errors->first('mobile')}}</div>
@@ -64,7 +64,7 @@
                 </div>
 
                 <div class="input-style">
-                    <input type="email" id="email" name="email" class="form-control" placeholder="البريد الالكتروني">
+                    <input type="email" id="email" name="email" class="form-control" placeholder="البريد الالكتروني" value="{{ $customer->email ?? '' }}">
                     <div class="create-customer-meg">
                         @if($errors->has('email'))
                             <div class="alert alert-danger">{{ $errors->first('email')}}</div>
@@ -76,6 +76,9 @@
                         إضافة العميل
                     </button>
                 </div>
+                @if($customer)
+                <a href="{{route('set.invoice', [$getChair[0]->id, $customer->name ?? ''])}}" class="text-dark">هذا العميل مسجل لدينا بالفعل ويمكنك فتح فاتورة له بالضغط هنا.</a>
+                @endif
             </form>
         </div>
     </div>

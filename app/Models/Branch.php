@@ -38,6 +38,10 @@ class Branch extends Model
     {
         return $this->hasMany(Invoice::class);
     }
-    //END RELATIONSHIPS
+
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class);
+    }
 
 }
