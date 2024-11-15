@@ -34,6 +34,17 @@
                         </div>
                         @endif
 
+                        @if(isset($lowStockAlert) && $lowStockAlert)
+                        <div class="alert alert-warning">
+                            <strong>تحذير! </strong>بعض المنتجات قد وصلت الي الحد الأدني من الكمية المخزونة:
+                            <ul>
+                                @foreach($lowStockProducts as $product)
+                                <li>{{$loop->iteration }} - {{ $product->name }} - فقط {{ $product->quantity }} المتبقي من المخزون!</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
+
                         @foreach($Available as $AvailableChairs)
                         <li class="manager-item">
                             <img src="{{asset('Design/images/available.png')}}">

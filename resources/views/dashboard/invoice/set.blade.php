@@ -59,11 +59,11 @@
                 @foreach($Products as $Product)
                 <div class="input-style checkBox">
                     <label for="{{$Product->name}}">{{$Product->name}}</label>
-                    <input type="checkbox" id="{{$Product->name}}" name="product[]" value="{{$Product}}" />
+                    <input type="checkbox" id="{{$Product->name}}" name="products[{{ $Product->id }}][selected]" value="{{$Product->id}}" />
                 </div>
                 <div class="input-style checkBox">
                     <label for="qty">الكمية:</label>
-                    <input type="number" id="qty" name="qty[]" min="1"/>
+                    <input type="number" id="qty" name="products[{{ $Product->id }}][qty]" min="1" />
                 </div>
                 @endforeach
 
@@ -73,6 +73,7 @@
                 </div>
                 <button type="submit" class="btn btn-primary">حفظ</button>
             </form>
+
         </div>
     </div>
 </div>

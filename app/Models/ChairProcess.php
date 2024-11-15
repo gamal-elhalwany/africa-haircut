@@ -9,10 +9,26 @@ class ChairProcess extends Model
 {
     use HasFactory;
 
-    protected $fillable=[
+    protected $fillable = [
         'chair_id',
         'user_id',
         'customer_id',
-        'cost',
+        'check_in',
+        'check_out',
     ];
+
+    public function chair()
+    {
+        return $this->belongsTo(Chair::class);
+    }
+
+    // Accessor for calculating the duration
+    public function getDurationAttribute()
+    {
+        if ($this->check_in && $this->check_out) {
+            return $this->check_in->diffInMinutes($this->check_out);
+        }
+
+        return null; // Return null if check_in or check_out is missing.
+    }
 }

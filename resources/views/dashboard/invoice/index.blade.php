@@ -21,14 +21,14 @@
         </div>
         <ul>
             @if($errors->has('CustomerNotExist'))
-                <li class="alert alert-danger">{{ $errors->first('CustomerNotExist') }}</li>
+            <li class="alert alert-danger">{{ $errors->first('CustomerNotExist') }}</li>
             @endif
 
         </ul>
         <div class="invoice-content">
 
             <!-- Search Form -->
-            <form  class="search" action="{{route('customer.search',$Chair->id)}}" method="POST">
+            <form class="search" action="{{route('customer.search',$Chair->id)}}" method="POST">
                 @csrf
                 <div class="input-style">
                     <input type="text" id="mobile" name="mobile" class="form-control" placeholder="رقم موبايل العميل">
@@ -39,35 +39,35 @@
             </form>
             <!-- Search Form -->
 
-            <form  action="{{ route('customer.create', $getChair[0]->id) }}" class="create-customer" method="POST">
+            <form action="{{ route('customer.create', $getChair[0]->id) }}" class="create-customer" method="POST">
                 @csrf
                 <div class="input-style">
                     @if ($message = Session::get('success'))
-                        <div class="alert alert-success">
-                            <p>{{ $message }}</p>
-                        </div>
+                    <div class="alert alert-success">
+                        <p>{{ $message }}</p>
+                    </div>
                     @endif
-                    <input type="text" id="name" name="name" class="form-control" placeholder="أسم العميل" value="{{ $customer->name ?? '' }}">
+                    <input type="text" id="name" name="name" class="form-control" placeholder="أسم العميل" value="{{ request('mobile') ? ($customer->name ?? '') : '' }}">
                     <div class="create-customer-meg">
                         @if($errors->has('name'))
-                            <div class="alert alert-danger">{{ $errors->first('name')}}</div>
+                        <div class="alert alert-danger">{{ $errors->first('name')}}</div>
                         @endif
                     </div>
                 </div>
                 <div class="input-style">
-                    <input type="text" id="mobile" name="mobile" class="form-control" placeholder="رقم الموبيل" value="{{ $customer->mobile ?? '' }}">
+                    <input type="text" id="mobile" name="mobile" class="form-control" placeholder="رقم الموبيل" value="{{ request('mobile') ? ($customer->mobile ?? '') : '' }}">
                     <div class="create-customer-meg">
                         @if($errors->has('mobile'))
-                            <div class="alert alert-danger">{{ $errors->first('mobile')}}</div>
+                        <div class="alert alert-danger">{{ $errors->first('mobile')}}</div>
                         @endif
                     </div>
                 </div>
 
                 <div class="input-style">
-                    <input type="email" id="email" name="email" class="form-control" placeholder="البريد الالكتروني" value="{{ $customer->email ?? '' }}">
+                    <input type="email" id="email" name="email" class="form-control" placeholder="البريد الالكتروني" value="{{ request('mobile') ? ($customer->email ?? '') : '' }}">
                     <div class="create-customer-meg">
                         @if($errors->has('email'))
-                            <div class="alert alert-danger">{{ $errors->first('email')}}</div>
+                        <div class="alert alert-danger">{{ $errors->first('email')}}</div>
                         @endif
                     </div>
                 </div>
@@ -76,8 +76,10 @@
                         إضافة العميل
                     </button>
                 </div>
+                @if(request('mobile') !== null)
                 @if($customer)
                 <a href="{{route('set.invoice', [$getChair[0]->id, $customer->name ?? ''])}}" class="text-dark">هذا العميل مسجل لدينا بالفعل ويمكنك فتح فاتورة له بالضغط هنا.</a>
+                @endif
                 @endif
             </form>
         </div>

@@ -34,8 +34,13 @@ class Product extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function item()
+    public function items()
     {
         return $this->hasMany(OrderItem::class);
+    }
+
+    public function invoices()
+    {
+        return $this->belongsToMany(Invoice::class, 'order_item')->withPivot('qty')->withTimestamps();
     }
 }

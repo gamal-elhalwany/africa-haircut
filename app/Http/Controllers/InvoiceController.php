@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Chair;
+use App\Models\ChairProcess;
 use App\Models\Invoice;
 use App\Models\Product;
 use App\Models\Customer;
 use App\Models\OrderItem;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -31,7 +33,15 @@ class InvoiceController extends Controller
             $query->where('mobile', $mobile);
         })->first();
 
-        return view('dashboard.invoice.index', compact('products', 'getChair', 'customer'));
+        $chairProcess = ChairProcess::where('check_out', null)->first();
+
+        if ($chairProcess) {
+            if ($chairProcess->chair_id == $id) {
+                return view('dashboard.invoice.index', compact('products', 'getChair', 'customer'));
+            }
+        }
+        toastr()->error('هذاالكرسي ليس محجوراً حتي الآن');
+        return redirect()->route('dashboard.index');
     }
 
     public function CustomerCreateMethod(Request $request)
@@ -61,14 +71,22 @@ class InvoiceController extends Controller
     {
         $Products = Product::all();
         $Chair = Chair::where('id', $id)->with('branch')->with('user')->first();
-        return view('dashboard.invoice.set', compact('customer', 'Products', 'Chair'));
+        $chairProcess = ChairProcess::where('check_out', null)->first();
+
+        if ($chairProcess) {
+            if ($chairProcess->chair_id == $id) {
+                return view('dashboard.invoice.set', compact('customer', 'Products', 'Chair'));
+            }
+        }
+        toastr()->error('لا يوجد عمليات لهذا الكرسي.');
+        return redirect()->route('dashboard.index');
     }
 
     public function SaveInvoiceMethod(Request $request, $id, Customer $customer)
     {
         $this->validate(
             $request,
-            ['product' => 'required', 'qty' => 'required', 'numeric',],
+            ['products' => 'required'],
             ['required' => 'يرجي تحديد الخدمات للعميل ',]
         );
 
@@ -77,43 +95,38 @@ class InvoiceController extends Controller
             'customer_id' => $customer->id,
         ]);
 
-        foreach ($request->product as $index => $singleProduct) {
-            $updatedProduct = json_decode($singleProduct);
+        foreach ($request->input('products') as $productId => $productData) {
+            if (isset($productData['selected'])) {
+                $product = Product::find($productId);
 
-            $product = Product::find($updatedProduct->id);
+                if ($product->quantity >= $productData['qty']) {
 
-            if ($product) {
-                $qty = $request->qty[$index];
+                    $orderItem = OrderItem::create([
+                        'invoice_id' => $invoice->id,
+                        'product_id' => $productData['selected'],
+                        'product_name' => $product->name,
+                        'price' => $product->sell_price,
+                        'qty' => $productData['qty'],
+                    ]);
 
-                // Creating order item
-                $orderItem = OrderItem::create([
-                    'invoice_id' => $invoice->id,
-                    'product_id' => $product->id,
-                    'product_name' => $product->name,
-                    'price' => $product->sell_price,
-                    'qty' => $qty,
-                ]);
-
-                $product->quantity -= $qty;
-                $product->save();
-            } else {
-                toastr()->error("Product with ID {$updatedProduct->id} not found.");
+                    // Decrease product stock.
+                    $product->decrement('quantity', $productData['qty']);
+                } else {
+                    toastr()->info("لا يوجد مزون كاف من هذا المنتج {$product->name}.");
+                    return back();
+                }
             }
         }
-
-
-
-        // $totalCost = OrderItem::where('invoice_id', $invoice->id)->sum('price');
-        // $ChairProcess = ChairProcess::create([
-        //     'chair_id' => $id,
-        //     'customer_id' => $customer->id,
-        //     'user_id' => $chair->user->id,
-        //     'cost' => $totalCost,
-        // ]);
 
         $chair = Chair::where('id', $id)->first();
         $chair->status = 'available';
         $chair->save();
+
+        $chairProcesses = ChairProcess::where('chair_id', $id)->where('check_out', null)->first();
+        if ($chairProcesses) {
+            $chairProcesses->check_out = Carbon::now();
+            $chairProcesses->save();
+        }
 
         DB::commit();
         DB::rollBack();
@@ -155,5 +168,4 @@ class InvoiceController extends Controller
         }
         return redirect('/');
     }
-
 }

@@ -17,7 +17,6 @@ class ProductsController extends Controller
     {
         $Products = Product::all();
         return view('dashboard.products.index',compact('Products'));
-
     }
 
     /**
@@ -54,13 +53,12 @@ class ProductsController extends Controller
             'branch_id'=>$request->branch_id,
         ]);
         if ($request->status =="service"){
-            $SuccessMsg = 'تم إضافة الخدمة بنجاح';
+            toastr()->success('تم إضافة الخدمة بنجاح');
         } else {
-            $SuccessMsg = 'تم إضافة المنتج بنجاح';
+            toastr()->success('تم إضافة المنتج بنجاح');
         }
 
-        return redirect()->route('dashboard.products.index')->with('success',$SuccessMsg);
-
+        return redirect()->route('dashboard.products.index');
     }
 
     /**
@@ -85,7 +83,6 @@ class ProductsController extends Controller
         $GetProductByID = Product::where('id',$id)->get();
         $Branches = Branch::all();
         return view('dashboard.products.edit',compact('GetProductByID','Branches'));
-
     }
 
     /**
@@ -111,8 +108,8 @@ class ProductsController extends Controller
             'status'=>$request->status,
             'branch_id'=>$request->branch_id,
         ]);
-        return redirect()->route('dashboard.products.index')->with('success','تم تعديل المنتج المنتج بنجاح');
-
+        toastr()->success('تم تعديل المنتج المنتج بنجاح');
+        return redirect()->route('dashboard.products.index');
     }
 
     /**
@@ -124,7 +121,7 @@ class ProductsController extends Controller
     public function destroy($id)
     {
         $delete = Product::where('id',$id)->delete();
-        return redirect()->route('dashboard.products.index')->with('success','تم حذف المنتج بنجاح');
-
+        toastr()->success('تم حذف المنتج بنجاح');
+        return redirect()->route('dashboard.products.index');
     }
 }

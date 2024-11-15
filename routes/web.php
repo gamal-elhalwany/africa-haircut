@@ -14,7 +14,6 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\BranchesController;
 use App\Http\Controllers\Front\AppoinmentController;
 use App\Http\Controllers\ProductsController;
-use App\Models\Chair;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,18 +41,16 @@ Route::get('/{lang}', function ($lang) {
 //*******************************************************//
 //******************* User Routes **********************//
 
-Route::get('dashboard/login', function () {
-    return view('dashboard.login');
-});
+Route::get('dashboard/login', [UserController::class, 'loginPage'])->name('login.page');
 
 Route::post('dashboard/login', [UserController::class, 'LoginMethod'])->name('login');
 
-Route::get('dashboard/index', [UserController::class, 'IndexMethod'])->middleware(['auth'])->name('dashboard.index');
+Route::get('dashboard/index', [UserController::class, 'IndexMethod'])->middleware(['auth', 'check_product_qty'])->name('dashboard.index');
 
 //***************************************************************//
 //******************* Dashboard routes *************************//
 
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth', 'check_product_qty']], function () {
 
     Route::resource('dashboard/roles', RoleController::class, ['as' => 'dashboard']);
     Route::resource('dashboard/users', UserController::class, ['as' => 'dashboard']);
@@ -77,8 +74,6 @@ Route::group(['middleware' => ['auth']], function () {
 
     /****************************************************************************/
     /*************************** invoices routes ********************************/
-
-    // Route::post('customerSearch/{id}', [InvoiceController::class, 'CustomerSearchMethod'])->name('customer.search');
 
     Route::post('invoice/{id}', [InvoiceController::class, 'OpenInvoiceMethod'])->name('customer.search');
 

@@ -36,4 +36,9 @@ class Chair extends Model
     {
         return $this->hasMany(Appointment::class);
     }
+
+    public function processes()
+    {
+        return $this->hasMany(ChairProcess::class);
+    }
 }

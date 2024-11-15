@@ -9,23 +9,36 @@ use App\Models\Chair;
 use App\Models\Daily;
 use App\Models\Branch;
 use Illuminate\Support\Arr;
+use App\Models\ChairProcess;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\CreateUserRequest;
 use Illuminate\Support\Facades\Cookie;
+use App\Http\Requests\CreateUserRequest;
+use App\Models\Appointment;
 use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
     function __construct()
     {
-        //    $this->middleware('permission:show-users', ['only' => ['index','show']]);
-        //    $this->middleware('permission:create-user', ['only' => ['create','store']]);
-        //    $this->middleware('permission:edit-user', ['only' => ['edit','update']]);
+        $this->middleware('permission:انشاء-مستخدم|تعديل-مستخدم|حذف-مستخدم', ['only' => ['index', 'show']]);
+        $this->middleware('permission:انشاء-مستخدم|تعديل-مستخدم|حذف-مستخدم', ['only' => ['create', 'store']]);
+        $this->middleware('permission:انشاء-مستخدم|تعديل-مستخدم|حذف-مستخدم', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:انشاء-مستخدم|تعديل-مستخدم|حذف-مستخدم', ['only' => ['destroy']]);
+    }
+
+    public function loginPage()
+    {
+        $user = auth()->user();
+        if (!$user) {
+            toastr()->error('يجب تسجيل الدخول أولا.');
+            return view('dashboard.login');
+        }
+        return redirect()->route('dashboard.index');
     }
 
     //Login method
@@ -192,15 +205,29 @@ class UserController extends Controller
     {
         $CheckUserChair = Chair::where('id', $id)->first();
 
-        if ($CheckUserChair->user_id) {
-            $UpdateChairStatus = Chair::where('id', $id)->update([
-                'status' => 'Busy'
-            ]);
-        } else {
-            return '<h3>يرجي تحديد مستخدم قبل حجز الكرسي</h3>';
+        try {
+            DB::beginTransaction();
+            if ($CheckUserChair->user_id) {
+                $UpdateChairStatus = Chair::where('id', $id)->update([
+                    'status' => 'Busy'
+                ]);
+
+                $ChairProcess = ChairProcess::create([
+                    'user_id' => $CheckUserChair->user->id,
+                    'chair_id' => $CheckUserChair->id,
+                    'check_in' => Carbon::now(),
+                ]);
+
+            } else {
+                return '<h3>يرجي تحديد مستخدم قبل حجز الكرسي</h3>';
+            }
+            DB::commit();
+            toastr()->success('تم حجز الكرسي');
+            return redirect()->route('dashboard.index');
+        } catch (Exception $e) {
+            DB::rollBack();
+            return '<h3>حدث خطأ في عملية الحجز</h3>';
         }
-        toastr()->success('تم حجز الكرسي');
-        return redirect()->route('dashboard.index');
     }
 
 
@@ -284,7 +311,7 @@ class UserController extends Controller
                         'status' => 'أنصراف',
                     ]);
 
-                    // Optionally, delete the chair assignment cookie here if necessary
+                    // delete the chair assignment cookie here if necessary
                     Cookie::queue(Cookie::forget("user_chair_{$request->chair_id}"));
 
                     // Check if the chair is not already assigned to another user

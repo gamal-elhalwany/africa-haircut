@@ -13,8 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('order_items', function (Blueprint $table) {
-            $table->string('qty')->nullable();
+        Schema::table('chair_processes', function (Blueprint $table) {
+            $table->timestamp('check_in')->nullable()->after('customer_id');
+            $table->timestamp('check_out')->nullable()->after('check_in');
         });
     }
 
@@ -25,8 +26,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('order_items', function (Blueprint $table) {
-            $table->dropColumn('qty');
+        Schema::table('chair_processes', function (Blueprint $table) {
+            $table->dropColumn(['check_in', 'check_out']);
         });
     }
 };
