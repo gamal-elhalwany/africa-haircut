@@ -93,7 +93,12 @@ class InvoiceController extends Controller
         DB::beginTransaction();
         $invoice = Invoice::create([
             'customer_id' => $customer->id,
+            'total_cost' => 0.00,
         ]);
+
+        $currentYear = Carbon::now()->year;
+        $currentMonth = Carbon::now()->month;
+        $serialNumber = 'INV-' . $currentYear . '-' . str_pad($currentMonth, 2, '0', STR_PAD_LEFT) . '-' . str_pad($invoice->id, 4, '0', STR_PAD_LEFT);
 
         foreach ($request->input('products') as $productId => $productData) {
             if (isset($productData['selected'])) {
@@ -105,7 +110,7 @@ class InvoiceController extends Controller
                         'invoice_id' => $invoice->id,
                         'product_id' => $productData['selected'],
                         'product_name' => $product->name,
-                        'price' => $product->sell_price,
+                        'price' => $product->sell_price * $productData['qty'],
                         'qty' => $productData['qty'],
                     ]);
 
@@ -128,6 +133,17 @@ class InvoiceController extends Controller
             $chairProcesses->save();
         }
 
+        $totalCost = 0;
+        $invoiceItems = OrderItem::where('invoice_id', $invoice->id)->with('product')->get();
+
+        foreach ($invoiceItems as $item) {
+            $totalCost += $item->price;
+        }
+
+        $invoice->total_cost = $totalCost;
+        $invoice->serial_number = $serialNumber;
+        $invoice->save();
+
         DB::commit();
         DB::rollBack();
         return redirect()->route('customer.invoice', $customer->name)->with('success', 'تم تسجيل الفاتورة بنجاح');
@@ -142,8 +158,7 @@ class InvoiceController extends Controller
             foreach ($customerInvoices as $invoice) {
                 $invoiceItems = OrderItem::where('invoice_id', $invoice->id)->with('product')->get();
                 foreach ($invoiceItems as $item) {
-                    $totalItemPrice = $item->price * $item->qty;
-                    $totalPrice += $totalItemPrice;
+                    $totalPrice += $item->price;
                 }
             }
             return view('dashboard/customers/customer_invoice', compact('customerInvoices', 'invoiceItems', 'customer', 'totalPrice'));
@@ -151,10 +166,9 @@ class InvoiceController extends Controller
         return redirect()->back();
     }
 
-    public function deleteInvoice(Customer $customer, $id)
+    public function collectInvoice(Customer $customer, $id)
     {
         $invoice = Invoice::find($id);
-        $invoice->delete();
         toastr()->success('تم تحصيل وطباعة الفاتورة بنجاح');
         return redirect()->route('dashboard.index');
     }
