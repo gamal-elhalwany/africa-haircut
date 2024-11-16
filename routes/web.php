@@ -9,11 +9,12 @@ use App\Http\Controllers\JobsController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ChairsController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\BranchesController;
-use App\Http\Controllers\Front\AppoinmentController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\Front\AppoinmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -89,13 +90,16 @@ Route::group(['middleware' => ['auth', 'check_product_qty']], function () {
 
     Route::get('/customer-invoice/{customer:name}/', [InvoiceController::class, 'CustomerInvoiceMethod'])->name('customer.invoice');
 
-    Route::delete('/customer-invoice/{customer:name}/{id}/delete', [InvoiceController::class, 'deleteInvoice'])->name('customer.invoice.delete');
+    Route::delete('/customer-invoice/{customer:name}/{id}/collect', [InvoiceController::class, 'collectInvoice'])->name('customer.invoice.collect');
 
-    /**
-     *
-     * Display Appointments on the Dashboard Routes.
-     */
+
+    // Display Appointments on the Dashboard Routes.
     Route::get('/appointments/reservations', [AppoinmentController::class, 'reservations'])->name('reservations');
+
+    // Cashier Reports Routes.
+    Route::get('dashboard/reports', [ReportController::class, 'index'])->name('reports.index');
+    Route::get('dashboard/reports/generate', [ReportController::class, 'generate'])->name('reports.generate');
+
 
     Route::get('user/error', function () {
         return view('dashboard.error');

@@ -3,86 +3,183 @@
 
 @section('content')
 
-<div class="container">
-    <h2 class="mt-3 mb-3 p-3 text-white text-center bg-dark">الكراسي المتاحة</h2>
-    <div class="row">
-        <div class="col-md-12">
-            @if(session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>{{ session('success') }}</strong>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            @endif
-            @if(session('error'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>{{ session('error') }}</strong>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            @endif
-        </div>
+<style>
+    /* Global Styling */
+    body {
+        font-family: 'Cairo', sans-serif;
+        background: linear-gradient(to bottom, #e3f2fd, #e1bee7);
+        margin: 0;
+        padding: 0;
+    }
 
+    .container {
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+
+    h2 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        text-align: center;
+        color: #fff;
+        background: linear-gradient(45deg, #6a1b9a, #283593);
+        padding: 15px;
+        border-radius: 12px;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .row {
+        margin-top: 20px;
+        gap: 20px;
+    }
+
+    /* Card Styling */
+    .card {
+        background: #fff;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease-in-out;
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .card-body {
+        padding: 20px;
+        text-align: center;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #283593;
+        margin-bottom: 10px;
+    }
+
+    .card-text {
+        font-size: 1rem;
+        color: #616161;
+        margin-bottom: 20px;
+    }
+
+    /* Form Styling */
+    .form-control {
+        border: none;
+        border-radius: 10px;
+        padding: 12px 15px;
+        font-size: 1rem;
+        color: #333;
+        background: #f5f5f5;
+        box-shadow: inset 3px 3px 8px #d1d1d1, inset -3px -3px 8px #ffffff;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .form-control:focus {
+        outline: none;
+        box-shadow: 0 0 5px rgba(103, 58, 183, 0.8);
+    }
+
+    .btn-primary {
+        background: linear-gradient(45deg, #6a1b9a, #283593);
+        color: #fff;
+        font-weight: bold;
+        border: none;
+        border-radius: 30px;
+        padding: 12px 20px;
+        font-size: 1rem;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-5px);
+        background: linear-gradient(45deg, #512da8, #1e88e5);
+    }
+
+    .alert {
+        border-radius: 15px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+<div class="container">
+    <h2>الكراسي المتاحة</h2>
+
+    <!-- Flash Messages -->
+    @if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+        <strong>{{ session('success') }}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
+
+    @if(session('error'))
+    <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+        <strong>{{ session('error') }}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
+
+    <div class="row justify-content-center">
         @if($chairs->count() > 0)
         @foreach($chairs as $chair)
-        <div class="col-md-3">
-            <div class="chair-content">
-                <div class="chair">
-                    <div class="chair-direct">
-                        <img src="https://l.top4top.io/p_26550dd1k1.jpg" height="100%" width="100%">
-                        <div class="chair-details">
-                            <h6> كرسي : {{$chair->number}} </h6>
-                            <p> الدور : {{$chair->floor}} </p>
-                            <p> فرع : {{$chair->branch->name}} </p>
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="card">
+                <img src="https://l.top4top.io/p_26550dd1k1.jpg" alt="Chair Image">
+                <div class="card-body">
+                    <h5 class="card-title">كرسي: {{$chair->number}}</h5>
+                    <p class="card-text">الدور: {{$chair->floor}}</p>
+                    <p class="card-text">فرع: {{$chair->branch->name}}</p>
+
+                    <form action="{{ route('store.appointment') }}" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                            <input type="text" name="customer_name" class="form-control" placeholder="الأسم" required>
+                            @error('customer_name')
+                            <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
                         </div>
 
-                        <form action="{{route('store.appointment')}}" method="POST">
-                            @csrf
-                            <div class="form-group">
-                                <label for="customer_name">الأسم:</label>
-                                <input type="text" name="customer_name" class="form-control mb-2 p-2" required/>
-                                @error('customer_name')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
+                        <div class="mb-3">
+                            <input type="text" name="mobile" class="form-control" placeholder="رقم الموبايل" required>
+                            @error('mobile')
+                            <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
 
-                                <label for="customer_name">رقم الموبايل:</label>
-                                <input type="text" name="mobile" class="form-control mb-2 p-2" required/>
-                                @error('mobile')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
+                        <input type="hidden" name="chair_id" value="{{$chair->id}}">
+                        <input type="hidden" name="branch_id" value="{{$chair->branch->id}}">
 
-                                <input type="hidden" name="chair_id" value="{{$chair->id}}">
-                                <input type="hidden" name="branch_id" value="{{$chair->branch->id}}">
+                        <div class="mb-3">
+                            <input type="date" name="appointment_date" class="form-control" min="{{ now()->toDateString() }}" required>
+                            @error('appointment_date')
+                            <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
 
-                                <!-- Date Selection -->
-                                <div class="mb-3">
-                                    <label for="appointment_date" class="form-label">أختر التاريخ</label>
-                                    <input type="date" name="appointment_date" id="appointment_date" class="form-control" min="{{ now()->toDateString() }}" required>
-                                    @error('appointment_date')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                        <div class="mb-3">
+                            <input type="time" name="start_at" class="form-control" required>
+                            @error('start_at')
+                            <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
 
-                                <!-- Time Selection -->
-                                <div class="mb-3">
-                                    <label for="start_at" class="form-label">أختر الوقت</label>
-                                    <input type="time" name="start_at" id="start_at" class="form-control" required>
-                                    @error('start_at')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <button type="submit" class="btn btn-primary mb-3">احجز موعداً الاَن</button>
-                            </div>
-                        </form>
-
-                    </div>
+                        <button type="submit" class="btn btn-primary w-100">احجز موعداً الآن</button>
+                    </form>
                 </div>
             </div>
         </div>
         @endforeach
+        @else
+        <p class="text-center mt-5 text-muted">لا توجد كراسي متاحة حالياً.</p>
         @endif
     </div>
 </div>

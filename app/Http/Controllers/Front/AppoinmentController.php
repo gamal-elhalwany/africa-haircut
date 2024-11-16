@@ -21,7 +21,7 @@ class AppoinmentController extends Controller
      */
     public function index()
     {
-        $chairs = Chair::where('status', 'available')->with('branch')->get();
+        $chairs = Chair::where('status', 'available')->where('number', '!=', 0)->with('branch')->get();
         if ($chairs->count() > 0) {
             return view('front.front-chairs', compact('chairs'));
         }

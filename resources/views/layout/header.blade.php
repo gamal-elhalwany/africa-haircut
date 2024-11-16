@@ -134,34 +134,33 @@
     <!-- END NAVBAR MOBILE -->
 
 
-
-
     @yield('content')
 
 
-
-
-
     @section('footer')
-    <footer class="footer_section">
+    <footer class="footer_section padding-0">
         <div class="container">
             <div class="row">
-                <div class="col-md-6 xs-padding">
+                <div class="col-md-8 offset-md-2 xs-padding">
                     <div class="copyright">
-                        ©
+                        copyright
                         <script type="text/javascript">
                             document.write(new Date().getFullYear())
                         </script>
-                        Barber Shop Powered by {{config('app.developer')}}
+                        ©
+                        Africabarber Services Powered by
+                        <strong class="text-danger">
+                            {{config('app.developer')}}
+                        </strong>
                     </div>
                 </div>
-                <div class="col-md-6 xs-padding">
+                <!-- <div class="col-md-12 xs-padding">
                     <ul class="footer_social">
                         <li><a href="#">Orders</a></li>
                         <li><a href="#">Terms</a></li>
                         <li><a href="#">Report Problem</a></li>
                     </ul>
-                </div>
+                </div> -->
             </div>
         </div>
     </footer>

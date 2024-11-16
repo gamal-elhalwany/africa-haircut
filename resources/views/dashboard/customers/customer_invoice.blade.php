@@ -28,7 +28,7 @@
             @endif
         </div>
 
-        <form action="{{route('customer.invoice.delete', [$customerInvoices[0]->customer->name, $customerInvoices[0]->id])}}" method="POST">
+        <form action="{{route('customer.invoice.collect', [$customerInvoices[0]->customer->name, $customerInvoices[0]->id])}}" method="POST">
             @csrf
             @method('DELETE')
             <div class="print-btn">
@@ -55,7 +55,7 @@
                         <ul class="products-services-list-items">
                             @foreach($invoiceItems as $item)
                             <li class="products-services-item">
-                                <strong>{{$loop->iteration}}- {{$item->product_name}} | السعر: {{$item->price * $item->qty}} ج</strong>
+                                <strong>{{$loop->iteration}}- {{$item->product_name}} | السعر: {{$item->price}} ج</strong>
                                 |
                                 <strong>الكمية: {{$item->qty}}</strong>
                             </li>

@@ -14,7 +14,7 @@
     <title> @yield('title','unkonw')</title>
 </head>
 
-<body>
+<body dir="rtl">
 
     <!-- START USER SECTION -->
 
@@ -101,15 +101,21 @@
                             </li>
                         </a>
 
-                        <a href="{{route('invoices.all')}}">
+                        <!-- <a href="{{route('invoices.all')}}">
                             <li class="list-list-item">
                                 <i class="fas fa-receipt"></i> <span>الفواتير</span>
                             </li>
-                        </a>
+                        </a> -->
 
                         <a href="{{route('reservations')}}">
                             <li class="list-list-item">
                                 <i class="fas fa-calendar-alt"></i> <span>الحجوزات</span>
+                            </li>
+                        </a>
+
+                        <a href="{{route('reports.index')}}">
+                            <li class="list-list-item">
+                                <i class="fas fa-chart-line"></i> <span>التقارير</span>
                             </li>
                         </a>
                     </ul>

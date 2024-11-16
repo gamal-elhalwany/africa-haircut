@@ -11,6 +11,8 @@ class Invoice extends Model
 
     protected $fillable=[
         'customer_id',
+        'total_cost',
+        'serial_number',
     ];
 
     public function customer ()
