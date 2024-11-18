@@ -13,6 +13,19 @@ class ChairsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    function __construct()
+    {
+        $this->middleware('permission:انشاء-كرسي|تعديل-كرسي|حذف-كرسي', ['only' => ['index', 'show']]);
+        $this->middleware('permission:انشاء-كرسي|تعديل-كرسي|حذف-كرسي', ['only' => ['create', 'store']]);
+        $this->middleware('permission:انشاء-كرسي|تعديل-كرسي|حذف-كرسي', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:انشاء-كرسي|تعديل-كرسي|حذف-كرسي', ['only' => ['destroy']]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         $Chairs = Chair::with('user')->with('branch')->with('appointments')->orderBy('id', 'DESC')->get();
@@ -47,7 +60,8 @@ class ChairsController extends Controller
         ]);
 
         if ($chair) {
-            return redirect()->back()->with('error', 'لديك كرسي بالفعل ، ولا يمكنك أضافة اخر!');
+            toastr()->error('لديك كرسي بالفعل ، ولا يمكنك أضافة اخر!');
+            return redirect()->back();
         }
         $newChair = Chair::create([
             'floor' => $request->floor,
@@ -103,7 +117,6 @@ class ChairsController extends Controller
     public function destroy(Chair $chair)
     {
         $chair->delete();
-        return redirect()->route('dashboard.chairs.index')->with('success', 'تم حذف الكرسي بنجاح');
         toastr()->error('لا يمكنك حذف الكرسي او القيام بهذه العملية!');
         return redirect()->route('dashboard.chairs.index');
     }

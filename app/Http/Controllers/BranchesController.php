@@ -9,6 +9,14 @@ use Illuminate\Http\Request;
 
 class BranchesController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:انشاء-فرع|تعديل-فرع|حذف-فرع', ['only' => ['index', 'show']]);
+        $this->middleware('permission:انشاء-فرع|تعديل-فرع|حذف-فرع', ['only' => ['create', 'store']]);
+        $this->middleware('permission:انشاء-فرع|تعديل-فرع|حذف-فرع', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:انشاء-فرع|تعديل-فرع|حذف-فرع', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +24,6 @@ class BranchesController extends Controller
      */
     public function index()
     {
-        //Get All Branches
         $Branches = Branch::all();
         return view('dashboard.branches.index',compact('Branches'));
     }
@@ -41,7 +48,8 @@ class BranchesController extends Controller
     public function store(Request $request)
     {
         $StoreNewBranch = Branch::create($request->all());
-        return redirect()->route('dashboard.branches.index')->with('success','تم إضافة الفرع بنجاح');
+        toastr()->success('تم إضافة الفرع بنجاح');
+        return redirect()->route('dashboard.branches.index');
     }
 
     /**
@@ -54,7 +62,6 @@ class BranchesController extends Controller
     {
         $FindBranchID = Branch::where('id',$id)->with('products')->get();
         return view('dashboard.branches.show',compact('FindBranchID'));
-
     }
 
     /**
@@ -84,8 +91,8 @@ class BranchesController extends Controller
             'name'=>$request->branch_name,
             'user_id'=>$request->branch_user
         ]);
-        return redirect()->route('dashboard.branches.index')->with('success','تم تعديل الفرع بنجاح');
-
+        toastr()->success('تم تعديل الفرع بنجاح');
+        return redirect()->route('dashboard.branches.index');
     }
 
     /**
@@ -105,9 +112,8 @@ class BranchesController extends Controller
             return redirect()->route('dashboard.branches.index')->withErrors(['BranchError'=>'حدث خطاء']);
         }
         Branch::where('id',$id)->delete();
-        return redirect()->route('dashboard.branches.index')->with('success','تم حذف الفرع بنجاح');
+        toastr()->success('تم حذف الفرع بنجاح');
+        return redirect()->route('dashboard.branches.index');
 
     }
-
-
 }

@@ -52,7 +52,6 @@
 
     .table tbody tr:hover {
         background-color: #f0f8ff;
-        /* Light blue on hover */
         transition: background-color 0.3s ease-in-out;
     }
 

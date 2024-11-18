@@ -98,7 +98,6 @@
 
     form button:hover {
         background-color: #004085;
-        /* Darker blue */
     }
 </style>
 @endpush

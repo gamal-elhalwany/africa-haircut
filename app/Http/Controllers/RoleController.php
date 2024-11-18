@@ -16,10 +16,10 @@ class RoleController extends Controller
      */
     function __construct()
     {
-        // $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index','store','show']]);
-        // $this->middleware('permission:role-create', ['only' => ['create','store']]);
-        // $this->middleware('permission:role-edit', ['only' => ['edit','update']]);
-        // $this->middleware('permission:role-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:انشاء-صلاحية|تعديل-صلاحية|حذف-صلاحية', ['only' => ['index', 'show']]);
+        $this->middleware('permission:انشاء-صلاحية|تعديل-صلاحية|حذف-صلاحية', ['only' => ['create', 'store']]);
+        $this->middleware('permission:انشاء-صلاحية|تعديل-صلاحية|حذف-صلاحية', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:انشاء-صلاحية|تعديل-صلاحية|حذف-صلاحية', ['only' => ['destroy']]);
     }
 
     /**
@@ -61,8 +61,8 @@ class RoleController extends Controller
         $role = Role::create(['name' => $request->input('name')]);
         $role->syncPermissions($request->input('permission'));
 
-        return redirect()->route('dashboard.roles.index')
-            ->with('success','تم انشاء الصلاحية بنجاح');
+        toastr()->success('تم انشاء الصلاحية بنجاح');
+        return redirect()->route('dashboard.roles.index');
     }
     /**
      * Display the specified resource.
@@ -117,8 +117,8 @@ class RoleController extends Controller
 
         $role->syncPermissions($request->input('permission'));
 
-        return redirect()->route('dashboard.roles.index')
-            ->with('success','تم تعديل الصلاحية بنجاح');
+        toastr()->success('تم تعديل الصلاحية بنجاح');
+        return redirect()->route('dashboard.roles.index');
     }
     /**
      * Remove the specified resource from storage.
@@ -129,7 +129,7 @@ class RoleController extends Controller
     public function destroy($id)
     {
         DB::table("roles")->where('id',$id)->delete();
-        return redirect()->route('dashboard.roles.index')
-            ->with('success','تم حذف الصلاحية بنجاح');
+        toastr()->success('تم حذف الصلاحية بنجاح');
+        return redirect()->route('dashboard.roles.index');
     }
 }

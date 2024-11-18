@@ -8,9 +8,17 @@ use Illuminate\Http\Request;
 
 class ExpenseController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:انشاء-مرتب|تعديل-مرتب|حذف-مرتب', ['only' => ['index', 'show']]);
+        $this->middleware('permission:انشاء-مرتب|تعديل-مرتب|حذف-مرتب', ['only' => ['create', 'store']]);
+        $this->middleware('permission:انشاء-مرتب|تعديل-مرتب|حذف-مرتب', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:انشاء-مرتب|تعديل-مرتب|حذف-مرتب', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
-        $expenses = Expense::orderBy('date', 'desc')->paginate(10); // Paginate results
+        $expenses = Expense::orderBy('date', 'desc')->paginate(10);
         return view('dashboard.expenses.index', compact('expenses'));
     }
 

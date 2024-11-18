@@ -7,6 +7,14 @@ use Illuminate\Http\Request;
 
 class JobsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:انشاء-وظيفة|تعديل-وظيفة|حذف-وظيفة', ['only' => ['index', 'show']]);
+        $this->middleware('permission:انشاء-وظيفة|تعديل-وظيفة|حذف-وظيفة', ['only' => ['create', 'store']]);
+        $this->middleware('permission:انشاء-وظيفة|تعديل-وظيفة|حذف-وظيفة', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:انشاء-وظيفة|تعديل-وظيفة|حذف-وظيفة', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -39,9 +47,8 @@ class JobsController extends Controller
         $Store= Job::create([
             'name'=>$request->name
         ]);
-        return redirect()->route('dashboard.jobs.index')->with('success','تم إضافة الوظيفه بنجاح');;
-
-
+        toastr()->success('تم إضافة الوظيفه بنجاح');
+        return redirect()->route('dashboard.jobs.index');
     }
 
     /**
@@ -79,7 +86,8 @@ class JobsController extends Controller
         Job::where('id',$id)->update([
             'name'=>$request->name
         ]);
-        return redirect()->route('dashboard.jobs.index')->with('success','تم تعديل الوظيفه بنجاح');;
+        toastr()->success('تم تعديل الوظيفه بنجاح');
+        return redirect()->route('dashboard.jobs.index');
 
     }
 
@@ -92,6 +100,7 @@ class JobsController extends Controller
     public function destroy($id)
     {
         $delete = Job::where('id',$id)->delete();
-        return redirect()->route('dashboard.jobs.index')->with('success','تم حذف الوظيفه بنجاح');
+        toastr()->success('تم حذف الوظيفه بنجاح');
+        return redirect()->route('dashboard.jobs.index');
     }
 }
