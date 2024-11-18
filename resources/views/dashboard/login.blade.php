@@ -20,7 +20,7 @@
             <ul class="login-navbar-list-items">
                 <li class="login-navbar-item">
                     <a href="/">
-                        <img src="{{asset('Design/images/barbershop_logo.png')}}" alt="Brand Image" title="Brand">
+                        <img src="{{asset('Design/images/africa_barber_logo.png')}}" alt="Brand Image" title="Brand" width="250px" height="100%">
                     </a>
                 </li>
                 <li class="login-navbar-item"><a href="/">الرئيسية</a></li>

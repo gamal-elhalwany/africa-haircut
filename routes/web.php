@@ -11,6 +11,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ChairsController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SalaryController;
+use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\BranchesController;
 use App\Http\Controllers\ProductsController;
@@ -96,10 +97,18 @@ Route::group(['middleware' => ['auth', 'check_product_qty']], function () {
     // Display Appointments on the Dashboard Routes.
     Route::get('/appointments/reservations', [AppoinmentController::class, 'reservations'])->name('reservations');
 
-    // Cashier Reports Routes.
-    Route::get('dashboard/reports', [ReportController::class, 'index'])->name('reports.index');
-    Route::get('dashboard/reports/generate', [ReportController::class, 'generate'])->name('reports.generate');
+    // Profits and Losses Reports Routes.
+    Route::prefix('dashboard/reports')->group(function () {
+        Route::get('/', [ReportController::class, 'index'])->name('reports.index');
+        Route::post('/generate', [ReportController::class, 'generate'])->name('reports.generate');
+    });
 
+    // Expenses Report Routes.
+    Route::prefix('dashboard/expenses')->group(function () {
+        Route::get('/', [ExpenseController::class, 'index'])->name('expenses.index');
+        Route::get('/create', [ExpenseController::class, 'create'])->name('expenses.create');
+        Route::post('/store', [ExpenseController::class, 'store'])->name('expenses.store');
+    });
 
     Route::get('user/error', function () {
         return view('dashboard.error');

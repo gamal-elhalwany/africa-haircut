@@ -35,7 +35,6 @@ class UserController extends Controller
     {
         $user = auth()->user();
         if (!$user) {
-            toastr()->error('يجب تسجيل الدخول أولا.');
             return view('dashboard.login');
         }
         return redirect()->route('dashboard.index');

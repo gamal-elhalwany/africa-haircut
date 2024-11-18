@@ -101,12 +101,6 @@
                             </li>
                         </a>
 
-                        <!-- <a href="{{route('invoices.all')}}">
-                            <li class="list-list-item">
-                                <i class="fas fa-receipt"></i> <span>الفواتير</span>
-                            </li>
-                        </a> -->
-
                         <a href="{{route('reservations')}}">
                             <li class="list-list-item">
                                 <i class="fas fa-calendar-alt"></i> <span>الحجوزات</span>
@@ -118,6 +112,26 @@
                                 <i class="fas fa-chart-line"></i> <span>التقارير</span>
                             </li>
                         </a>
+
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#elements">
+                            <li class="list-list-item">
+                                <i class="far fa-money-bill-alt"></i> <span>النفقات</span>
+                            </li>
+                        </a>
+                        <ul id="elements" class="collapse" data-parent="#sidebarnav">
+                            <a href="{{route('expenses.index')}}">
+                                <li class="list-list-item">
+                                    جميع النفقات
+                                </li>
+                            </a>
+                            <a href="{{route('expenses.create')}}">
+                                <li class="list-list-item">
+                                    تسجيل نفقة او سلفة
+                                </li>
+                            </a>
+                        </ul>
+                        <!-- </li> -->
+
                     </ul>
                 </div>
                 @yield('body')
