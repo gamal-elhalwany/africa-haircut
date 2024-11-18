@@ -44,7 +44,7 @@
         <div class="container">
             <nav class="navbar">
                 <a href="#" class="navbar-brand">
-                    <img src="{{asset('Design/images/barbershop_logo.png')}}" alt="Barbershop Logo">
+                    <img src="{{asset('Design/images/Africa_Barber_Logo.png')}}" alt="Barbershop Logo" width="250px" height="100%">
                 </a>
                 <div class="d-flex menu-wrap align-items-center main-menu-container">
                     <div class="mainmenu" id="mainmenu">

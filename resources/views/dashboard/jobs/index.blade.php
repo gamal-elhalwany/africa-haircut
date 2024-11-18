@@ -5,7 +5,7 @@
 @section('title','الوظائف')
 
 @section('body')
-    <div class="body">
+    <div class="body jobs-parent-container">
             <div class="jobs-container">
 
                 <div class="jobs-head">

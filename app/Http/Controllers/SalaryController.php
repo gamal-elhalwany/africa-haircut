@@ -17,52 +17,56 @@ class SalaryController extends Controller
      */
     public function index()
     {
-        $AllUsers = User::all();
-        return view('dashboard.salary.index',compact('AllUsers'));
+        $AllUsers = User::with('branch')->with('chair')->with('daily')->with('expense')->with('job')->get();
+        return view('dashboard.salary.index', compact('AllUsers'));
     }
 
-    public function SearchMethod(Request $request){
-        $this->validate($request, [
-            'user' => 'required',
-            'start_date_time' => 'required',
-            'end_date_time' => 'required',
-        ],
-        [
-            'user.required'=>'يرجي تحديد المستحدم',
-            'start_date_time.required'=>'حقل من تاريخ مطلوب ',
-            'end_date_time.required'=>'حقل الي تاريخ مطلوب ',
-
-        ]);
+    public function SearchMethod(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'user' => 'required',
+                'start_date_time' => 'required',
+                'end_date_time' => 'required',
+            ],
+            [
+                'user.required' => 'يرجي تحديد المستحدم',
+                'start_date_time.required' => 'حقل من تاريخ مطلوب ',
+                'end_date_time.required' => 'حقل الي تاريخ مطلوب ',
+            ]
+        );
 
         $startDate = Carbon::createFromFormat('Y-m-d', $request->start_date_time)->startOfDay();
         $endDate = Carbon::createFromFormat('Y-m-d', $request->end_date_time)->endOfDay();
 
-
-        $SalaryData = Daily::where('user_id',$request->user)->whereBetween('created_at',[$startDate,$endDate])->with('users')->get();
+        $SalaryData = Daily::where('user_id', $request->user)->whereBetween('created_at', [$startDate, $endDate])->with('users')->get();
 
         //  For get commotion value
-        $CheckUserState = User::where('id',$request->user)->first();
+        $CheckUserState = User::where('id', $request->user)->first();
         $Result = 0;
 
-
-        if ($CheckUserState->salary_system =='basic') {
+        if ($CheckUserState->salary_system == 'basic') {
             $HourValue = $CheckUserState->salary / $CheckUserState->work_days /  $CheckUserState->work_hours;
             $Result = $HourValue * $SalaryData->sum('duration');
+
+            if ($CheckUserState->expense) {
+                $Result -= $CheckUserState->expense[0]->amount;
+            }
         }
 
+        if ($CheckUserState->salary_system == 'commotion') {
+            $GetChairProcessUser = ChairProcess::where('user_id', $request->user)->whereBetween('created_at', [$startDate, $endDate])->get();
+            $SumChiarProcess = $GetChairProcessUser->sum('money');
+            $Result = $SumChiarProcess * $CheckUserState->commotion / 100;
 
-        if ($CheckUserState->salary_system =='commotion'){
-             $GetChairProcessUser = ChairProcess::where('user_id',$request->user)->whereBetween('created_at',[$startDate,$endDate])->get();
-             $SumChiarProcess = $GetChairProcessUser->sum('money');
-             $Result = $SumChiarProcess * $CheckUserState->commotion / 100;
+            if ($CheckUserState->expense) {
+                $Result -= $CheckUserState->expense[0]->amount;
+            }
         }
 
-
-
-
-
-        if ($CheckUserState->salary_system =='basic_and_commotion') {
-            $GetChairProcessUser = ChairProcess::where('user_id',$request->user)->whereBetween('created_at',[$startDate,$endDate])->get();
+        if ($CheckUserState->salary_system == 'basic_and_commotion') {
+            $GetChairProcessUser = ChairProcess::where('user_id', $request->user)->whereBetween('created_at', [$startDate, $endDate])->get();
 
             $HourValue = $CheckUserState->salary / $CheckUserState->work_days /  $CheckUserState->work_hours;
             $CommotionValue = $GetChairProcessUser->sum('money') * $CheckUserState->commotion / 100;
@@ -70,20 +74,14 @@ class SalaryController extends Controller
             $DurationHoursAndHourValueTotal = $HourValue * $SalaryData->sum('duration');
             $Result = $DurationHoursAndHourValueTotal + $CommotionValue;
 
-//            return $Result;
-
-
+            if ($CheckUserState->expense) {
+                $Result -= $CheckUserState->expense[0]->amount;
+            }
         }
 
-
-
-        $GetChairProcessUser = ChairProcess::where('user_id',$request->user)->whereBetween('created_at',[$startDate,$endDate])->get();
+        $GetChairProcessUser = ChairProcess::where('user_id', $request->user)->whereBetween('created_at', [$startDate, $endDate])->get();
         $SumChiarProcess = $GetChairProcessUser->sum('cost');
 
-
-
-
-        return view('dashboard.salary.search',compact('SalaryData','Result','CheckUserState'));
-
+        return view('dashboard.salary.search', compact('SalaryData', 'Result', 'CheckUserState'));
     }
 }
