@@ -1,173 +1,137 @@
 @extends('dashboard.layouts.app')
 
-@section('title','الرئيسيه')
+@section('title', 'الرئيسية')
 
 @section('body')
-<div class="body">
-    <div class="index-dashboard-container">
-        <div class="index-dashboard-content">
-            <div class="index-dashboard">
-                <!-- START MANAGER CONTENT -->
-                @if(auth()->user()->branch_id)
-                <div class="manager-content">
-                    <ul class="manager-list-items">
-                        <!-- <h6><span style="color: orange">الفرع التابع : </span> {{auth()->user()->branch->name}}</h6>-->
-                        @if($Available->count() > 0)
-                        <div class="alert alert-secondary" role="alert">
-                            الكراسي المتاحه
-                        </div>
+<div class="container mt-4">
+    <div class="dashboard-container">
+        <div class="dashboard-header text-center mb-4">
+            <h1 class="text-primary">لوحة التحكم الرئيسية</h1>
+        </div>
 
-                        @if(session('success'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <strong>{{ session('success') }}</strong>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        @endif
-                        @if(session('error'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <strong>{{ session('error') }}</strong>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        @endif
+        @if(auth()->user()->branch_id)
+        <!-- Manager Content -->
+        <div class="manager-content">
+            <div class="section">
+                <h3 class="text-secondary mb-3">الكراسي المتاحة</h3>
 
-                        @if(isset($lowStockAlert) && $lowStockAlert)
-                        <div class="alert alert-warning">
-                            <strong>تحذير! </strong>بعض المنتجات قد وصلت الي الحد الأدني من الكمية المخزونة:
-                            <ul>
-                                @foreach($lowStockProducts as $product)
-                                <li>{{$loop->iteration }} - {{ $product->name }} - فقط {{ $product->quantity }} المتبقي من المخزون!</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                        @endif
+                @if($Available->count() > 0)
+                <div class="alert alert-info text-center">الكراسي المتاحة حالياً</div>
 
-                        @foreach($Available as $AvailableChairs)
-                        <li class="manager-item">
-                            <img src="{{asset('Design/images/available.png')}}">
-                            <p>
-                            <h5>الدور : {{$AvailableChairs->floor}} </h5>
-                            @if($AvailableChairs->user)
-                            <h5> الموظف : {{$AvailableChairs->user->name}} </h5>
-                            @endif
+                @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>{{ session('success') }}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
 
-                            <h5>رقم الكرسي: {{$AvailableChairs->number}}</h5>
-                            </p>
+                @if(session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>{{ session('error') }}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
 
-                            @if($AvailableChairs->user)
-                            <form action="{{route('open.chair',$AvailableChairs->id)}}" method="POST">
-                                @csrf
-                                @if($AvailableChairs->number !== 0)
-                                <button class="btn btn-info"> حجز</button>
+                @if(isset($lowStockAlert) && $lowStockAlert)
+                <div class="alert alert-warning text-center">
+                    <strong>تحذير!</strong> بعض المنتجات وصلت إلى الحد الأدنى:
+                    <ul style="list-style: none;">
+                        @foreach($lowStockProducts as $product)
+                        <li>{{ $loop->iteration }} - {{ $product->name }}: فقط {{ $product->quantity }} المتبقي!</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+
+                <div class="row g-3">
+                    @foreach($Available as $AvailableChairs)
+                    <div class="col-md-4">
+                        <div class="card text-center">
+                            <img src="{{ asset('Design/images/available.png') }}" class="card-img-top" alt="Available Chair">
+                            <div class="card-body">
+                                <h5 class="card-title">الدور: {{ $AvailableChairs->floor }}</h5>
+                                @if($AvailableChairs->user)
+                                <p>الموظف: {{ $AvailableChairs->user->name }}</p>
                                 @endif
-                            </form>
-                            @endif
-                        </li>
-                        @endforeach
-                        @else
-
-                        <div class="alert alert-warning" role="alert">
-                            لا يوجد كراسي متاحه
+                                <p>رقم الكرسي: {{ $AvailableChairs->number }}</p>
+                                @if($AvailableChairs->user)
+                                <form action="{{ route('open.chair', $AvailableChairs->id) }}" method="POST">
+                                    @csrf
+                                    @if($AvailableChairs->number !== 0)
+                                    <button class="btn btn-info"> حجز</button>
+                                    @else
+                                    <button class="btn btn-dark" disabled>الكاشير</button>
+                                    @endif
+                                </form>
+                                @endif
+                            </div>
                         </div>
-                        @endif
-                    </ul>
-                    <hr>
-                    @if($Busy->count())
-                    <ul class="manager-list-items">
-                        <div class="alert alert-secondary" role="alert">
-                            الكراسي المحجوزه
-                        </div>
-                        @foreach($Busy as $BusyChairs)
-                        <li class="manager-item busy">
-                            <img src="{{env('App_Design_Url').'/Design/images/busy.png'}}">
-                            <p>
-                            <h5>الدور : {{$BusyChairs->floor}}</h5>
-                            @if($BusyChairs->user)
-                            <h5>الموظف : {{$BusyChairs->user->name}}</h5>
-                            @endif
-                            <h5>الرقم : {{$BusyChairs->number}}</h5>
-                            </p>
-
-                            <a href="{{route('open.invoice',$BusyChairs->id)}}">
-                                <button class="btn btn-info"> فتح فاتوره </button>
-                            </a>
-
-                        </li>
-                        @endforeach
-                    </ul>
-
-                    @endif
-                </div>
-
-
-                <!-- END MANAGER CONTENT-->
-
-
-                <!-- START BRANCH USERS -->
-                <div class="branch-user-container">
-                    <div class="branch-user-content">
-                        <div style="text-align: center" class="alert alert-dark" role="alert">
-                            حضور وانصراف الموظفين
-                        </div>
-                        <ul>
-                            @foreach($users as $user)
-                            <li>
-                                <div>
-                                    <b>
-                                        اسم الموظف :
-                                    </b>
-                                    {{$user->name}}
-                                </div>
-                                <div>
-                                    <b>
-                                        ساعات العمل المطلوبه :
-                                    </b>
-                                    {{$user->work_hours}}
-                                </div>
-                                <div>
-                                    <form action="{{route('daily', $user->id)}}" method="POST">
-                                        @csrf
-                                        <div>
-                                            @if($user->chair)
-                                            <p>
-                                                رقم الكرسي ({{$user->chair->number }})
-                                                الدور ({{$user->chair->floor}})
-                                            </p>
-                                            @endif
-                                            @if(!$user->chair || !$user->daily)
-                                            <select class="form-control" name="chair_id">
-                                                @foreach($Available as $AvailableChair)
-                                                @if($AvailableChair->user_id == null)
-                                                <option value="{{$AvailableChair->id}}">
-                                                    الكرسي: {{$AvailableChair->number}} -
-                                                    الدور: {{$AvailableChair->floor}}
-                                                </option>
-                                                @endif
-                                                @endforeach
-                                            </select>
-                                            @endif
-                                        </div>
-                                        <div>
-                                            @if($user->chair)
-                                            <input type="submit" class="btn btn-dark" name="checkOut" value="انصراف">
-                                            @else
-                                            <input type="submit" class="btn btn-info" name="checkIn" value="حضور">
-                                            @endif
-                                        </div>
-                                    </form>
-                                </div>
-                            </li>
-                            @endforeach
-                        </ul>
                     </div>
+                    @endforeach
                 </div>
-                <!-- END BRANCH USERS -->
+                @else
+                <div class="alert alert-warning">لا يوجد كراسي متاحة حالياً.</div>
                 @endif
             </div>
+
+            <!-- Busy Chairs Section -->
+            @if($Busy->count())
+            <div class="section mt-5">
+                <h3 class="text-secondary mb-3">الكراسي المحجوزة</h3>
+                <div class="row g-3">
+                    @foreach($Busy as $BusyChairs)
+                    <div class="col-md-4">
+                        <div class="card text-center">
+                            <img src="{{ env('App_Design_Url') . '/Design/images/busy.png' }}" class="card-img-top" alt="Busy Chair">
+                            <div class="card-body">
+                                <h5 class="card-title">الدور: {{ $BusyChairs->floor }}</h5>
+                                @if($BusyChairs->user)
+                                <p>الموظف: {{ $BusyChairs->user->name }}</p>
+                                @endif
+                                <p>رقم الكرسي: {{ $BusyChairs->number }}</p>
+                                <a href="{{ route('open.invoice', $BusyChairs->id) }}" class="btn btn-warning">فتح فاتورة</a>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+            @endif
         </div>
+
+        <!-- Branch Users Section -->
+        <div class="branch-users mt-5">
+            <h3 class="text-secondary text-center mb-3">حضور وانصراف الموظفين</h3>
+            <div class="row g-3">
+                @foreach($users as $user)
+                <div class="col-md-4">
+                    <div class="card p-3">
+                        <h5>اسم الموظف: {{ $user->name }}</h5>
+                        <p>ساعات العمل المطلوبة: {{ $user->work_hours }}</p>
+                        <form action="{{ route('daily', $user->id) }}" method="POST">
+                            @csrf
+                            @if($user->chair)
+                            <p>رقم الكرسي: {{ $user->chair->number }}, الدور: {{ $user->chair->floor }}</p>
+                            @endif
+                            @if(!$user->chair || !$user->daily)
+                            <select class="form-control mb-3" name="chair_id">
+                                @foreach($Available as $AvailableChair)
+                                @if($AvailableChair->user_id == null)
+                                <option value="{{ $AvailableChair->id }}">الكرسي: {{ $AvailableChair->number }} - الدور: {{ $AvailableChair->floor }}</option>
+                                @endif
+                                @endforeach
+                            </select>
+                            @endif
+                            <button type="submit" class="btn {{ $user->chair ? 'btn-danger' : 'btn-success' }}" name="{{ $user->chair ? 'checkOut' : 'checkIn' }}">
+                                {{ $user->chair ? 'انصراف' : 'حضور' }}
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+        @endif
     </div>
 </div>
 @endsection

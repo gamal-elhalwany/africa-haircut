@@ -69,6 +69,7 @@ class Kernel extends HttpKernel
         'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
 
         'check_product_qty' => \App\Http\Middleware\CheckProductQuantity::class,
+        'check_appointment_expiry' => \App\Http\Middleware\CheckAppointmentsExpiry::class,
 
     ];
 }

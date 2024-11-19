@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     public function index(){
-        $services = [];
-        return view('home',compact('services'));
+        $services = Product::where('status', 'service')->take(4);
+        return view('home', compact('services'));
     }
 }

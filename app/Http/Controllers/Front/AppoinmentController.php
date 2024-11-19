@@ -8,12 +8,13 @@ use App\Models\Appointment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-/**
- * TODO: Make Something to update the appointment status after the process is completed or whatever its case.
- */
-
 class AppoinmentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('check_appointment_expiry');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -136,7 +137,6 @@ class AppoinmentController extends Controller
     {
         $chairs = Chair::all();
         $branchs = Branch::all();
-        // $reservations = Appointment::with('chair')->with('branch')->paginate(100);
         $reservations = Appointment::with(['chair', 'branch'])
         ->when($request->input('date'), function ($query, $date) {
             $query->whereDate('appointment_date', $date);
@@ -152,7 +152,7 @@ class AppoinmentController extends Controller
         })
         ->orderBy('appointment_date', 'asc')
         ->where('status', 'pending')
-        ->paginate(10);
+        ->paginate(100);
         return view('dashboard.chairs.reservations', compact('reservations', 'chairs', 'branchs'));
     }
 }

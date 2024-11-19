@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.app')
 @push('style')
-    <link rel="stylesheet" href="{{asset('Design/css/roles/main.css')}}">
+    <link rel="stylesheet" href="{{asset('Design/css/salary/main.css')}}">
 @endpush
 @section('title','إنشاء صلاحية جديدة')
 @section('body')

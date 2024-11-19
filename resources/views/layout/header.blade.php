@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0" />
     <meta name="description" content="Barbershop Booking Space">
-    <meta name="author" content="Mustafa Gamal">
+    <meta name="author" content="Gamal El_halwany">
     <title>@yield('title','unknow')</title>
 
     <!-- EXTERNAL CSS LINKS -->
@@ -27,11 +27,8 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&family=Noto+Kufi+Arabic:wght@100;200;300;400;500;600;700;800;900&display=swap">
 
-    @if (App::getLocale() == 'ar')
-    <link href="{{ URL::asset('assets/css/rtl.css') }}" rel="stylesheet">
-    @else
-    <link href="{{ URL::asset('assets/css/ltr.css') }}" rel="stylesheet">
-    @endif
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 </head>
 
@@ -55,7 +52,7 @@
                             <li><a href="./#gallery">{{__('navbar.gallery')}}</a></li>
                             <li><a href="./#pricing">{{__('navbar.pricing')}}</a></li>
                             <li><a href="./#contact-us">{{__('navbar.contact')}}</a></li>
-                            <li><a href="/{{__('navbar.lang')}}">{{__('navbar.lang')}}</a></li>
+                            <!-- <li><a href="/{{__('navbar.lang')}}">{{__('navbar.lang')}}</a></li> -->
                         </ul>
                     </div>
                     @if(request()->routeIs('chairs.front'))
@@ -170,6 +167,7 @@
     <script src="{{asset('Design/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('Design/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{asset('Design/js/main.js')}}"></script>
+    @stack('script')
 
 </body>
 

@@ -29,19 +29,17 @@ use App\Http\Controllers\Front\AppoinmentController;
 */
 
 
-//GUEST ROUTES
-//*******************************************************//
-
-Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('guest');
 
 Route::get('/{lang}', function ($lang) {
     App::setLocale($lang);
-    $services = Product::where('status', 'service')->latest()->take(4)->get();
+    $services = Product::where('status', 'service')->latest()->take(4);
     return view('home', compact('services'));
 });
 
 //*******************************************************//
 //******************* User Routes **********************//
+
+Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('guest');
 
 Route::get('dashboard/login', [UserController::class, 'loginPage'])->name('login.page');
 
@@ -116,5 +114,7 @@ Route::group(['middleware' => ['auth', 'check_product_qty']], function () {
 });
 
 // Appointment Routes.
-Route::get('appointments/chairs', [AppoinmentController::class, 'index'])->name('chairs.front');
-Route::post('appointments/chairs', [AppoinmentController::class, 'store'])->name('store.appointment');
+Route::group(['middlware' => ['check_appointment_expiry']], function () {
+    Route::get('appointments/chairs', [AppoinmentController::class, 'index'])->name('chairs.front');
+    Route::post('appointments/chairs', [AppoinmentController::class, 'store'])->name('store.appointment');
+});

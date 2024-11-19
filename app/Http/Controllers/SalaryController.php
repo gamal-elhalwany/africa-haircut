@@ -50,9 +50,10 @@ class SalaryController extends Controller
             $HourValue = $CheckUserState->salary / $CheckUserState->work_days /  $CheckUserState->work_hours;
             $Result = $HourValue * $SalaryData->sum('duration');
 
-            if ($CheckUserState->expense) {
+            if ($CheckUserState->expense && $CheckUserState->expense->count() > 0) {
                 $Result -= $CheckUserState->expense[0]->amount;
             }
+            $Result;
         }
 
         if ($CheckUserState->salary_system == 'commotion') {
@@ -60,9 +61,10 @@ class SalaryController extends Controller
             $SumChiarProcess = $GetChairProcessUser->sum('money');
             $Result = $SumChiarProcess * $CheckUserState->commotion / 100;
 
-            if ($CheckUserState->expense) {
+            if ($CheckUserState->expense && $CheckUserState->expense->count() > 0) {
                 $Result -= $CheckUserState->expense[0]->amount;
             }
+            $Result;
         }
 
         if ($CheckUserState->salary_system == 'basic_and_commotion') {
@@ -74,9 +76,10 @@ class SalaryController extends Controller
             $DurationHoursAndHourValueTotal = $HourValue * $SalaryData->sum('duration');
             $Result = $DurationHoursAndHourValueTotal + $CommotionValue;
 
-            if ($CheckUserState->expense) {
+            if ($CheckUserState->expense && $CheckUserState->expense->count() > 0) {
                 $Result -= $CheckUserState->expense[0]->amount;
             }
+            $Result;
         }
 
         $GetChairProcessUser = ChairProcess::where('user_id', $request->user)->whereBetween('created_at', [$startDate, $endDate])->get();

@@ -17,7 +17,7 @@ body,html{
 .dashboard-container{
     width: 100%;
     height: 100%;
-
+    padding-bottom: 30px;
 }
 .dashboard-container .dashboard-content{
     width: 100%;
@@ -27,7 +27,6 @@ body,html{
 /*HEADER*/
 .dashboard-container .dashboard-content .dashboard-header-content{
     width: 100%;
-    height: 40px;
     background-color: #1F262D;
 }
 .dashboard-container .dashboard-content .dashboard-header-content .dashboard-header{
@@ -288,6 +287,12 @@ div.burger-menu ul li span {
 }
 .branch-user-container .branch-user-content ul li div{
     margin: 10px 0;
+}
+
+body {
+    font-family: 'Cairo', sans-serif;
+    direction: rtl;
+    text-align: right;
 }
 
 /*END DASHBOARD STYLE*/

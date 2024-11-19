@@ -3,7 +3,7 @@
 @section('title','إدارة المستخدمين')
 
 @section('body')
-<div class="body">
+<div class="body" style="overflow-y: auto;">
 
     <div class="show-users-head-content">
 

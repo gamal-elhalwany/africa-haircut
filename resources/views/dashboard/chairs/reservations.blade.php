@@ -3,7 +3,7 @@
 @section('title','لوحة التحكم ' . ' | ' .' الفواتير')
 
 @section('body')
-<div class="body">
+<div class="body" style="overflow-y:auto;">
     <div class="show-users-head-content">
         @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">

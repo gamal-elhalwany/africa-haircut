@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0" />
     <meta name="description" content="Barbershop Booking Space">
-    <meta name="author" content="Mustafa Gamal">
+    <meta name="author" content="Gamal El_halwany">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.0.0/fonts/remixicon.css" rel="stylesheet">
@@ -31,7 +31,9 @@
 
                         <ul class="dashboard-header-list-items">
                             <li class="dashboard-header-item">
-                                {{auth()->user()->branch->name}}
+                                <strong>
+                                    {{auth()->user()->branch->name}}
+                                </strong>
                             </li>
                         </ul>
                     </div>
@@ -149,7 +151,6 @@
             $("div.burger-menu").toggleClass("open")
         });
     </script>
-
 </body>
 
 </html>
