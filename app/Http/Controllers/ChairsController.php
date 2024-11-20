@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Branch;
 use App\Models\Chair;
+use App\Models\ChairProcess;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ChairsController extends Controller
@@ -119,5 +121,27 @@ class ChairsController extends Controller
         $chair->delete();
         toastr()->error('لا يمكنك حذف الكرسي او القيام بهذه العملية!');
         return redirect()->route('dashboard.chairs.index');
+    }
+
+    public function getChairProcessView()
+    {
+        $chairs = Chair::with('user')->with('branch')->with('processes')->get();
+        return view('dashboard.chairs.process', compact('chairs'));
+    }
+
+    public function getChairProcessTime(Request $request)
+    {
+        $request->validate([
+            'chair_process' => 'required|exists:chair_processes,chair_id',
+        ]);
+
+        $chairs = Chair::with('user')->with('branch')->with('processes')->get();
+        $chairProcesses = ChairProcess::where('chair_id', $request->chair_process)->get();
+
+        if (!$chairProcesses) {
+            toastr()->error('هذا الكرسي ليس لديه عمليات حتي الأن.');
+            return redirect()->back();
+        }
+        return view('dashboard.chairs.process', compact('chairs', 'chairProcesses'));
     }
 }

@@ -22,6 +22,11 @@ class ChairProcess extends Model
         return $this->belongsTo(Chair::class);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     // Accessor for calculating the duration
     public function getDurationAttribute()
     {
@@ -31,4 +36,9 @@ class ChairProcess extends Model
 
         return null; // Return null if check_in or check_out is missing.
     }
+
+    protected $casts = [
+        'check_in' => 'datetime',
+        'check_out' => 'datetime',
+    ];
 }

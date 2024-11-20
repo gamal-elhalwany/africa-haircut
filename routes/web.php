@@ -108,6 +108,10 @@ Route::group(['middleware' => ['auth', 'check_product_qty']], function () {
         Route::post('/store', [ExpenseController::class, 'store'])->name('expenses.store');
     });
 
+    // Get Every Chair Proccess Duration.
+    Route::get('dashboard/chair/process', [ChairsController::class, 'getChairProcessView'])->name('chair.process');
+    Route::post('dashboard/chair/process', [ChairsController::class, 'getChairProcessTime'])->name('chair.process.time');
+
     Route::get('user/error', function () {
         return view('dashboard.error');
     })->name('error.msg');

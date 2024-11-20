@@ -65,6 +65,11 @@ class User extends Authenticatable
         return $this->hasMany(Expense::class);
     }
 
+    public function chairProcesses()
+    {
+        return $this->hasMany(ChairProcess::class);
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

@@ -77,11 +77,25 @@
                             </li>
                         </a>
 
-                        <a href="{{route('dashboard.chairs.index')}}">
+                        <a href="javascript:void();" data-toggle="collapse" data-target="#elements-time">
                             <li class="list-list-item">
                                 <i class="fas fa-chair"></i> <span>الكراسي</span>
                             </li>
                         </a>
+                        <ul id="elements-time" class="collapse side-dropdown-element" data-parent="#sidebarnav">
+                            <a href="{{route('dashboard.chairs.index')}}">
+                                <li class="list-list-item">
+                                    <i class="fas fa-chair"></i>
+                                    <span>جميع الكراسي</span>
+                                </li>
+                            </a>
+                            <a href="{{route('chair.process')}}">
+                                <li class="list-list-item">
+                                    <i class="fas fa-hourglass-start"></i>
+                                    <span>وقت المستهلك للكرسي</span>
+                                </li>
+                            </a>
+                        </ul>
 
 
                         <a href="{{route('dashboard.jobs.index')}}">
@@ -117,23 +131,23 @@
 
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#elements">
                             <li class="list-list-item">
-                                <i class="far fa-money-bill-alt"></i> <span>النفقات</span>
+                                <i class="far fa-money-bill-alt"></i> <span>المصروفات</span>
                             </li>
                         </a>
-                        <ul id="elements" class="collapse" data-parent="#sidebarnav">
+                        <ul id="elements" class="collapse side-dropdown-element" data-parent="#sidebarnav">
                             <a href="{{route('expenses.index')}}">
                                 <li class="list-list-item">
-                                    جميع النفقات
+                                    <i class="fas fa-layer-group"></i>
+                                    <span>جميع المصروفات</span>
                                 </li>
                             </a>
                             <a href="{{route('expenses.create')}}">
                                 <li class="list-list-item">
-                                    تسجيل نفقة او سلفة
+                                    <i class="fas fa-cash-register"></i>
+                                    <span> تسجيل مصروف او سلفة </span>
                                 </li>
                             </a>
                         </ul>
-                        <!-- </li> -->
-
                     </ul>
                 </div>
                 @yield('body')
