@@ -12,6 +12,7 @@ class Product extends Model
     protected $fillable = [
         'name',
         'description',
+        'category_id',
         'code',
         'buy_price',
         'sell_price',
@@ -23,6 +24,11 @@ class Product extends Model
         'status',
         'branch_id',
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 
     public function branch()
     {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Branch;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -35,7 +36,8 @@ class ProductsController extends Controller
     public function create()
     {
         $Branches = Branch::all();
-        return view('dashboard.products.create',compact('Branches'));
+        $categories = Category::all();
+        return view('dashboard.products.create',compact('Branches', 'categories'));
     }
 
     /**
@@ -46,24 +48,35 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        Product::create([
+        $validate = $request->validate([
+            'name' => 'required',
+            'category_id' => 'required',
+            'branch_id' => 'required',
+            'sell_price' => 'required',
+        ]);
+
+        $product = Product::create([
             'name'=>$request->name,
             'description'=>$request->description,
+            'category_id' => $request->category_id,
             'code'=>$request->code,
             'buy_price'=>$request->buy_price,
             'sell_price'=>$request->sell_price,
-            'customer_price'=>$request->customer_price,
             'distribution_value'=>$request->distribution_value,
             'quantity'=>$request->quantity,
-            'value'=>$request->distribution_value,
             'net_profit'=>($request->sell_price)  - ($request->buy_price),
             'status'=>$request->status,
             'branch_id'=>$request->branch_id,
         ]);
-        if ($request->status =="service"){
-            toastr()->success('تم إضافة الخدمة بنجاح');
+
+        if($product) {
+            if ($request->status == "service"){
+                toastr()->success('تم إضافة الخدمة بنجاح');
+            } else {
+                toastr()->success('تم إضافة المنتج بنجاح');
+            }
         } else {
-            toastr()->success('تم إضافة المنتج بنجاح');
+            toastr()->error('حدث خطأ أثناء إضافة المنتج');
         }
 
         return redirect()->route('dashboard.products.index');

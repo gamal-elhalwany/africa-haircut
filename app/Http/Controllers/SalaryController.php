@@ -51,7 +51,7 @@ class SalaryController extends Controller
             $Result = $HourValue * $SalaryData->sum('duration');
 
             if ($CheckUserState->expense && $CheckUserState->expense->count() > 0) {
-                $Result -= $CheckUserState->expense[0]->amount;
+                $Result -= $CheckUserState->expense[0]->sum('amount');
             }
             $Result;
         }
@@ -62,7 +62,7 @@ class SalaryController extends Controller
             $Result = $SumChiarProcess * $CheckUserState->commotion / 100;
 
             if ($CheckUserState->expense && $CheckUserState->expense->count() > 0) {
-                $Result -= $CheckUserState->expense[0]->amount;
+                $Result -= $CheckUserState->expense[0]->sum('amount');
             }
             $Result;
         }
@@ -77,7 +77,7 @@ class SalaryController extends Controller
             $Result = $DurationHoursAndHourValueTotal + $CommotionValue;
 
             if ($CheckUserState->expense && $CheckUserState->expense->count() > 0) {
-                $Result -= $CheckUserState->expense[0]->amount;
+                $Result -= $CheckUserState->expense[0]->sum('amount');
             }
             $Result;
         }

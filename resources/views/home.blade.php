@@ -29,6 +29,19 @@
     .scroll-top:focus {
         outline: none;
     }
+
+    .hole-cates {
+        background-color: #222227;
+        outline: none;
+        border: none;
+    }
+
+    .hole-cates:hover {
+        background:none;
+        color: #222227;
+        border: 1px solid #222227;
+        transition: all 0.3s ease-in-out;
+    }
 </style>
 @endpush
 <!-- HOME SECTION -->
@@ -129,15 +142,15 @@
             <div class="heading-line"></div>
         </div>
         <div class="row">
-            @foreach ($services as $service)
+         {{--   @foreach ($services as $service) --}}
             <div class="col-lg-3 col-md-6 padd_col_res">
                 <div class="service_box">
                     {{-- <i class="bs bs-scissors-1"></i> --}}
-                    <h3>{{$service->name}}</h3>
-                    <p>{{$service->description}}</p>
+                  {{--  <h3>{{$service->name}}</h3> --}}
+                  {{--  <p>{{$service->description}}</p> --}}
                 </div>
             </div>
-            @endforeach
+           {{-- @endforeach --}}
 
         </div>
     </div>
@@ -182,49 +195,49 @@
 <section class="gallery-section" id="gallery">
     <div class="section_heading">
         <h3>صالون & منتجع صحى عصرى</h3>
-        <h2>معرض الحلاق</h2>
+        <h2>معرض أفريكا</h2>
         <div class="heading-line"></div>
     </div>
     <div class="container">
         <div class="row">
             <div class="col-lg-3 col-md-6 gallery-column">
                 <div style="height: 230px">
-                    <div class="gallery-img" style="background-image: url('{{asset('Design/images/portfolio-1.jpg')}}');"> </div>
+                    <div class="gallery-img" style="background-image: url('{{asset('Design/images/IMG_9084.JPG')}}'"> </div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 gallery-column">
                 <div style="height: 230px">
-                    <div class="gallery-img" style="background-image: url({{asset('Design/images/portfolio-2.jpg')}});"></div>
+                    <div class="gallery-img" style="background-image: url({{asset('Design/images/IMG_9123.JPG')}}"></div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 gallery-column">
                 <div style="height: 230px">
-                    <div class="gallery-img" style="background-image: url({{asset('Design/images/portfolio-3.jpg')}});"></div>
+                    <div class="gallery-img" style="background-image: url({{asset('Design/images/IMG_9305.jpg')}});"></div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 gallery-column">
                 <div style="height: 230px">
-                    <div class="gallery-img" style="background-image: url({{asset('Design/images/portfolio-4.jpg')}});"></div>
+                    <div class="gallery-img" style="background-image: url({{asset('Design/images/IMG_9312.jpg')}});"></div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 gallery-column">
                 <div style="height: 230px">
-                    <div class="gallery-img" style="background-image: url({{asset('Design/images/portfolio-5.jpg')}});"></div>
+                    <div class="gallery-img" style="background-image: url({{asset('Design/images/IMG_9087.jpg')}});"></div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 gallery-column">
                 <div style="height: 230px">
-                    <div class="gallery-img" style="background-image: url({{asset('Design/images/portfolio-6.jpg')}});"></div>
+                    <div class="gallery-img" style="background-image: url({{asset('Design/images/IMG_9084.jpg')}});"></div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 gallery-column">
                 <div style="height: 230px">
-                    <div class="gallery-img" style="background-image: url({{asset('Design/images/portfolio-7.jpg')}});"></div>
+                    <div class="gallery-img" style="background-image: url({{asset('Design/images/IMG_9125.jpg')}});"></div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 gallery-column">
                 <div style="height: 230px">
-                    <div class="gallery-img" style="background-image: url({{asset('Design/images/portfolio-8.jpg')}});"></div>
+                    <div class="gallery-img" style="background-image: url({{asset('Design/images/IMG_9312.jpg')}});"></div>
                 </div>
             </div>
         </div>
@@ -329,23 +342,39 @@
     <div class="container">
         <div class="section_heading">
             <h3>وفر 20% مع منتجع التجميل</h3>
-            <h2>اسعار الحلاقة لدينا</h2>
+            <h2>اسعار الخدمات لدينا</h2>
             <div class="heading-line"></div>
         </div>
         <div class="row">
 
-
+            @foreach($groupedServices as $categoryName => $services)
             <div class="col-lg-4 col-md-6 sm-padding">
-                <div class="price_wrap">
-                    <h3>الحلاقة</h3>
+                <div class="price_wrap" style="text-align:right;">
+                    <h3>{{$categoryName}}</h3>
                     <ul class="price_list">
                         @foreach($services as $service)
-                        <li>
+                        <li style="border: 1px solid #9e8a78; padding:10px; border-radius:5px;">
                             <h4>{{$service->name}}</h4>
-                            <p>{{$service->description}}</p>
-                            <span class="price">{{$service->sell_price}}}</span>
+                            <span class="price mr-5" style="right: 200px; top:8px;">{{$service->sell_price}} &pound;</span>
                         </li>
                         @endforeach
+                    </ul>
+                </div>
+            </div>
+            @endforeach
+
+            <div class="col-lg-4 col-md-6 sm-padding">
+                <a class="btn btn-primary btn-lg hole-cates" href="">عرض الخدمات كاملة</a>
+            </div>
+
+            <div class="col-lg-4 col-md-6 sm-padding">
+                <div class="price_wrap" style="text-align:right;">
+                    <h3>اسم الباكدج</h3>
+                    <ul class="price_list">
+                        <li style="border: 1px solid #9e8a78; padding:10px; border-radius:5px;">
+                            <h4>أسم الخدمة</h4>
+                            <span class="price mr-5" style="right: 200px; top:8px;">سعر الخدمة &pound;</span>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -431,25 +460,25 @@
                     <p>
                         تم إنشاء صالون الحلاقة الخاص بنا للرجال الذين يقدرون الجودة الممتازة والوقت والمظهر الخالي من العيوب.
                     </p>
-                    <ul class="widget_social">
+                    <!-- <ul class="widget_social">
                         <li><a href="#" data-toggle="tooltip" title="Facebook"><i class="fab fa-facebook-f fa-2x"></i></a></li>
                         <li><a href="#" data-toggle="tooltip" title="Twitter"><i class="fab fa-twitter fa-2x"></i></a></li>
                         <li><a href="#" data-toggle="tooltip" title="Instagram"><i class="fab fa-instagram fa-2x"></i></a></li>
                         <li><a href="#" data-toggle="tooltip" title="LinkedIn"><i class="fab fa-linkedin fa-2x"></i></a></li>
                         <li><a href="#" data-toggle="tooltip" title="Google+"><i class="fab fa-google-plus-g fa-2x"></i></a></li>
-                    </ul>
+                    </ul> -->
                 </div>
             </div>
             <div class="col-lg-4 col-md-6">
                 <div class="footer_widget">
                     <h3>المقر الرئيسي</h3>
                     <p>
-                        المعادى، ش 9 بجوار مأكولات الدمشقى
+                        <i class="fas fa-map-marker-alt"></i>
+                        الملاحه الجديده - المحروسه - شارع الفلل
                     </p>
                     <p>
-                        جهات الأتصال
-                        <br>
-                        (+123) 456 789 101
+                        <i class="fas fa-phone-alt"></i>
+                        01011745500
                     </p>
                 </div>
             </div>
@@ -459,10 +488,7 @@
                         مواعيد العمل
                     </h3>
                     <ul class="opening_time">
-                        <li>Monday - Friday 11:30am - 2:008pm</li>
-                        <li>Monday - Friday 11:30am - 2:008pm</li>
-                        <li>Monday - Friday 11:30am - 2:008pm</li>
-                        <li>Monday - Friday 11:30am - 2:008pm</li>
+                        <li>يوميا من الساعة 12 ظهرا وإلي الساعة 12 ليلاً</li>
                     </ul>
                 </div>
             </div>
@@ -486,25 +512,25 @@
 @push('script')
 <script>
     // Create the Scroll-to-Top Button Functionality
-document.addEventListener("DOMContentLoaded", function () {
-    const scrollToTopBtn = document.getElementById("scroll-top");
+    document.addEventListener("DOMContentLoaded", function() {
+        const scrollToTopBtn = document.getElementById("scroll-top");
 
-    // Show or hide the button based on scroll position
-    window.addEventListener("scroll", function () {
-        if (window.scrollY > 200) {
-            scrollToTopBtn.style.display = "block";
-        } else {
-            scrollToTopBtn.style.display = "none";
-        }
-    });
+        // Show or hide the button based on scroll position
+        window.addEventListener("scroll", function() {
+            if (window.scrollY > 200) {
+                scrollToTopBtn.style.display = "block";
+            } else {
+                scrollToTopBtn.style.display = "none";
+            }
+        });
 
-    // Scroll to top when the button is clicked
-    scrollToTopBtn.addEventListener("click", function () {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth", // Smooth scrolling effect
+        // Scroll to top when the button is clicked
+        scrollToTopBtn.addEventListener("click", function() {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth", // Smooth scrolling effect
+            });
         });
     });
-});
 </script>
 @endpush

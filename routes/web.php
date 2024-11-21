@@ -2,6 +2,7 @@
 
 use App\Models\Product;
 
+use App\Models\Category;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\BranchesController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\Front\AppoinmentController;
 
@@ -30,16 +32,16 @@ use App\Http\Controllers\Front\AppoinmentController;
 
 
 
-Route::get('/{lang}', function ($lang) {
-    App::setLocale($lang);
-    $services = Product::where('status', 'service')->latest()->take(4);
-    return view('home', compact('services'));
-});
+// Route::get('/{lang}', function ($lang) {
+
+//     $services = Product::with('category')->where('status', 'service')->get();
+//     return view('home', compact('services'));
+// });
 
 //*******************************************************//
 //******************* User Routes **********************//
 
-Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('guest');
+Route::get('/{lang}', [HomeController::class, 'index'])->name('home');
 
 Route::get('dashboard/login', [UserController::class, 'loginPage'])->name('login.page');
 
@@ -111,6 +113,14 @@ Route::group(['middleware' => ['auth', 'check_product_qty']], function () {
     // Get Every Chair Proccess Duration.
     Route::get('dashboard/chair/process', [ChairsController::class, 'getChairProcessView'])->name('chair.process');
     Route::post('dashboard/chair/process', [ChairsController::class, 'getChairProcessTime'])->name('chair.process.time');
+
+    // Categories Routes.
+    Route::prefix('dashboard/categories')->group(function () {
+        Route::get('/', [CategoryController::class, 'index'])->name('categories.index');
+        Route::get('/create', [CategoryController::class, 'create'])->name('categories.create');
+        Route::post('/store', [CategoryController::class, 'store'])->name('categories.store');
+        Route::delete('/destroy/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+    });
 
     Route::get('user/error', function () {
         return view('dashboard.error');

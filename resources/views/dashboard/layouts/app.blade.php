@@ -100,9 +100,30 @@
 
                         <a href="{{route('dashboard.jobs.index')}}">
                             <li class="list-list-item">
-                                <i class="ri-printer-cloud-fill"></i> <span>الوظائف</span>
+                                <i class="ri-printer-cloud-fill"></i>
+                                 <span>الوظائف</span>
                             </li>
                         </a>
+
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#categories">
+                            <li class="list-list-item">
+                                <i class="fas fa-layer-group"></i> <span>الفئات</span>
+                            </li>
+                        </a>
+                        <ul id="categories" class="collapse side-dropdown-element" data-parent="#sidebarnav">
+                            <a href="{{route('categories.index')}}">
+                                <li class="list-list-item">
+                                    <i class="fas fa-stream"></i>
+                                    <span>جميع الفئات</span>
+                                </li>
+                            </a>
+                            <a href="{{route('categories.create')}}">
+                                <li class="list-list-item">
+                                    <i class="fas fa-cash-register"></i>
+                                    <span> انشاء فئة جديدة</span>
+                                </li>
+                            </a>
+                        </ul>
 
                         <a href="{{route('dashboard.products.index')}}">
                             <li class="list-list-item">
