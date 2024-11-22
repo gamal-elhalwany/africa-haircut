@@ -37,7 +37,7 @@
     }
 
     .hole-cates:hover {
-        background:none;
+        background: none;
         color: #222227;
         border: 1px solid #222227;
         transition: all 0.3s ease-in-out;
@@ -142,16 +142,15 @@
             <div class="heading-line"></div>
         </div>
         <div class="row">
-         {{--   @foreach ($services as $service) --}}
+            @foreach ($services->random(4) as $service)
             <div class="col-lg-3 col-md-6 padd_col_res">
-                <div class="service_box">
-                    {{-- <i class="bs bs-scissors-1"></i> --}}
-                  {{--  <h3>{{$service->name}}</h3> --}}
-                  {{--  <p>{{$service->description}}</p> --}}
+                <div class="service_box" style="box-shadow:0 4px 6px rgba(0, 0, 0, 0.4);">
+                    <i class="bs bs-scissors-1"></i>
+                    <h3>{{$service->name}}</h3>
+                    <p>{{$service->description}}</p>
                 </div>
             </div>
-           {{-- @endforeach --}}
-
+            @endforeach
         </div>
     </div>
 </section>
@@ -348,12 +347,12 @@
         <div class="row">
 
             @foreach($groupedServices as $categoryName => $services)
-            <div class="col-lg-4 col-md-6 sm-padding">
-                <div class="price_wrap" style="text-align:right;">
+            <div class="col-lg-4 col-md-6 sm-padding mt-2">
+                <div class="price_wrap" style="text-align:right; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4); height:400px; overflow:hidden;">
                     <h3>{{$categoryName}}</h3>
                     <ul class="price_list">
                         @foreach($services as $service)
-                        <li style="border: 1px solid #9e8a78; padding:10px; border-radius:5px;">
+                        <li style="margin-bottom:0px;padding:10px; border-radius:5px;">
                             <h4>{{$service->name}}</h4>
                             <span class="price mr-5" style="right: 200px; top:8px;">{{$service->sell_price}} &pound;</span>
                         </li>
@@ -363,23 +362,37 @@
             </div>
             @endforeach
 
-            <div class="col-lg-4 col-md-6 sm-padding">
-                <a class="btn btn-primary btn-lg hole-cates" href="">عرض الخدمات كاملة</a>
+            @foreach($groupedPackages as $categoryName => $packages)
+            <div class="col-md-12 sm-padding text-right mt-5">
+                <fieldset style="border:2px solid #9e8a78; padding: 20px; margin: 20px;">
+                    <legend style="font-size:25px; font-weight:bold; padding:0 30px;">{{$categoryName}}</legend>
+                    <div class="price_wrap" style="text-align:right;">
+                        <div class="row">
+                            @foreach($packages as $index => $package)
+                            @if($index == 0)
+                            <!-- First package takes half of the grid -->
+                            <div class="col-md-12 mb-2" style="border: 1px solid #9e8a78; padding:10px; border-radius:5px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);">
+                                <h3>{{$package->name}}</h3>
+                                <h5>{{$package->description}}</h5>
+                                <span class="price mr-5" style="right: 200px; top:8px;">{{$package->sell_price}} &pound;</span>
+                            </div>
+                            @elseif($index == 1 || $index == 2)
+                            <!-- Second and third packages stack vertically in the other half -->
+                            <div class="col-md-6" style="border: 1px solid #9e8a78; padding:10px; border-radius:5px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);">
+                                <h3>{{$package->name}}</h3>
+                                <h5>{{$package->description}}</h5>
+                                <span class="price mr-5" style="right: 200px; top:8px;">{{$package->sell_price}} &pound;</span>
+                            </div>
+                            @endif
+                            @endforeach
+                        </div>
+                    </div>
+                </fieldset>
             </div>
+            @endforeach
 
-            <div class="col-lg-4 col-md-6 sm-padding">
-                <div class="price_wrap" style="text-align:right;">
-                    <h3>اسم الباكدج</h3>
-                    <ul class="price_list">
-                        <li style="border: 1px solid #9e8a78; padding:10px; border-radius:5px;">
-                            <h4>أسم الخدمة</h4>
-                            <span class="price mr-5" style="right: 200px; top:8px;">سعر الخدمة &pound;</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
 
-        </div>
+        </div> <!-- row end -->
     </div>
 </section>
 

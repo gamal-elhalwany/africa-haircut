@@ -25,6 +25,7 @@
                     <select name="status" onchange="ProductStateHideInputs()" id="product_state_select" class="form-control" required>
                         <option value="product">منتج</option>
                         <option value="service">خدمة</option>
+                        <option value="packages">باكدج</option>
                     </select>
                 </div>
 

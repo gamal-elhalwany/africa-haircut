@@ -51,7 +51,7 @@
                             <li><a href="./#services">{{__('navbar.services')}}</a></li>
                             <li><a href="./#gallery">{{__('navbar.gallery')}}</a></li>
                             <li><a href="./#pricing">{{__('navbar.pricing')}}</a></li>
-                            <li><a href="./#contact-us">{{__('navbar.contact')}}</a></li>
+                            <!-- <li><a href="./#contact-us">{{__('navbar.contact')}}</a></li> -->
                             <!-- <li><a href="/{{__('navbar.lang')}}">{{__('navbar.lang')}}</a></li> -->
                         </ul>
                     </div>

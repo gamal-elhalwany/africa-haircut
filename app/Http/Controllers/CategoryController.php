@@ -49,7 +49,6 @@ class CategoryController extends Controller
         $request->validate([
             'name' => 'required|string',
             'description' => 'nullable|string',
-            'parent_id' => 'exists:categories,id',
         ],
         [
             'name.required' => 'الاسم للفئة مطلوب',

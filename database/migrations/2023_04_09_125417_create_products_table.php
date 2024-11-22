@@ -23,7 +23,7 @@ return new class extends Migration
             $table->integer('distribution_value')->nullable();
             $table->integer('quantity')->default(1)->nullable();
             $table->integer('net_profit')->nullable();
-            $table->enum('status',['product','service'])->nullable();
+            $table->enum('status',['product','service', 'packages'])->nullable();
 
             $table->foreignId('branch_id')->constrained()->onDelete('cascade');
 

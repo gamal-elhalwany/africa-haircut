@@ -41,7 +41,7 @@ use App\Http\Controllers\Front\AppoinmentController;
 //*******************************************************//
 //******************* User Routes **********************//
 
-Route::get('/{lang}', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('dashboard/login', [UserController::class, 'loginPage'])->name('login.page');
 
