@@ -30,14 +30,6 @@ use App\Http\Controllers\Front\AppoinmentController;
 |
 */
 
-
-
-// Route::get('/{lang}', function ($lang) {
-
-//     $services = Product::with('category')->where('status', 'service')->get();
-//     return view('home', compact('services'));
-// });
-
 //*******************************************************//
 //******************* User Routes **********************//
 
