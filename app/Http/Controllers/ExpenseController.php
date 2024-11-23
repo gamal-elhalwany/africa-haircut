@@ -24,7 +24,7 @@ class ExpenseController extends Controller
 
     public function create()
     {
-        $users = User::with('branch')->with('job')->with('chair')->with('expense')->get();
+        $users = User::with('branch')->with('job')->with('chair')->with('expenses')->get();
         return view('dashboard.expenses.create', compact('users'));
     }
 
@@ -56,7 +56,7 @@ class ExpenseController extends Controller
 
         Expense::create($validated);
 
-        toastr()->success('Expense added successfully!');
+        toastr()->success('تم إضافة قيمة المصروفة بنجاح.');
         return redirect()->route('expenses.create');
     }
 }

@@ -60,7 +60,7 @@ class User extends Authenticatable
         return $this->hasOne(Chair::class);
     }
 
-    public function expense()
+    public function expenses()
     {
         return $this->hasMany(Expense::class);
     }

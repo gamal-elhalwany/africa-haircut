@@ -13,7 +13,8 @@
                         <th>التاريخ</th>
                         <th>النوع</th>
                         <th>المبلغ</th>
-                        <th>الوصف</th>
+                        <th>الموظف</th>
+                        <th>التفاصيل</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -22,6 +23,7 @@
                         <td>{{ $expense->date }}</td>
                         <td>{{ $expense->category }}</td>
                         <td class="text-success">{{ number_format($expense->amount) }} £</td>
+                        <td class="text-success">{{ $expense->user->name ?? '' }}</td>
                         <td>{{ $expense->description }}</td>
                     </tr>
                     @endforeach

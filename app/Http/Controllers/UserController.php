@@ -50,7 +50,7 @@ class UserController extends Controller
                 toastr()->success('تم تسجيل الدخول بنجاح.');
                 return Redirect::route('dashboard.index');
             }
-            return Redirect::back()->withErrors(['error' => 'Invalid credentials']);
+            return Redirect::back()->withErrors(['error' => 'البيانات غير صحيحة!']);
         } catch (Exception $e) {
             throw $e;
         }

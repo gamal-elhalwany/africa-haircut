@@ -46,11 +46,11 @@
                 <div class="d-flex menu-wrap align-items-center main-menu-container">
                     <div class="mainmenu" id="mainmenu">
                         <ul class="nav">
-                            <li><a href="./#home-section">{{__('navbar.home')}}</a></li>
-                            <li><a href="./#about">{{__('navbar.about')}}</a></li>
-                            <li><a href="./#services">{{__('navbar.services')}}</a></li>
-                            <li><a href="./#gallery">{{__('navbar.gallery')}}</a></li>
-                            <li><a href="./#pricing">{{__('navbar.pricing')}}</a></li>
+                            <li><a href="{{ url('../') }}/#home-section">{{__('navbar.home')}}</a></li>
+                            <li><a href="{{ url('../') }}/#about">{{__('navbar.about')}}</a></li>
+                            <li><a href="{{ url('../') }}/#services">{{__('navbar.services')}}</a></li>
+                            <li><a href="{{ url('../') }}/#gallery">{{__('navbar.gallery')}}</a></li>
+                            <li><a href="{{ url('../') }}/#pricing">{{__('navbar.pricing')}}</a></li>
                             <!-- <li><a href="./#contact-us">{{__('navbar.contact')}}</a></li> -->
                             <!-- <li><a href="/{{__('navbar.lang')}}">{{__('navbar.lang')}}</a></li> -->
                         </ul>
