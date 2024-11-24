@@ -75,10 +75,10 @@
 
     <!-- START MOBILE NAVBAR -->
 
-    <div id="menu_mobile" class="menu-mobile-menu-container">
+    <div id="menu_mobile" class="menu-mobile-menu-container" style="text-align: right;">
         <ul class="mob-menu-top">
             <li class="menu-header">
-                <a href="#">MENU</a>
+                <a href="#">القائمة</a>
             </li>
             <li style="display: inline-block;">
                 <a class="mob-close-toggle" style="cursor: pointer;width: 75px;">
@@ -88,42 +88,11 @@
         </ul>
         <div class="menu-tab-div">
             <ul id="mobile-menu" class="menu">
-                <li>
-                    <a href="index.php#home-section" class="a-mob-menu">
-                        HOME
-                    </a>
-                </li>
-                <li>
-                    <a href="index.php#about" class="a-mob-menu">
-                        About Us
-                    </a>
-                </li>
-                <li>
-                    <a href="index.php#services" class="a-mob-menu">
-                        Services
-                    </a>
-                </li>
-                <li>
-                    <a href="appointment.php" class="a-mob-menu">
-                        Book Now
-                    </a>
-                </li>
-                <li>
-                    <a href="index.php#gallery" class="a-mob-menu">
-                        GALLERY
-                    </a>
-                </li>
-                <li>
-                    <a href="index.php#pricing" class="a-mob-menu">
-                        PRICING
-                    </a>
-                </li>
-                <li>
-                    <a href="index.php#contact-us" class="a-mob-menu">
-                        Contact US
-                    </a>
-                </li>
-
+                <li><a href="{{ url('../') }}/#home-section">{{__('navbar.home')}}</a></li>
+                <li><a href="{{ url('../') }}/#about">{{__('navbar.about')}}</a></li>
+                <li><a href="{{ url('../') }}/#services">{{__('navbar.services')}}</a></li>
+                <li><a href="{{ url('../') }}/#gallery">{{__('navbar.gallery')}}</a></li>
+                <li><a href="{{ url('../') }}/#pricing">{{__('navbar.pricing')}}</a></li>
             </ul>
         </div>
     </div>

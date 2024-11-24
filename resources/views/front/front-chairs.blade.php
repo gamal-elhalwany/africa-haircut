@@ -22,7 +22,7 @@
         font-weight: bold;
         text-align: center;
         color: #fff;
-        background: linear-gradient(45deg, #6a1b9a, #283593);
+        background: linear-gradient(45deg, #bb8c4b, #935028);
         padding: 15px;
         border-radius: 12px;
         box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
@@ -89,7 +89,7 @@
     }
 
     .btn-primary {
-        background: linear-gradient(45deg, #6a1b9a, #283593);
+        background: linear-gradient(45deg, #bb8c4b, #935028);
         color: #fff;
         font-weight: bold;
         border: none;
@@ -101,7 +101,7 @@
 
     .btn-primary:hover {
         transform: translateY(-5px);
-        background: linear-gradient(45deg, #512da8, #1e88e5);
+        background: linear-gradient(180deg, #bb8c4b, #935028);
     }
 
     .alert {
@@ -110,6 +110,9 @@
     }
 </style>
 
+<button class="scroll-top" id="scroll-top">
+    <i class="fas fa-angle-double-up"></i>
+</button>
 <div class="container">
     <h2>الكراسي المتاحة</h2>
 

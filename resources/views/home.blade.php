@@ -4,46 +4,6 @@
 @endsection
 
 @section('content')
-@push('style')
-<style>
-    .scroll-top {
-        position: fixed;
-        z-index: 999999;
-        right: 40px;
-        top: 85%;
-        color: #fff;
-        background-color: #9e8a78;
-        border: none;
-        border-radius: 5px;
-        padding: 8px 14px;
-        cursor: pointer;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-        display: none;
-    }
-
-    .scroll-top:hover {
-        scale: 1.1 1.1;
-        transition: all 0.3s ease-in-out;
-    }
-
-    .scroll-top:focus {
-        outline: none;
-    }
-
-    .hole-cates {
-        background-color: #222227;
-        outline: none;
-        border: none;
-    }
-
-    .hole-cates:hover {
-        background: none;
-        color: #222227;
-        border: 1px solid #222227;
-        transition: all 0.3s ease-in-out;
-    }
-</style>
-@endpush
 <!-- HOME SECTION -->
 <button class="scroll-top" id="scroll-top">
     <i class="fas fa-angle-double-up"></i>
