@@ -240,11 +240,10 @@ class UserController extends Controller
         return redirect()->route('dashboard.index');
     }
 
-
-
     public function dailyMethod(Request $request, $id)
     {
-        if ($request->checkIn) {
+        $action = $request->input('action');
+        if ($action === 'checkIn') {
             $date = now()->toDateString();
             $check_in = now()->toTimeString();
 
@@ -291,7 +290,7 @@ class UserController extends Controller
             }
         }
 
-        if ($request->checkOut) {
+        if ($action === 'checkOut') {
             $date = now()->toDateString();
             $check_out = now()->toTimeString();
 

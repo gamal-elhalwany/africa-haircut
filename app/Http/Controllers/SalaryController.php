@@ -17,7 +17,7 @@ class SalaryController extends Controller
      */
     public function index()
     {
-        $AllUsers = User::with('branch')->with('chair')->with('daily')->with('expense')->with('job')->get();
+        $AllUsers = User::with('branch')->with('chair')->with('daily')->with('expenses')->with('job')->get();
         return view('dashboard.salary.index', compact('AllUsers'));
     }
 

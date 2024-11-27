@@ -71,15 +71,16 @@ class InvoiceController extends Controller
     {
         $Products = Product::all();
         $Chair = Chair::where('id', $id)->with('branch')->with('user')->first();
-        $chairProcess = ChairProcess::where('check_out', null)->first();
+        $chairProcess = ChairProcess::where('chair_id', $id)->whereNull('check_out')->first();
 
         if ($chairProcess) {
             if ($chairProcess->chair_id == $id) {
                 return view('dashboard.invoice.set', compact('customer', 'Products', 'Chair'));
             }
+        } else {
+            toastr()->error('لا يوجد عمليات لهذا الكرسي.');
+            return redirect()->route('dashboard.index');
         }
-        toastr()->error('لا يوجد عمليات لهذا الكرسي.');
-        return redirect()->route('dashboard.index');
     }
 
     public function SaveInvoiceMethod(Request $request, $id, Customer $customer)
@@ -117,7 +118,7 @@ class InvoiceController extends Controller
                     // Decrease product stock.
                     $product->decrement('quantity', $productData['qty']);
                 } else {
-                    toastr()->info("لا يوجد مزون كاف من هذا المنتج {$product->name}.");
+                    toastr()->info("لا يوجد مخزون كاف من هذا المنتج {$product->name}.");
                     return back();
                 }
             }
@@ -151,7 +152,8 @@ class InvoiceController extends Controller
 
     public function CustomerInvoiceMethod(Customer $customer)
     {
-        $customerInvoices = Invoice::where('customer_id', $customer->id)->with('customer')->get();
+        $customerInvoices = Invoice::where('customer_id', $customer->id)->with('customer')
+        ->where('created_at', Carbon::now())->get();
 
         if ($customerInvoices->count() > 0) {
             $totalPrice = 0;

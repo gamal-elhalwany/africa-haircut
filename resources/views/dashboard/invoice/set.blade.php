@@ -61,10 +61,17 @@
                     <label for="{{$Product->name}}">{{$Product->name}}</label>
                     <input type="checkbox" id="{{$Product->name}}" name="products[{{ $Product->id }}][selected]" value="{{$Product->id}}" />
                 </div>
+                @if($Product->status === 'service' || $Product->status === 'packages')
+                <div class="input-style checkBox">
+                    <label for="qty">الكمية:</label>
+                    <input type="hidden" id="qty" name="products[{{ $Product->id }}][qty]" min="1" value="1"/>
+                </div>
+                @else
                 <div class="input-style checkBox">
                     <label for="qty">الكمية:</label>
                     <input type="number" id="qty" name="products[{{ $Product->id }}][qty]" min="1" />
                 </div>
+                @endif
                 @endforeach
 
                 <div class="invoice-footer">

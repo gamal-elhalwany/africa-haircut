@@ -1,6 +1,6 @@
-<?php 
+<?php
 
 return [
-    'site_name'=>'افريكان',
-    
+    'site_name'=>'افريقيا',
+
 ];

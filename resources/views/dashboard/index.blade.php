@@ -46,7 +46,7 @@
                 <div class="row g-3">
                     @foreach($Available as $AvailableChairs)
                     <div class="col-md-4">
-                        <div class="card text-center">
+                        <div class="card text-center" style="padding: 30px;">
                             <img src="{{ asset('Design/images/available.png') }}" class="card-img-top" alt="Available Chair">
                             <div class="card-body">
                                 <h5 class="card-title">الدور: {{ $AvailableChairs->floor }}</h5>
@@ -81,7 +81,7 @@
                 <div class="row g-3">
                     @foreach($Busy as $BusyChairs)
                     <div class="col-md-4">
-                        <div class="card text-center">
+                        <div class="card text-center" style="padding: 30px;">
                             <img src="{{ env('App_Design_Url') . '/Design/images/busy.png' }}" class="card-img-top" alt="Busy Chair">
                             <div class="card-body">
                                 <h5 class="card-title">الدور: {{ $BusyChairs->floor }}</h5>
@@ -122,7 +122,9 @@
                                 @endforeach
                             </select>
                             @endif
-                            <button type="submit" class="btn {{ $user->chair ? 'btn-danger' : 'btn-success' }}" name="{{ $user->chair ? 'checkOut' : 'checkIn' }}">
+                            <button type="submit" class="btn {{ $user->chair ? 'btn-danger' : 'btn-success' }}"
+                                name="action"
+                                value="{{ $user->chair ? 'checkOut' : 'checkIn' }}">
                                 {{ $user->chair ? 'انصراف' : 'حضور' }}
                             </button>
                         </form>

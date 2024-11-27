@@ -18,8 +18,8 @@ class CheckAppointmentsExpiry
      */
     public function handle(Request $request, Closure $next)
     {
-        $now = Carbon::now();
-        $appointments = Appointment::where('appointment_date', '<=', $now)->update(['status' => 'completed']);
+        $time = Carbon::now()->subHours(24);
+        $appointments = Appointment::where('appointment_date', '<=', $time) ->update(['status' => 'completed']);
         return $next($request);
     }
 }
