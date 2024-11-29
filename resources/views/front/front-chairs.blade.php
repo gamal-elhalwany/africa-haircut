@@ -30,7 +30,6 @@
 
     .row {
         margin-top: 20px;
-        gap: 20px;
     }
 
     /* Card Styling */
@@ -131,27 +130,27 @@
     </div>
     @endif
 
-    <div class="row justify-content-center">
+    <div class="row">
         @if($chairs->count() > 0)
         @foreach($chairs as $chair)
-        <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="col-lg-6 col-md-4 col-sm-6">
             <div class="card">
-                <img src="https://l.top4top.io/p_26550dd1k1.jpg" alt="Chair Image">
-                <div class="card-body">
+                <img src="https://l.top4top.io/p_26550dd1k1.jpg" alt="Chair Image" style="float: left;">
+                <div class="card-body" style="text-align: right;">
                     <h5 class="card-title">كرسي: {{$chair->number}}</h5>
                     <p class="card-text">الدور: {{$chair->floor}}</p>
                     <p class="card-text">فرع: {{$chair->branch->name}}</p>
 
                     <form action="{{ route('store.appointment') }}" method="POST">
                         @csrf
-                        <div class="mb-3">
+                        <div class="mb-3 ml-1" style="width: 48%; float:right;">
                             <input type="text" name="customer_name" class="form-control" placeholder="الأسم" required>
                             @error('customer_name')
                             <div class="text-danger mt-1">{{ $message }}</div>
                             @enderror
                         </div>
 
-                        <div class="mb-3">
+                        <div class="mb-3 mr-1" style="width: 48%; float:left;">
                             <input type="text" name="mobile" class="form-control" placeholder="رقم الموبايل" required>
                             @error('mobile')
                             <div class="text-danger mt-1">{{ $message }}</div>
@@ -161,14 +160,14 @@
                         <input type="hidden" name="chair_id" value="{{$chair->id}}">
                         <input type="hidden" name="branch_id" value="{{$chair->branch->id}}">
 
-                        <div class="mb-3">
+                        <div class="mb-3 ml-1" style="width: 48%; float:right;">
                             <input type="date" name="appointment_date" class="form-control" min="{{ now()->toDateString() }}" required>
                             @error('appointment_date')
                             <div class="text-danger mt-1">{{ $message }}</div>
                             @enderror
                         </div>
 
-                        <div class="mb-3">
+                        <div class="mb-3 mr-1" style="width: 48%; float:left;">
                             <input type="time" name="start_at" class="form-control" required>
                             @error('start_at')
                             <div class="text-danger mt-1">{{ $message }}</div>
