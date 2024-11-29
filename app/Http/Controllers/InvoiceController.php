@@ -88,7 +88,7 @@ class InvoiceController extends Controller
         $this->validate(
             $request,
             ['products' => 'required'],
-            ['required' => 'يرجي تحديد الخدمات للعميل ',]
+            ['required' => 'يرجي تحديد الخدمات للعميل أو الكمية.',],
         );
 
         DB::beginTransaction();
@@ -115,6 +115,7 @@ class InvoiceController extends Controller
                         'qty' => $productData['qty'],
                     ]);
 
+                    // dd($productData);
                     // Decrease product stock.
                     $product->decrement('quantity', $productData['qty']);
                 } else {
@@ -153,7 +154,7 @@ class InvoiceController extends Controller
     public function CustomerInvoiceMethod(Customer $customer)
     {
         $customerInvoices = Invoice::where('customer_id', $customer->id)->with('customer')
-        ->where('created_at', Carbon::now())->get();
+            ->where('created_at', Carbon::now())->get();
 
         if ($customerInvoices->count() > 0) {
             $totalPrice = 0;

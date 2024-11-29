@@ -16,39 +16,35 @@
                 <li data-target="#home-section-carousel" data-slide-to="0" class="active"></li>
                 <li data-target="#home-section-carousel" data-slide-to="1"></li>
                 <li data-target="#home-section-carousel" data-slide-to="2"></li>
+              <li data-target="#home-section-carousel" data-slide-to="3"></li>
             </ol>
             <div class="carousel-inner">
                 <!-- FIRST SLIDE -->
                 <div class="carousel-item active">
                     <img class="d-block w-100" src="{{asset('Design/images/barbershop_image_1.jpg')}}" alt="First slide">
                     <div class="carousel-caption d-md-block">
-                        <h3>إنها ليست مجرد قصة شعر، بل هي تجربة.</h3>
-                        <p>
-                            صالون الحلاقة الخاص بنا هو منطقة تم إنشاؤها خصيصًا للرجال الذين يقدرون
-                            الجودة الممتازة والوقت والمظهر الخالي من العيوب.
-                        </p>
+                        <h3>لن نتوقف أبدً حتي نغير قواعد اللعبة.</h3>
                     </div>
                 </div>
                 <!-- SECOND SLIDE -->
                 <div class="carousel-item">
                     <img class="d-block w-100" src="{{asset('Design/images/barbershop_image_2.jpg')}}" alt="Second slide">
                     <div class="carousel-caption d-md-block">
-                        <h3>إنها ليست مجرد قصة شعر، بل هي تجربة.</h3>
-                        <p>
-                            صالون الحلاقة الخاص بنا هو منطقة تم إنشاؤها خصيصًا للرجال الذين يقدرون
-                            الجودة الممتازة والوقت والمظهر الخالي من العيوب.
-                        </p>
+                        <h3>نحن موجودون لتجاوز توقعاتك.</h3>
                     </div>
                 </div>
                 <!-- THIRD SLIDE -->
                 <div class="carousel-item">
                     <img class="d-block w-100" src="{{asset('Design/images/barbershop_image_3.jpg')}}" alt="Third slide">
                     <div class="carousel-caption d-md-block">
-                        <h3>إنها ليست مجرد قصة شعر، بل هي تجربة.</h3>
-                        <p>
-                            صالون الحلاقة الخاص بنا هو منطقة تم إنشاؤها خصيصًا للرجال الذين يقدرون
-                            الجودة الممتازة والوقت والمظهر الخالي من العيوب.
-                        </p>
+                        <h3>التميز مهم في كل ما نقوم به.</h3>
+                    </div>
+                </div>
+              <!-- FOURTH SLIDE -->
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="{{asset('Design/images/barbershop_image_3.jpg')}}" alt="Third slide">
+                    <div class="carousel-caption d-md-block">
+                        <h3>نحن موجودون لخلق وقت سعادة جديد بالنسبة لك.</h3>
                     </div>
                 </div>
             </div>
@@ -73,10 +69,10 @@
             <div class="col-md-6">
                 <div class="about_content" style="text-align: center;">
                     <h3>{{__('body.introducing')}}</h3>
-                    <h2>صالون حلاقة افريكان<br> منذ عام 1991</h2>
+                    <h2>صالون حلاقة افريقيا<br> منذ عام 2004</h2>
                     <img src="{{asset('Design/images/about-logo.png')}}" alt="logo">
                     <p style="color: #777">
-                        لحلاق هو الشخص الذي تتمثل وظيفته بشكل أساسي في قص شعر العريس وتصفيفه للرجال والأولاد. يُعرف مكان عمل الحلاق باسم "مكان الحلاقة" أو "صالون الحلاقة". كما تعد محلات الحلاقة أماكن للتفاعل الاجتماعي والحوار العام. وفي بعض الحالات، تكون محلات الحلاقة أيضًا منتديات عام.
+                       تحويل مجال قص الشعر في المنطقة الحالية اليبيئة استرخاء وسعادة كاملة اعتماداً علي تجربة العملاء المتميزين لدينا.
                     </p>
                     <a href="#" class="default_btn" style="opacity: 1;">المزيد عنا</a>
                 </div>
@@ -102,9 +98,9 @@
             <div class="heading-line"></div>
         </div>
         <div class="row">
-            @foreach ($services->random(4) as $service)
-            <div class="col-lg-3 col-md-6 padd_col_res">
-                <div class="service_box" style="box-shadow:0 4px 6px rgba(0, 0, 0, 0.4);">
+            @foreach ($services->random(8) as $service)
+            <div class="col-lg-3 col-md-6 mt-2 padd_col_res">
+                <div class="service_box" style="box-shadow:0 4px 6px rgba(0, 0, 0, 0.4); height:200px;">
                     <i class="bs bs-scissors-1"></i>
                     <h3>{{$service->name}}</h3>
                     <p>{{$service->description}}</p>
@@ -125,10 +121,9 @@
             <div class="col-md-6 offset-md-6">
                 <form action="appointment.php" method="post" id="appointment_form" class="form-horizontal appointment_form" style="text-align:right">
                     <div class="book_content">
-                        <h2 style="color: white;">حدد موعداً</h2>
+                        <h2 style="color: white;">هدفنا</h2>
                         <p style="color: #999;">
-                            الحلاق هو الشخص الذي تكون مهنته بشكل أساسي قص الملابس وتصفيف الشعر
-                            وحلاقة شعر الرجال والصبيان.
+                            توسيع اسم العلامه التجارية AFRICA في مصر في نهايه عام 2030 من خلال خدمه المجال الكامل للتجميل الرجالي والعناية الشخصيه ومستحضرات التجميل بجميع المواد عاليه الجوده المطلوبه والخدمات المتميزة
                         </p>
                     </div>
                     <!-- <div class="form-group row">
@@ -140,9 +135,9 @@
                         </div>
                     </div> -->
 
-                    <a id="app_submit" class="default_btn" href="{{route('chairs.front')}}">
+                 <!--   <a id="app_submit" class="default_btn" href="{{route('chairs.front')}}">
                         حدد موعداً
-                    </a>
+                    </a> -->
                 </form>
             </div>
         </div>
@@ -154,7 +149,7 @@
 <section class="gallery-section" id="gallery">
     <div class="section_heading">
         <h3>صالون & منتجع صحى عصرى</h3>
-        <h2>معرض أفريكا</h2>
+        <h2>معرض افريقيا</h2>
         <div class="heading-line"></div>
     </div>
     <div class="container">
@@ -171,32 +166,32 @@
             </div>
             <div class="col-lg-3 col-md-6 gallery-column">
                 <div style="height: 230px">
-                    <div class="gallery-img" style="background-image: url({{asset('Design/images/IMG_9305.jpg')}});"></div>
+                    <div class="gallery-img" style="background-image: url({{asset('Design/images/IMG_9305.JPG')}});"></div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 gallery-column">
                 <div style="height: 230px">
-                    <div class="gallery-img" style="background-image: url({{asset('Design/images/IMG_9312.jpg')}});"></div>
+                    <div class="gallery-img" style="background-image: url({{asset('Design/images/IMG_9312.JPG')}});"></div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 gallery-column">
                 <div style="height: 230px">
-                    <div class="gallery-img" style="background-image: url({{asset('Design/images/IMG_9087.jpg')}});"></div>
+                    <div class="gallery-img" style="background-image: url({{asset('Design/images/IMG_9087.JPG')}});"></div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 gallery-column">
                 <div style="height: 230px">
-                    <div class="gallery-img" style="background-image: url({{asset('Design/images/IMG_9084.jpg')}});"></div>
+                    <div class="gallery-img" style="background-image: url({{asset('Design/images/IMG_9084.JPG')}});"></div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 gallery-column">
                 <div style="height: 230px">
-                    <div class="gallery-img" style="background-image: url({{asset('Design/images/IMG_9125.jpg')}});"></div>
+                    <div class="gallery-img" style="background-image: url({{asset('Design/images/IMG_9125.JPG')}});"></div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 gallery-column">
                 <div style="height: 230px">
-                    <div class="gallery-img" style="background-image: url({{asset('Design/images/IMG_9312.jpg')}});"></div>
+                    <div class="gallery-img" style="background-image: url({{asset('Design/images/IMG_9312.JPG')}});"></div>
                 </div>
             </div>
         </div>
@@ -209,7 +204,7 @@
     <div class="container">
         <div class="section_heading ">
             <h3>صالون & منتجع صحى عصرى</h3>
-            <h2>حلاقينا</h2>
+            <h2>المصففين</h2>
             <div class="heading-line"></div>
         </div>
         <ul class="team_members row">
@@ -246,39 +241,35 @@
                 <li data-target="#reviews-carousel" data-slide-to="0" class="active"></li>
                 <li data-target="#reviews-carousel" data-slide-to="1"></li>
                 <li data-target="#reviews-carousel" data-slide-to="2"></li>
+              <li data-target="#reviews-carousel" data-slide-to="3"></li>
             </ol>
             <div class="carousel-inner">
                 <!-- REVIEW 1 -->
                 <div class="carousel-item active">
                     <img class="d-block w-100" src="{{asset('Design/images/barbershop_image_1.jpg')}}" alt="First slide" style="visibility: hidden;">
                     <div class="carousel-caption d-md-block">
-                        <h3>إنها ليست مجرد قصة شعر، بل هي تجربة.</h3>
-                        <p>
-                            صالون الحلاقة الخاص بنا هو منطقة تم إنشاؤها خصيصًا للرجال الذين يقدرون
-                            الجودة الممتازة والوقت والمظهر الخالي من العيوب.
-                        </p>
+                        <h3>لن نتوقف أبدً حتي نغير قواعد اللعبة.</h3>
                     </div>
                 </div>
                 <!-- REVIEW 2 -->
                 <div class="carousel-item">
                     <img class="d-block w-100" src="{{asset('Design/images/barbershop_image_1.jpg')}}" alt="First slide" style="visibility: hidden;">
                     <div class="carousel-caption d-md-block">
-                        <h3>إنها ليست مجرد قصة شعر، بل هي تجربة.</h3>
-                        <p>
-                            صالون الحلاقة الخاص بنا هو منطقة تم إنشاؤها خصيصًا للرجال الذين يقدرون
-                            الجودة الممتازة والوقت والمظهر الخالي من العيوب.
-                        </p>
+                        <h3>نحن موجودون لتجاوز توقعاتك.</h3>
                     </div>
                 </div>
                 <!-- REVIEW 3 -->
                 <div class="carousel-item">
                     <img class="d-block w-100" src="{{asset('Design/images/barbershop_image_1.jpg')}}" alt="First slide" style="visibility: hidden;">
                     <div class="carousel-caption d-md-block">
-                        <h3>إنها ليست مجرد قصة شعر، بل هي تجربة.</h3>
-                        <p>
-                            صالون الحلاقة الخاص بنا هو منطقة تم إنشاؤها خصيصًا للرجال الذين يقدرون
-                            الجودة الممتازة والوقت والمظهر الخالي من العيوب.
-                        </p>
+                        <h3>التميز مهم في كل ما نقوم به.</h3>
+                    </div>
+                </div>
+              <!-- REVIEW 4 -->
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="{{asset('Design/images/barbershop_image_1.jpg')}}" alt="First slide" style="visibility: hidden;">
+                    <div class="carousel-caption d-md-block">
+                        <h3>نحن موجودون لخلق وقت سعادة جديد بالنسبة لك.</h3>
                     </div>
                 </div>
             </div>
@@ -300,7 +291,6 @@
 <section class="pricing_section" id="pricing">
     <div class="container">
         <div class="section_heading">
-            <h3>وفر 20% مع منتجع التجميل</h3>
             <h2>اسعار الخدمات لدينا</h2>
             <div class="heading-line"></div>
         </div>
@@ -447,7 +437,7 @@
                     <h3>المقر الرئيسي</h3>
                     <p>
                         <i class="fas fa-map-marker-alt"></i>
-                         السويس الملاحه الجديده - المحروسه - شارع الفيلل
+                        السويس الملاحه الجديده - المحروسه - شارع الفيلل
                     </p>
                     <p>
                         <i class="fas fa-phone-alt"></i>
