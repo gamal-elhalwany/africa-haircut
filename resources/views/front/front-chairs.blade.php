@@ -21,8 +21,8 @@
         font-size: 2.5rem;
         font-weight: bold;
         text-align: center;
-        color: #fff;
-        background: linear-gradient(45deg, #bb8c4b, #935028);
+        color: #000;
+        background: linear-gradient(45deg, #bb8c4b0d, #b78e7521);
         padding: 15px;
         border-radius: 12px;
         box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
@@ -43,18 +43,18 @@
 
     .card:hover {
         transform: scale(1.05);
+        margin-top: 20px 0;
         box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
     }
 
     .card img {
-        width: 100%;
-        height: 100%;
+        width: 50%;
         object-fit: cover;
     }
 
     .card-body {
         padding: 20px;
-        text-align: center;
+        text-align: right;
     }
 
     .card-title {
@@ -68,6 +68,14 @@
         font-size: 1rem;
         color: #616161;
         margin-bottom: 20px;
+    }
+
+    .card-caption {
+        float: right;
+        padding: 30px;
+        height: 200px;
+        width: 48%;
+        text-align: center;
     }
 
     /* Form Styling */
@@ -133,14 +141,17 @@
     <div class="row">
         @if($chairs->count() > 0)
         @foreach($chairs as $chair)
-        <div class="col-lg-6 col-md-4 col-sm-6">
+        <div class="col-lg-6 col-md-4 col-sm-6 mt-2">
             <div class="card">
-                <img src="https://l.top4top.io/p_26550dd1k1.jpg" alt="Chair Image" style="float: left;">
-                <div class="card-body" style="text-align: right;">
-                    <h5 class="card-title">كرسي: {{$chair->number}}</h5>
-                    <p class="card-text">الدور: {{$chair->floor}}</p>
-                    <p class="card-text">فرع: {{$chair->branch->name}}</p>
-
+                <div class="card-infos">
+                    <div class="card-caption">
+                        <h5 class="card-title">كرسي: {{$chair->number}}</h5>
+                        <p class="card-text">الدور: {{$chair->floor}}</p>
+                        <p class="card-text">فرع: {{$chair->branch->name}}</p>
+                    </div>
+                    <img src="https://l.top4top.io/p_26550dd1k1.jpg" alt="Chair Image">
+                </div>
+                <div class="card-body">
                     <form action="{{ route('store.appointment') }}" method="POST">
                         @csrf
                         <div class="mb-3 ml-1" style="width: 48%; float:right;">
