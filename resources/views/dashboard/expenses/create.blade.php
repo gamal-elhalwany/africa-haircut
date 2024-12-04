@@ -1,5 +1,5 @@
 @extends('dashboard.layouts.app')
-@section('title', 'أفريكانا' . ' || ' . 'اضافة النفقات')
+@section('title', 'أفريقيا' . ' || ' . 'اضافة النفقات')
 
 @section('body')
 <div class="container mt-5">

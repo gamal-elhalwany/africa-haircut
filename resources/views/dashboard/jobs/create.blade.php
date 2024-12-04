@@ -2,7 +2,7 @@
 @push('style')
     <link rel="stylesheet" href="{{asset(env('App_Design_Url').'/Design/css/jobs/main.css')}}">
 @endpush
-@section('title','إضافة مستخدم جديد')
+@section('title','إضافة وظيفة جديدة')
 
 @section('body')
     <div class="body">

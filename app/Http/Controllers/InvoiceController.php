@@ -33,15 +33,22 @@ class InvoiceController extends Controller
             $query->where('mobile', $mobile);
         })->first();
 
-        $chairProcess = ChairProcess::where('check_out', null)->first();
+        $chairProcesses = ChairProcess::where('check_out', null)->get();
+        $foundProcess = false;
 
-        if ($chairProcess) {
-            if ($chairProcess->chair_id == $id) {
-                return view('dashboard.invoice.index', compact('products', 'getChair', 'customer'));
+        foreach ($chairProcesses as $process) {
+            if ($process) {
+                if ($process->chair_id == $id) {
+                    $foundProcess = true;
+                    return view('dashboard.invoice.index', compact('products', 'getChair', 'customer'));
+                }
             }
         }
-        toastr()->error('هذاالكرسي ليس محجوراً حتي الآن');
-        return redirect()->route('dashboard.index');
+
+        if (!$foundProcess) {
+            toastr()->error('هذاالكرسي ليس محجوراً حتي الآن');
+            return redirect()->route('dashboard.index');
+        }
     }
 
     public function CustomerCreateMethod(Request $request)
@@ -115,7 +122,6 @@ class InvoiceController extends Controller
                         'qty' => $productData['qty'],
                     ]);
 
-                    // dd($productData);
                     // Decrease product stock.
                     $product->decrement('quantity', $productData['qty']);
                 } else {

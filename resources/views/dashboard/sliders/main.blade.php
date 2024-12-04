@@ -106,7 +106,7 @@
 </style>
 @endpush
 
-@section('title','أفريقيا' . ' || ' . 'انشاء فئة')
+@section('title','افريقيا' . ' || ' . 'انشاء الشريط الرئيسي')
 
 @section('body')
 <div class="body">
@@ -117,46 +117,15 @@
                 الرئيسية
             </a>
 
-            <h5>فئات المنتجات والخدمات</h5>
+            <h5>انشاء الشريط الرئيسي</h5>
         </div>
 
         <div class="salary-content">
-            <!-- Display error messages -->
-            @if($errors->any())
-            <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-            @endif
-
-            <form action="{{route('categories.store')}}" method="POST" enctype="multipart/form-data">
+            <form action="{{route('sliders.main.create')}}" method="POST" enctype="multipart/form-data">
                 @csrf
-
                 <div class="input-style">
-                    <label for="emp_name">أسم الفئة:</label>
-                    <input type="text" name="name" placeholder="ادخل اسم الفئة">
-                    @error('category')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="input-style">
-                    <label for="parent_id"> الفئة الرئيسية:</label>
-                    <select type="text" id="text" name="parent_id" class="form-control">
-                        <option value="">اختر الفئة الرئيسية</option>
-                        @foreach($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                        @endforeach
-                    </select>
-                    @error('parent_id')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="input-style">
-                    <label for="dexcription">الوصف:</label>
-                    <input type="text" id="description" name="description" class="form-control">
+                    <label for="emp_name">الوصف:</label>
+                    <textarea class="form-control" type="text" name="description" placeholder="ادخل الوصف"></textarea>
                     @error('description')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -164,14 +133,14 @@
 
                 <div class="input-style">
                     <label for="image">الصورة:</label>
-                    <input type="file" id="image" name="image" class="form-control">
+                    <input type="file" id="image" name="image" class="form-control @error('image') is-invalid @enderror">
                     @error('image')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
 
                 <div class="input-style">
-                    <button class="btn btn-info" type="submit">انشاء فئة</button>
+                    <button class="btn btn-info" type="submit">انشاء</button>
                 </div>
             </form>
         </div>

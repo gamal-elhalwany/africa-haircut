@@ -2,8 +2,6 @@
 
 use App\Models\Product;
 
-use App\Models\Category;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JobsController;
@@ -12,6 +10,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ChairsController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SalaryController;
+use App\Http\Controllers\SliderController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\BranchesController;
@@ -62,6 +61,7 @@ Route::group(['middleware' => ['auth', 'check_product_qty']], function () {
     Route::post('open/chair/{id}', [UserController::class, 'OpenChairMethod'])->name('open.chair');
 
     Route::post('daily/{id}', [UserController::class, 'dailyMethod'])->name('daily');
+    Route::patch('assign_user_to_chair/{user}', [UserController::class, 'assignUserToChair'])->name('chairs.assign');
 
 
     Route::post('search', [SalaryController::class, 'SearchMethod'])->name('salary.search');
@@ -112,6 +112,11 @@ Route::group(['middleware' => ['auth', 'check_product_qty']], function () {
         Route::get('/create', [CategoryController::class, 'create'])->name('categories.create');
         Route::post('/store', [CategoryController::class, 'store'])->name('categories.store');
         Route::delete('/destroy/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+    });
+
+    Route::prefix('dashboard/sliders')->group(function () {
+        Route::get('/', [SliderController::class, 'main_slider'])->name('sliders.main');
+        Route::post('/', [SliderController::class, 'createMainSilder'])->name('sliders.main.create');
     });
 
     Route::get('user/error', function () {

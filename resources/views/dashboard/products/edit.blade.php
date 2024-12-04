@@ -2,7 +2,7 @@
 @push('style')
     <link rel="stylesheet" href="{{asset('Design/css/products/main.css')}}">
 @endpush
-@section('title','إضافة منتج جديد')
+@section('title','تعديل منتج')
 
 @section('body')
     <div class="body">

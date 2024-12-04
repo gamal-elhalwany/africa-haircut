@@ -104,7 +104,7 @@
     </style>
 @endpush
 
-@section('title','أفريكانا' . ' || ' . 'المرتبات')
+@section('title','أفريقيا' . ' || ' . 'المرتبات')
 
 @section('body')
     <div class="body">

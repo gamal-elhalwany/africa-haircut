@@ -106,10 +106,13 @@
                 @foreach($users as $user)
                 <div class="col-md-4">
                     <div class="card p-3">
+                    <?php $date = now()->toDateString(); ?>
                         <h5>اسم الموظف: {{ $user->name }}</h5>
                         <p>ساعات العمل المطلوبة: {{ $user->work_hours }}</p>
-                        <form action="{{ route('daily', $user->id) }}" method="POST">
+                        @if(!$user->chair && App\Models\Daily::where('user_id', $user->id)->where('date', $date)->where('status', 'حضور')->first())
+                        <form action="{{route('chairs.assign', $user->id)}}" method="POST">
                             @csrf
+                            @method('PATCH')
                             @if($user->chair)
                             <p>رقم الكرسي: {{ $user->chair->number }}, الدور: {{ $user->chair->floor }}</p>
                             @endif
@@ -122,11 +125,17 @@
                                 @endforeach
                             </select>
                             @endif
-                            <button type="submit" class="btn {{ $user->chair ? 'btn-danger' : 'btn-success' }}"
-                                name="action"
-                                value="{{ $user->chair ? 'checkOut' : 'checkIn' }}">
-                                {{ $user->chair ? 'انصراف' : 'حضور' }}
-                            </button>
+                            <button type="submit" class="btn btn-outline-dark float-left">تعيين إلى كرسي</button>
+                        </form>
+                        @endif
+                        <form action="{{ route('daily', $user->id) }}" method="POST">
+                            @csrf
+
+                            @if(App\Models\Daily::where('user_id', $user->id)->where('date', $date)->where('status', 'حضور')->first())
+                            <button type="submit" class="btn btn-danger" name="action" value="checkOut">أنصراف</button>
+                            @else
+                            <button type="submit" class="btn btn-success" name="action" value="checkIn">حضور</button>
+                            @endif
                         </form>
                     </div>
                 </div>

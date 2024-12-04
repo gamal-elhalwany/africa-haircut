@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.app')
 
-@section('title','أفريكانا' . ' || ' . 'انشاء فئة')
+@section('title','أفريقيا' . ' || ' . 'انشاء فئة')
 
 @section('body')
 <div class="body">
@@ -23,6 +23,7 @@
                                         <div class="card-body">
                                             <strong>اسم الفئة:</strong>
                                             <h5 class="card-title">{{$category->name}}</h5>
+                                            @can('حذف-منتج')
                                             <form action="{{route('categories.destroy', $category->id)}}" method="post">
                                                 @csrf
                                                 @method('DELETE')
@@ -30,6 +31,7 @@
                                                     <i class="fa-solid fa-trash"></i>
                                                 </button>
                                             </form>
+                                            @endcan
                                         </div>
                                     </div>
                                 </div>

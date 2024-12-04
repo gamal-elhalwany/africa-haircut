@@ -54,26 +54,28 @@ class ChairsController extends Controller
     public function store(Request $request)
     {
         $user = auth()->user();
-        $chair = Chair::where('user_id', $user->id)->first();
         $this->validate($request, [
-            'floor' => 'required|string',
-            'number' => 'required',
-            'branch' => 'required',
-        ]);
+            'floor' => 'required',
+            'number' => 'required|unique:chairs,number',
+            'branch_id' => 'required',
+        ],
+        [
+            'floor.required' => 'يجب ادخال رقم الطابق',
+            'number.required' => 'يجب ادخال رقم الكرسي',
+            'number.unique' => 'رقم الكرسي موجود مسبقا',
+            'branch_id.required' => 'يجب ادخال الفرع',
+        ]
+    );
 
-        if ($chair) {
-            toastr()->error('لديك كرسي بالفعل ، ولا يمكنك أضافة اخر!');
-            return redirect()->back();
+        if ($user->hasAnyRole('super_admin', 'owner')) {
+            $chair = Chair::create($request->all());
+
+            toastr()->success('تم إضافة الكرسي بنجاح');
+            return redirect()->route('dashboard.chairs.index');
+        } else {
+            toastr()->error('ليس لديك الصلاحية لإنشاء كرسي');
+            return redirect()->route('dashboard.chairs.index');
         }
-        $newChair = Chair::create([
-            'floor' => $request->floor,
-            'number' => $request->number,
-            'branch_id' => $request->branch,
-            'user_id' => $user->id,
-        ]);
-
-        toastr()->success('تم إضافة الكرسي بنجاح');
-        return redirect()->route('dashboard.chairs.index');
     }
 
     /**

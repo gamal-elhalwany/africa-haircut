@@ -216,7 +216,6 @@ class UserController extends Controller
                     'chair_id' => $CheckUserChair->id,
                     'check_in' => Carbon::now(),
                 ]);
-
             } else {
                 return '<h3>يرجي تحديد مستخدم قبل حجز الكرسي</h3>';
             }
@@ -247,39 +246,14 @@ class UserController extends Controller
             $date = now()->toDateString();
             $check_in = now()->toTimeString();
 
-            $user = User::where('id', $id)->first();
-            $chairUserId = Chair::where('user_id', $id)->first();
-
-            // Find today's attendance record without a check-out
-            $attendance = Daily::where('user_id', $id)->whereDate('date', $date)->whereNull('check_in')->first();
-
             try {
                 DB::beginTransaction();
-
-                if (!$attendance) {
-                    $userCheck_in = Daily::create([
-                        'date' => $date,
-                        'check_in' => $check_in,
-                        'user_id' => $id,
-                        'status' => 'حضور',
-                    ]);
-
-                    // Cache the assignment with a unique key for the chair
-                    Cookie::queue("user_chair_{$request->chair_id}", $id);
-
-                    // Check if the chair is not already assigned to another user
-                    if ($chairUserId === null) {
-                        Chair::where('id', $request->chair_id)->update([
-                            'user_id' => $id,
-                        ]);
-                    } else {
-                        DB::rollBack();
-                        return response()->json(['message' => 'هذا الموظف مسجل حضور ولديه كرسي بالفعل!']);
-                    }
-                } else {
-                    DB::rollBack();
-                    return response()->json(['message' => 'هذا الموظف مسجل حضور يجب عمل أنصراف أولا']);
-                }
+                $userCheck_in = Daily::create([
+                    'date' => $date,
+                    'check_in' => $check_in,
+                    'user_id' => $id,
+                    'status' => 'حضور',
+                ]);
 
                 DB::commit();
                 toastr()->success('تم حضور الموظف بنجاح.');
@@ -294,46 +268,54 @@ class UserController extends Controller
             $date = now()->toDateString();
             $check_out = now()->toTimeString();
 
-            $chairUserId = Chair::where('user_id', $id)->first();
-
-            // Find today's attendance record without a check-out
-            $leave = Daily::where('user_id', $id)->whereDate('date', $date)->whereNull('check_out')->first();
+            $userDaily = Daily::where('user_id', $id)->where('date', $date)->where('status', 'حضور')->first();
 
             try {
                 DB::beginTransaction();
 
-                if ($leave) {
+                if ($userDaily) {
                     // Update the record with the check-out time.
-                    $leave->update([
+                    $userDaily->update([
                         'check_out' => $check_out,
                         'status' => 'أنصراف',
                     ]);
 
-                    // delete the chair assignment cookie here if necessary
-                    Cookie::queue(Cookie::forget("user_chair_{$request->chair_id}"));
+                    // Calculate the duration between check-in and check-out
+                    $checkInTime = new Carbon($userDaily->check_in);
+                    $checkOutTime = new Carbon($userDaily->check_out);
+
+                    $durationInHours = $checkInTime->diffInHours($checkOutTime);
+                    $userDaily->duration = $durationInHours;
+                    $userDaily->save();
+
+                    $chair = Chair::where('user_id', $id)->first();
 
                     // Check if the chair is not already assigned to another user
-                    if ($chairUserId) {
-                        $chairUserId->update([
+                    if ($chair) {
+                        Cookie::queue(Cookie::forget('user_chair_' . $chair->id, $id));
+                        $chair->update([
                             'user_id' => null,
+                            'status' => 'available',
                         ]);
                     } else {
-                        DB::rollBack();
-                        return response()->json(['message' => 'هذا الموظف ليس لديه كرسي.']);
+                        $userDaily->update([
+                            'check_out' => $check_out,
+                            'status' => 'أنصراف',
+                        ]);
+
+                        // Calculate the duration between check-in and check-out
+                        $checkInTime = new Carbon($userDaily->check_in);
+                        $checkOutTime = new Carbon($userDaily->check_out);
+
+                        $durationInHours = $checkInTime->diffInHours($checkOutTime);
+                        $userDaily->duration = $durationInHours;
+                        $userDaily->save();
                     }
                 } else {
                     DB::rollBack();
                     toastr()->success('هذا الموظف لم يسجل حضور يجب تسجيل الحضور أولا.');
                     return redirect()->back();
                 }
-
-                // Calculate the duration between check-in and check-out
-                $checkInTime = new Carbon($leave->check_in);
-                $checkOutTime = new Carbon($leave->check_out);
-
-                $durationInHours = $checkInTime->diffInHours($checkOutTime);
-                $leave->duration = $durationInHours;
-                $leave->save();
 
                 DB::commit();
                 toastr()->success('تم أنصراف الموظف بنجاح.');
@@ -342,6 +324,23 @@ class UserController extends Controller
                 DB::rollBack();
                 return response()->json(['error' => $e->getMessage()], 500);
             }
+        }
+    }
+
+    public function assignUserToChair(Request $request, Chair $chair, User $user)
+    {
+        $chair = Chair::where('id', $request->chair_id)->first();
+        if ($chair) {
+            $chair->user_id = $user->id;
+            $chair->save();
+
+            // Set the user's chair assignment cookie
+            Cookie::queue(Cookie::make('user_chair_' . $chair->id, $user->id, 60 * 24));
+            toastr()->success('تم تسجيل الموظف على الكرسي بنجاح.');
+            return redirect()->route('dashboard.index');
+        } else {
+            toastr()->error('هذا الكرسي غير موجود.');
+            return redirect()->back();
         }
     }
 }

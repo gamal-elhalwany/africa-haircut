@@ -34,7 +34,7 @@
                 <form action="{{route('dashboard.chairs.store')}}" method="POST">
                     @csrf
                     <div class="input-style">
-                        <select name="branch" class="form-control">
+                        <select name="branch_id" class="form-control">
                             @foreach($Branches as $Branch)
                             <option value="{{$Branch->id}}">{{$Branch->name}}</option>
                             @endforeach
@@ -56,11 +56,5 @@
             </div>
         </div>
     </div>
-
-
-
-
-
-
 </div>
 @endsection

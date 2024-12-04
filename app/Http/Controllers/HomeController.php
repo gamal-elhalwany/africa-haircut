@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Slider;
 
 class HomeController extends Controller
 {
@@ -11,6 +12,7 @@ class HomeController extends Controller
         $packages = Product::with('category')->where('status', 'packages')->get();
         $groupedServices = $services->groupBy('category.name');
         $groupedPackages = $packages->groupBy('category.name');
-        return view('home', compact('groupedServices', 'groupedPackages', 'services'));
+        $sliders = Slider::all();
+        return view('home', compact('groupedServices', 'groupedPackages', 'services', 'sliders'));
     }
 }

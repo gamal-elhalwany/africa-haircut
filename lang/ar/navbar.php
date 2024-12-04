@@ -3,7 +3,7 @@
 return [
 //Global
     'dir'=>'rtl',
-    'title'=>'الرئيسية || افريكان',
+    'title'=>'الرئيسية || افريقيا',
     'lang'=>'en',
 
 //Navbar

@@ -57,26 +57,32 @@
                             </li>
                         </a>
 
+                        @can('انشاء-مستخدم')
                         <a href="{{route('dashboard.users.index')}}">
                             <li class="list-list-item">
                                 <i class="ri-user-line"></i> <span>المستخدمين</span>
                             </li>
                         </a>
+                        @endcan
 
-
+                        @can('انشاء-فرع')
                         <a href="{{route('dashboard.branches.index')}}">
                             <li class="list-list-item">
                                 <i class="ri-store-line"></i> <span>الفروع</span>
 
                             </li>
                         </a>
+                        @endcan
 
+                        @can('انشاء-صلاحية')
                         <a href="{{route('dashboard.roles.index')}}">
                             <li class="list-list-item">
                                 <i class="ri-equalizer-line"></i> <span>الصلاحيات</span>
                             </li>
                         </a>
+                        @endcan
 
+                        @can('انشاء-كرسي')
                         <a href="javascript:void();" data-toggle="collapse" data-target="#elements-time">
                             <li class="list-list-item">
                                 <i class="fas fa-chair"></i> <span>الكراسي</span>
@@ -96,15 +102,18 @@
                                 </li>
                             </a>
                         </ul>
+                        @endcan
 
-
+                        @can('انشاء-وظيفة')
                         <a href="{{route('dashboard.jobs.index')}}">
                             <li class="list-list-item">
                                 <i class="ri-printer-cloud-fill"></i>
                                  <span>الوظائف</span>
                             </li>
                         </a>
+                        @endcan
 
+                        @can('انشاء-منتج')
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#categories">
                             <li class="list-list-item">
                                 <i class="fas fa-layer-group"></i> <span>الفئات</span>
@@ -124,32 +133,42 @@
                                 </li>
                             </a>
                         </ul>
+                        @endcan
 
+                        @can('انشاء-منتج')
                         <a href="{{route('dashboard.products.index')}}">
                             <li class="list-list-item">
                                 <i class="ri-product-hunt-line"></i>
                                 <span> الخدمات والمنتجات</span>
                             </li>
                         </a>
+                        @endcan
 
+                        @can('انشاء-مرتب')
                         <a href="{{route('dashboard.salary.index')}}">
                             <li class="list-list-item">
                                 <i class="fa-solid fa-dollar-sign"></i> <span>المرتبات</span>
                             </li>
                         </a>
+                        @endcan
 
+                        @can('حجز-كرسي')
                         <a href="{{route('reservations')}}">
                             <li class="list-list-item">
                                 <i class="fas fa-calendar-alt"></i> <span>الحجوزات</span>
                             </li>
                         </a>
+                        @endcan
 
+                        @can('انشاء-مرتب')
                         <a href="{{route('reports.index')}}">
                             <li class="list-list-item">
                                 <i class="fas fa-chart-line"></i> <span>التقارير</span>
                             </li>
                         </a>
+                        @endcan
 
+                        @can('انشاء-مرتب')
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#elements">
                             <li class="list-list-item">
                                 <i class="far fa-money-bill-alt"></i> <span>المصروفات</span>
@@ -169,6 +188,7 @@
                                 </li>
                             </a>
                         </ul>
+                        @endcan
                     </ul>
                 </div>
                 @yield('body')

@@ -3,6 +3,20 @@
 {{__('navbar.title')}}
 @endsection
 
+@push('style')
+<style>
+    .shadow {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        pointer-events: none;
+    }
+</style>
+@endpush
+
 @section('content')
 <!-- HOME SECTION -->
 <button class="scroll-top" id="scroll-top">
@@ -16,7 +30,7 @@
                 <li data-target="#home-section-carousel" data-slide-to="0" class="active"></li>
                 <li data-target="#home-section-carousel" data-slide-to="1"></li>
                 <li data-target="#home-section-carousel" data-slide-to="2"></li>
-              <li data-target="#home-section-carousel" data-slide-to="3"></li>
+                <li data-target="#home-section-carousel" data-slide-to="3"></li>
             </ol>
             <div class="carousel-inner">
                 <!-- FIRST SLIDE -->
@@ -40,7 +54,7 @@
                         <h3>التميز مهم في كل ما نقوم به.</h3>
                     </div>
                 </div>
-              <!-- FOURTH SLIDE -->
+                <!-- FOURTH SLIDE -->
                 <div class="carousel-item">
                     <img class="d-block w-100" src="{{asset('Design/images/barbershop_image_3.jpg')}}" alt="Third slide">
                     <div class="carousel-caption d-md-block">
@@ -72,7 +86,7 @@
                     <h2>صالون حلاقة افريقيا<br> منذ عام 2004</h2>
                     <img src="{{asset('Design/images/about-logo.png')}}" alt="logo">
                     <p style="color: #777">
-                       تحويل مجال قص الشعر في المنطقة الحالية اليبيئة استرخاء وسعادة كاملة اعتماداً علي تجربة العملاء المتميزين لدينا.
+                        تحويل مجال قص الشعر في المنطقة الحالية اليبيئة استرخاء وسعادة كاملة اعتماداً علي تجربة العملاء المتميزين لدينا.
                     </p>
                     <a href="#" class="default_btn" style="opacity: 1;">المزيد عنا</a>
                 </div>
@@ -135,7 +149,7 @@
                         </div>
                     </div> -->
 
-                 <!--   <a id="app_submit" class="default_btn" href="{{route('chairs.front')}}">
+                    <!--   <a id="app_submit" class="default_btn" href="{{route('chairs.front')}}">
                         حدد موعداً
                     </a> -->
                 </form>
@@ -241,7 +255,7 @@
                 <li data-target="#reviews-carousel" data-slide-to="0" class="active"></li>
                 <li data-target="#reviews-carousel" data-slide-to="1"></li>
                 <li data-target="#reviews-carousel" data-slide-to="2"></li>
-              <li data-target="#reviews-carousel" data-slide-to="3"></li>
+                <li data-target="#reviews-carousel" data-slide-to="3"></li>
             </ol>
             <div class="carousel-inner">
                 <!-- REVIEW 1 -->
@@ -265,7 +279,7 @@
                         <h3>التميز مهم في كل ما نقوم به.</h3>
                     </div>
                 </div>
-              <!-- REVIEW 4 -->
+                <!-- REVIEW 4 -->
                 <div class="carousel-item">
                     <img class="d-block w-100" src="{{asset('Design/images/barbershop_image_1.jpg')}}" alt="First slide" style="visibility: hidden;">
                     <div class="carousel-caption d-md-block">
