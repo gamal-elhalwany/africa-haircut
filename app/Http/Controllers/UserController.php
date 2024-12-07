@@ -18,7 +18,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Cookie;
 use App\Http\Requests\CreateUserRequest;
-use App\Models\Appointment;
 use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller

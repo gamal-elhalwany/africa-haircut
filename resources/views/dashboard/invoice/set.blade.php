@@ -32,17 +32,6 @@
         </div>
 
         <div class="invoice-content">
-            <div class="invoice-meg">
-                @if($errors->has('name') && $errors->has('name'))
-                <div class="error">{{ $errors->first('msg') . '[ '. $errors->first('name') .' ]' }}</div>
-                @endif
-                <ul>
-                    @if($errors->has('product'))
-                    <li class="alert alert-danger">{{ $errors->first('product') }}</li>
-                    @endif
-                </ul>
-            </div>
-
             <div class="create-invoice-company-name">
                 <h2>
                     {{env('APP_NAME')}}
@@ -57,19 +46,18 @@
                     <input type="hidden" name="emp_id" value="{{$Chair->user->id}}">
                 </div>
                 @foreach($Products as $Product)
-                <div class="input-style checkBox">
+                <div class="input-style checkBox text-right">
                     <label for="{{$Product->name}}">{{$Product->name}}</label>
-                    <input type="checkbox" id="{{$Product->name}}" name="products[{{ $Product->id }}][selected]" value="{{$Product->id}}" />
+                    <input type="checkbox" id="{{$Product->name}}" name="products[{{ $Product->id }}][selected]" value="{{$Product->id}}" class="{{ $errors->has('products.' . $Product->id . '.selected') ? 'is-invalid' : '' }}"/>
                 </div>
                 @if($Product->status === 'service' || $Product->status === 'packages')
-                <div class="input-style checkBox">
-                    <label for="qty">الكمية:</label>
-                    <input type="hidden" id="qty" name="products[{{ $Product->id }}][qty]" min="1" value="1"/>
+                <div class="input-style checkBox" hidden>
+                    <input type="hidden" id="qty" name="products[{{ $Product->id }}][qty]" min="1" value="1" class="{{ $errors->has('products.' . $Product->id . '.qty') ? 'is-invalid' : '' }}"/>
                 </div>
                 @else
                 <div class="input-style checkBox">
                     <label for="qty">الكمية:</label>
-                    <input type="number" id="qty" name="products[{{ $Product->id }}][qty]" min="1" />
+                    <input type="number" id="qty" name="products[{{ $Product->id }}][qty]" min="1" class="{{ $errors->has('products.' . $Product->id . '.qty') ? 'is-invalid' : '' }}"/>
                 </div>
                 @endif
                 @endforeach

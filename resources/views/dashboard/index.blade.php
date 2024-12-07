@@ -57,11 +57,7 @@
                                 @if($AvailableChairs->user)
                                 <form action="{{ route('open.chair', $AvailableChairs->id) }}" method="POST">
                                     @csrf
-                                    @if($AvailableChairs->number !== 0)
                                     <button class="btn btn-info"> حجز</button>
-                                    @else
-                                    <button class="btn btn-dark" disabled>الكاشير</button>
-                                    @endif
                                 </form>
                                 @endif
                             </div>
@@ -89,7 +85,7 @@
                                 <p>الموظف: {{ $BusyChairs->user->name }}</p>
                                 @endif
                                 <p>رقم الكرسي: {{ $BusyChairs->number }}</p>
-                                <a href="{{ route('open.invoice', $BusyChairs->id) }}" class="btn btn-warning">فتح فاتورة</a>
+                                <a href="{{ route('open.invoice', $BusyChairs->id) }}" class="btn btn-warning" name="open-invoice">فتح فاتورة</a>
                             </div>
                         </div>
                     </div>

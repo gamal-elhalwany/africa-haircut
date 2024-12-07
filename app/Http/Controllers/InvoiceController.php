@@ -9,8 +9,10 @@ use App\Models\Product;
 use App\Models\Customer;
 use App\Models\OrderItem;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rules\Exists;
 
 class InvoiceController extends Controller
 {
@@ -78,83 +80,99 @@ class InvoiceController extends Controller
     {
         $Products = Product::all();
         $Chair = Chair::where('id', $id)->with('branch')->with('user')->first();
-        $chairProcess = ChairProcess::where('chair_id', $id)->whereNull('check_out')->first();
+        $chairProcesses = ChairProcess::where('chair_id', $id)->whereNull('check_out')->get();
 
-        if ($chairProcess) {
-            if ($chairProcess->chair_id == $id) {
+        foreach ($chairProcesses as $process) {
+            if ($process->chair_id == $id) {
                 return view('dashboard.invoice.set', compact('customer', 'Products', 'Chair'));
+            } else {
+                toastr()->error('لا يوجد عمليات لهذا الكرسي.');
+                return redirect()->route('dashboard.index');
             }
-        } else {
-            toastr()->error('لا يوجد عمليات لهذا الكرسي.');
-            return redirect()->route('dashboard.index');
         }
+        return redirect()->route('dashboard.index');
     }
 
     public function SaveInvoiceMethod(Request $request, $id, Customer $customer)
     {
-        $this->validate(
-            $request,
-            ['products' => 'required'],
-            ['required' => 'يرجي تحديد الخدمات للعميل أو الكمية.',],
-        );
-
         DB::beginTransaction();
-        $invoice = Invoice::create([
-            'customer_id' => $customer->id,
-            'total_cost' => 0.00,
-        ]);
+        try {
+            $invoice = Invoice::create([
+                'customer_id' => $customer->id,
+                'total_cost' => 0.00,
+            ]);
 
-        $currentYear = Carbon::now()->year;
-        $currentMonth = Carbon::now()->month;
-        $serialNumber = 'INV-' . $currentYear . '-' . str_pad($currentMonth, 2, '0', STR_PAD_LEFT) . '-' . str_pad($invoice->id, 4, '0', STR_PAD_LEFT);
+            $currentYear = Carbon::now()->year;
+            $currentMonth = Carbon::now()->month;
+            $serialNumber = 'INV-' . $currentYear . '-' . str_pad($currentMonth, 2, '0', STR_PAD_LEFT) . '-' . str_pad($invoice->id, 4, '0', STR_PAD_LEFT);
 
-        foreach ($request->input('products') as $productId => $productData) {
-            if (isset($productData['selected'])) {
-                $product = Product::find($productId);
+            $invoice->serial_number = $serialNumber;
+            $invoice->save();
 
-                if ($product->quantity >= $productData['qty']) {
+            foreach ($request->input('products') as $productId => $productData) {
+                if (isset($productData['selected'])) {
+                    $product = Product::find($productId);
 
-                    $orderItem = OrderItem::create([
-                        'invoice_id' => $invoice->id,
-                        'product_id' => $productData['selected'],
-                        'product_name' => $product->name,
-                        'price' => $product->sell_price * $productData['qty'],
-                        'qty' => $productData['qty'],
-                    ]);
+                    if ($product->quantity >= $productData['qty']) {
 
-                    // Decrease product stock.
-                    $product->decrement('quantity', $productData['qty']);
-                } else {
-                    toastr()->info("لا يوجد مخزون كاف من هذا المنتج {$product->name}.");
-                    return back();
+                        $orderItem = OrderItem::create([
+                            'invoice_id' => $invoice->id,
+                            'product_id' => $productData['selected'],
+                            'product_name' => $product->name,
+                            'price' => $product->sell_price * $productData['qty'],
+                            'qty' => $productData['qty'],
+                        ]);
+
+                        // Decrease product stock.
+                        $product->decrement('quantity', $productData['qty']);
+                    } else {
+                        toastr()->info("لا يوجد مخزون كاف من هذا المنتج {$product->name}.");
+                        return back();
+                    }
                 }
             }
+
+            $chair = Chair::where('id', $id)->first();
+            $chair->status = 'available';
+            $chair->save();
+
+            $chairProcess = ChairProcess::where('chair_id', $id)->whereNull('check_out')->first();
+
+            if ($chairProcess) {
+                $chairProcess->check_out = Carbon::now();
+                $chairProcess->save();
+
+                $totalCost = 0;
+                $invoiceItems = OrderItem::where('invoice_id', $invoice->id)->with('product')->get();
+
+                foreach ($invoiceItems as $item) {
+                    $totalCost += $item->price;
+                }
+                $invoice->total_cost = $totalCost;
+            } else {
+                toastr()->error('لا يوجد عمليات لهذا الكرسى.');
+                return back();
+            }
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollBack();
+            toastr()->error('حدث خطأ أثناء تسجيل الفاتورة.');
+            return redirect()->route('dashboard.index');
         }
+        $customerInvoices = Invoice::where('customer_id', $customer->id)->with('customer')
+            ->where('created_at', Carbon::now())->get();
 
-        $chair = Chair::where('id', $id)->first();
-        $chair->status = 'available';
-        $chair->save();
-
-        $chairProcesses = ChairProcess::where('chair_id', $id)->where('check_out', null)->first();
-        if ($chairProcesses) {
-            $chairProcesses->check_out = Carbon::now();
-            $chairProcesses->save();
+        if ($customerInvoices->count() > 0) {
+            $totalPrice = 0;
+            foreach ($customerInvoices as $invoice) {
+                $invoiceItems = OrderItem::where('invoice_id', $invoice->id)->with('product')->get();
+                foreach ($invoiceItems as $item) {
+                    $totalPrice += $item->price;
+                }
+            }
+            return view('dashboard/customers/customer_invoice', compact('customerInvoices', 'invoiceItems', 'customer', 'totalPrice'));
         }
-
-        $totalCost = 0;
-        $invoiceItems = OrderItem::where('invoice_id', $invoice->id)->with('product')->get();
-
-        foreach ($invoiceItems as $item) {
-            $totalCost += $item->price;
-        }
-
-        $invoice->total_cost = $totalCost;
-        $invoice->serial_number = $serialNumber;
-        $invoice->save();
-
-        DB::commit();
-        DB::rollBack();
-        return redirect()->route('customer.invoice', $customer->name)->with('success', 'تم تسجيل الفاتورة بنجاح');
+        return redirect()->back();
     }
 
     public function CustomerInvoiceMethod(Customer $customer)
