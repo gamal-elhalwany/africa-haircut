@@ -264,39 +264,21 @@ class UserController extends Controller
         }
 
         if ($action === 'checkOut') {
-            $date = now()->toDateString();
-            $check_out = now()->toTimeString();
+            $ChairProcess = ChairProcess::where('user_id', $id)->whereNull('check_out')->first();
+            if ($ChairProcess) {
+                toastr()->error('يوجد عملية جارية لهذا الموظف والكرسي التابع له. يرجي الأنتهاء من العملية أولا.');
+                return redirect()->back();
+            } else {
+                $date = now()->toDateString();
+                $check_out = now()->toTimeString();
 
-            $userDaily = Daily::where('user_id', $id)->where('date', $date)->where('status', 'حضور')->first();
+                $userDaily = Daily::where('user_id', $id)->where('date', $date)->where('status', 'حضور')->first();
 
-            try {
-                DB::beginTransaction();
+                try {
+                    DB::beginTransaction();
 
-                if ($userDaily) {
-                    // Update the record with the check-out time.
-                    $userDaily->update([
-                        'check_out' => $check_out,
-                        'status' => 'أنصراف',
-                    ]);
-
-                    // Calculate the duration between check-in and check-out
-                    $checkInTime = new Carbon($userDaily->check_in);
-                    $checkOutTime = new Carbon($userDaily->check_out);
-
-                    $durationInHours = $checkInTime->diffInHours($checkOutTime);
-                    $userDaily->duration = $durationInHours;
-                    $userDaily->save();
-
-                    $chair = Chair::where('user_id', $id)->first();
-
-                    // Check if the chair is not already assigned to another user
-                    if ($chair) {
-                        Cookie::queue(Cookie::forget('user_chair_' . $chair->id, $id));
-                        $chair->update([
-                            'user_id' => null,
-                            'status' => 'available',
-                        ]);
-                    } else {
+                    if ($userDaily) {
+                        // Update the record with the check-out time.
                         $userDaily->update([
                             'check_out' => $check_out,
                             'status' => 'أنصراف',
@@ -309,19 +291,43 @@ class UserController extends Controller
                         $durationInHours = $checkInTime->diffInHours($checkOutTime);
                         $userDaily->duration = $durationInHours;
                         $userDaily->save();
-                    }
-                } else {
-                    DB::rollBack();
-                    toastr()->success('هذا الموظف لم يسجل حضور يجب تسجيل الحضور أولا.');
-                    return redirect()->back();
-                }
 
-                DB::commit();
-                toastr()->success('تم أنصراف الموظف بنجاح.');
-                return redirect()->route('dashboard.index');
-            } catch (Exception $e) {
-                DB::rollBack();
-                return response()->json(['error' => $e->getMessage()], 500);
+                        $chair = Chair::where('user_id', $id)->first();
+
+                        // Check if the chair is not already assigned to another user
+                        if ($chair) {
+                            Cookie::queue(Cookie::forget('user_chair_' . $chair->id, $id));
+                            $chair->update([
+                                'user_id' => null,
+                                'status' => 'available',
+                            ]);
+                        } else {
+                            $userDaily->update([
+                                'check_out' => $check_out,
+                                'status' => 'أنصراف',
+                            ]);
+
+                            // Calculate the duration between check-in and check-out
+                            $checkInTime = new Carbon($userDaily->check_in);
+                            $checkOutTime = new Carbon($userDaily->check_out);
+
+                            $durationInHours = $checkInTime->diffInHours($checkOutTime);
+                            $userDaily->duration = $durationInHours;
+                            $userDaily->save();
+                        }
+                    } else {
+                        DB::rollBack();
+                        toastr()->success('هذا الموظف لم يسجل حضور يجب تسجيل الحضور أولا.');
+                        return redirect()->back();
+                    }
+
+                    DB::commit();
+                    toastr()->success('تم أنصراف الموظف بنجاح.');
+                    return redirect()->route('dashboard.index');
+                } catch (Exception $e) {
+                    DB::rollBack();
+                    return response()->json(['error' => $e->getMessage()], 500);
+                }
             }
         }
     }
