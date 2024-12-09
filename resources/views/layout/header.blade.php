@@ -93,8 +93,16 @@
                 <li><a href="{{ url('../') }}/#services">{{__('navbar.services')}}</a></li>
                 <li><a href="{{ url('../') }}/#gallery">{{__('navbar.gallery')}}</a></li>
                 <li><a href="{{ url('../') }}/#pricing">{{__('navbar.pricing')}}</a></li>
+                <li>
+                    @if(request()->routeIs('chairs.front'))
+                    @else
+                    <div class="header-btn">
+                        <a href="{{route('chairs.front')}}" class="menu-btn">{{__('navbar.make_appointment')}}</a>
+                    </div>
+                </li>
             </ul>
         </div>
+        @endif
     </div>
 
     <!-- END NAVBAR MOBILE -->
