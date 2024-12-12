@@ -1,8 +1,7 @@
 @extends('layout/header')
-@section('title', 'أفريكانا ' . '||' .' الكراسي')
+@section('title', 'أفريقيا ' . '||' .' الكراسي')
 
-@section('content')
-
+@push('style')
 <style>
     /* Global Styling */
     body {
@@ -116,11 +115,14 @@
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     }
 </style>
+@endpush
+
+@section('content')
 
 <button class="scroll-top" id="scroll-top">
     <i class="fas fa-angle-double-up"></i>
 </button>
-<div class="container">
+<div class="container" style="margin-top:60px;">
     <h2>الكراسي المتاحة</h2>
 
     <!-- Flash Messages -->
@@ -196,5 +198,3 @@
         @endif
     </div>
 </div>
-
-@endsection
