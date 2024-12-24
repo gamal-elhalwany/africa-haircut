@@ -44,12 +44,15 @@
                 @endif
 
                 <div class="row g-3">
+                    @auth
                     @foreach($Available as $AvailableChairs)
+                    @if(auth()->user()->branch->name === $AvailableChairs->branch->name)
                     <div class="col-md-4">
                         <div class="card text-center" style="padding: 30px;">
                             <img src="{{ asset('Design/images/available.png') }}" class="card-img-top" alt="Available Chair">
                             <div class="card-body">
                                 <h5 class="card-title">الدور: {{ $AvailableChairs->floor }}</h5>
+                                <h5 class="card-title">الفرع: {{ $AvailableChairs->branch->name }}</h5>
                                 @if($AvailableChairs->user)
                                 <p>الموظف: {{ $AvailableChairs->user->name }}</p>
                                 @endif
@@ -63,7 +66,9 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                     @endforeach
+                    @endauth
                 </div>
                 @else
                 <div class="alert alert-warning">لا يوجد كراسي متاحة حالياً.</div>
@@ -81,6 +86,7 @@
                             <img src="{{ env('App_Design_Url') . '/Design/images/busy.png' }}" class="card-img-top" alt="Busy Chair">
                             <div class="card-body">
                                 <h5 class="card-title">الدور: {{ $BusyChairs->floor }}</h5>
+                                <h5 class="card-title">الفرع: {{ $BusyChairs->branch->name }}</h5>
                                 @if($BusyChairs->user)
                                 <p>الموظف: {{ $BusyChairs->user->name }}</p>
                                 @endif
@@ -100,6 +106,7 @@
             <h3 class="text-secondary text-center mb-3">حضور وانصراف الموظفين</h3>
             <div class="row g-3">
                 @foreach($users as $user)
+                @if(auth()->user()->branch->name === $user->branch->name)
                 <div class="col-md-4">
                     <div class="card p-3">
                     <?php $date = now()->toDateString(); ?>
@@ -115,7 +122,7 @@
                             @if(!$user->chair || !$user->daily)
                             <select class="form-control mb-3" name="chair_id">
                                 @foreach($Available as $AvailableChair)
-                                @if($AvailableChair->user_id == null)
+                                @if($AvailableChair->user_id == null && auth()->user()->branch->name === $AvailableChair->branch->name)
                                 <option value="{{ $AvailableChair->id }}">الكرسي: {{ $AvailableChair->number }} - الدور: {{ $AvailableChair->floor }}</option>
                                 @endif
                                 @endforeach
@@ -135,6 +142,7 @@
                         </form>
                     </div>
                 </div>
+                @endif
                 @endforeach
             </div>
         </div>

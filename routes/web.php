@@ -35,6 +35,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('dashboard/login', [UserController::class, 'loginPage'])->name('login.page');
 
 Route::post('dashboard/login', [UserController::class, 'LoginMethod'])->name('login');
+Route::get('dashboard/logout', [UserController::class, 'logout'])->name('logout');
 
 Route::get('dashboard/index', [UserController::class, 'IndexMethod'])->middleware(['auth', 'check_product_qty'])->name('dashboard.index');
 

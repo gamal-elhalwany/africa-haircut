@@ -348,4 +348,16 @@ class UserController extends Controller
             return redirect()->back();
         }
     }
+
+    public function logout()
+    {
+        $user = auth()->user();
+        if ($user) {
+            auth()->logout();
+            session()->flush();
+            toastr()->success('تم تسجيل الخروج بنجاح.');
+            return redirect()->route('home');
+        }
+        return redirect()->route('home');
+    }
 }

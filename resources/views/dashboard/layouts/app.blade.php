@@ -35,6 +35,11 @@
                                     {{auth()->user()->branch->name}}
                                 </strong>
                             </li>
+                            @auth
+                            <li>
+                                <a href="{{route('logout')}}">تسجيل الخروج</a>
+                            </li>
+                            @endauth
                         </ul>
                     </div>
                 </div>
