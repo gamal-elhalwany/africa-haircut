@@ -16,7 +16,7 @@ class RoleController extends Controller
      */
     function __construct()
     {
-        $this->middleware('permission:انشاء-صلاحية|تعديل-صلاحية|حذف-صلاحية', ['only' => ['index', 'show']]);
+        $this->middleware('permission:انشاء-صلاحية|تعديل-صلاحية|حذف-صلاحية|بدون-اذونات', ['only' => ['index', 'show']]);
         $this->middleware('permission:انشاء-صلاحية|تعديل-صلاحية|حذف-صلاحية', ['only' => ['create', 'store']]);
         $this->middleware('permission:انشاء-صلاحية|تعديل-صلاحية|حذف-صلاحية', ['only' => ['edit', 'update']]);
         $this->middleware('permission:انشاء-صلاحية|تعديل-صلاحية|حذف-صلاحية', ['only' => ['destroy']]);

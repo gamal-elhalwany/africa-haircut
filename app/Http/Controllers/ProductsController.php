@@ -11,7 +11,7 @@ class ProductsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:انشاء-منتج|تعديل-منتج|حذف-منتج', ['only' => ['index', 'show']]);
+        $this->middleware('permission:انشاء-منتج|تعديل-منتج|حذف-منتج|بدون-اذونات', ['only' => ['index', 'show']]);
         $this->middleware('permission:انشاء-منتج|تعديل-منتج|حذف-منتج', ['only' => ['create', 'store']]);
         $this->middleware('permission:انشاء-منتج|تعديل-منتج|حذف-منتج', ['only' => ['edit', 'update']]);
         $this->middleware('permission:انشاء-منتج|تعديل-منتج|حذف-منتج', ['only' => ['destroy']]);

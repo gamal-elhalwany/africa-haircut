@@ -17,7 +17,7 @@ class ChairsController extends Controller
      */
     function __construct()
     {
-        $this->middleware('permission:انشاء-كرسي|تعديل-كرسي|حذف-كرسي', ['only' => ['index', 'show']]);
+        $this->middleware('permission:انشاء-كرسي|تعديل-كرسي|حذف-كرسي|بدون-اذونات', ['only' => ['index', 'show']]);
         $this->middleware('permission:انشاء-كرسي|تعديل-كرسي|حذف-كرسي', ['only' => ['create', 'store']]);
         $this->middleware('permission:انشاء-كرسي|تعديل-كرسي|حذف-كرسي', ['only' => ['edit', 'update']]);
         $this->middleware('permission:انشاء-كرسي|تعديل-كرسي|حذف-كرسي', ['only' => ['destroy']]);

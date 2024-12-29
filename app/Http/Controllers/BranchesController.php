@@ -11,7 +11,7 @@ class BranchesController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:انشاء-فرع|تعديل-فرع|حذف-فرع', ['only' => ['index', 'show']]);
+        $this->middleware('permission:بدون-اذونات|انشاء-فرع|تعديل-فرع|حذف-فرع', ['only' => ['index', 'show']]);
         $this->middleware('permission:انشاء-فرع|تعديل-فرع|حذف-فرع', ['only' => ['create', 'store']]);
         $this->middleware('permission:انشاء-فرع|تعديل-فرع|حذف-فرع', ['only' => ['edit', 'update']]);
         $this->middleware('permission:انشاء-فرع|تعديل-فرع|حذف-فرع', ['only' => ['destroy']]);

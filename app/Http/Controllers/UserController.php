@@ -24,7 +24,7 @@ class UserController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:انشاء-مستخدم|تعديل-مستخدم|حذف-مستخدم', ['only' => ['index', 'show']]);
+        $this->middleware('permission:انشاء-مستخدم|تعديل-مستخدم|حذف-مستخدم|بدون-اذونات', ['only' => ['index', 'show']]);
         $this->middleware('permission:انشاء-مستخدم|تعديل-مستخدم|حذف-مستخدم', ['only' => ['create', 'store']]);
         $this->middleware('permission:انشاء-مستخدم|تعديل-مستخدم|حذف-مستخدم', ['only' => ['edit', 'update']]);
         $this->middleware('permission:انشاء-مستخدم|تعديل-مستخدم|حذف-مستخدم', ['only' => ['destroy']]);

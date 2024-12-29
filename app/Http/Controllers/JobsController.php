@@ -9,7 +9,7 @@ class JobsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:انشاء-وظيفة|تعديل-وظيفة|حذف-وظيفة', ['only' => ['index', 'show']]);
+        $this->middleware('permission:انشاء-وظيفة|تعديل-وظيفة|حذف-وظيفة|بدون-اذونات', ['only' => ['index', 'show']]);
         $this->middleware('permission:انشاء-وظيفة|تعديل-وظيفة|حذف-وظيفة', ['only' => ['create', 'store']]);
         $this->middleware('permission:انشاء-وظيفة|تعديل-وظيفة|حذف-وظيفة', ['only' => ['edit', 'update']]);
         $this->middleware('permission:انشاء-وظيفة|تعديل-وظيفة|حذف-وظيفة', ['only' => ['destroy']]);
