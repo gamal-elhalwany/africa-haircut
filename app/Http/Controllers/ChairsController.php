@@ -120,7 +120,12 @@ class ChairsController extends Controller
      */
     public function destroy(Chair $chair)
     {
-        $chair->delete();
+        $user = auth()->user();
+        if ($user->hasAnyRole("super_admin", 'owner')) {
+            $chair->delete();
+            toastr()->success('تم حذف الكرسي بنجاح.');
+            return redirect()->route('dashboard.chairs.index');
+        }
         toastr()->error('لا يمكنك حذف الكرسي او القيام بهذه العملية!');
         return redirect()->route('dashboard.chairs.index');
     }

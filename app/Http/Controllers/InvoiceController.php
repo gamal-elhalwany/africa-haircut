@@ -141,13 +141,13 @@ class InvoiceController extends Controller
                 $chairProcess->check_out = Carbon::now();
                 $chairProcess->save();
 
-                $totalCost = 0;
                 $invoiceItems = OrderItem::where('invoice_id', $invoice->id)->with('product')->get();
 
-                foreach ($invoiceItems as $item) {
-                    $totalCost += $item->price;
-                }
-                $invoice->total_cost = $totalCost;
+                $totalCoast = $invoice->total_cost = $invoiceItems->sum('price');
+                $invoice->update([
+                    'total_coast' => $totalCoast,
+                ]);
+                
             } else {
                 toastr()->error('لا يوجد عمليات لهذا الكرسى.');
                 return back();
@@ -158,6 +158,7 @@ class InvoiceController extends Controller
             toastr()->error('حدث خطأ أثناء تسجيل الفاتورة.');
             return redirect()->route('dashboard.index');
         }
+
         $customerInvoices = Invoice::where('customer_id', $customer->id)->with('customer')
             ->where('created_at', Carbon::now())->get();
 
